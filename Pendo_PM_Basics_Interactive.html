@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pendo PM Basics — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #E8284A;
+  --red-dark: #B01E38;
+  --red-light: #FDEEF1;
+  --navy: #0D1B2A;
+  --navy-mid: #1A2E42;
+  --gold: #F4A623;
+  --gold-light: #FEF6E4;
+  --teal: #00897B;
+  --teal-light: #E0F5F3;
+  --purple: #5C35A0;
+  --purple-light: #EEE8FB;
+  --blue: #1565C0;
+  --blue-light: #E3F0FD;
+  --green: #2E7D32;
+  --green-light: #E8F5E9;
+  --white: #FFFFFF;
+  --off-white: #F8F6F2;
+  --gray: #6B6B6B;
+  --border: #E8E4DE;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--off-white);
+  color: var(--navy);
+  min-height: 100vh;
+}
+
+/* HEADER */
+header {
+  background: var(--navy);
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 300px; height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,40,74,0.15), transparent 70%);
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244,166,35,0.1), transparent 70%);
+}
+.header-tag {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.3rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+}
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: white;
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+header h1 span { color: var(--red); }
+header p {
+  color: rgba(255,255,255,0.6);
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-bottom: 1.2rem;
+}
+.score-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.score-chip {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: white;
+  padding: 0.35rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.score-chip.gold { background: rgba(244,166,35,0.2); border-color: rgba(244,166,35,0.4); color: var(--gold); }
+
+/* LIFECYCLE VISUAL */
+.lifecycle {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+.lifecycle h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--navy);
+  margin-bottom: 1.5rem;
+}
+.lc-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+.lc-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.lc-step:hover { transform: translateY(-3px); }
+.lc-circle {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  border: 2px solid transparent;
+  transition: box-shadow 0.2s;
+}
+.lc-step:hover .lc-circle { box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+.lc-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.lc-arrow { font-size: 1.2rem; color: #ccc; margin: 0 0.3rem; padding-bottom: 1.5rem; }
+
+/* MAIN */
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+.section-divider {
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin: 2rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.section-divider::before, .section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* MODULE CARDS */
+.module-card {
+  background: white;
+  border-radius: 16px;
+  border: 1.5px solid var(--border);
+  margin-bottom: 1rem;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+}
+.module-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+}
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 1.3rem;
+}
+.module-num {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.module-info { flex: 1; }
+.module-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 0.2rem;
+}
+.module-sub {
+  font-size: 0.78rem;
+  color: var(--gray);
+  font-weight: 400;
+}
+.module-arrow {
+  font-size: 0.9rem;
+  color: #ccc;
+  transition: transform 0.2s;
+}
+.module-card.open .module-arrow { transform: rotate(90deg); }
+
+.module-body {
+  display: none;
+  padding: 0 1.3rem 1.3rem;
+  border-top: 1px solid var(--border);
+}
+.module-card.open .module-body { display: block; }
+
+.module-desc {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: #444;
+  padding: 1rem 0 0.8rem;
+}
+
+.lessons-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.lesson-chip {
+  background: var(--off-white);
+  border-radius: 8px;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.75rem;
+  color: var(--navy);
+  font-weight: 500;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.4rem;
+  line-height: 1.35;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.15s;
+  border: 1px solid var(--border);
+}
+.lesson-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+.lesson-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.pm-tip {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* CHARACTERISTICS */
+.char-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+.char-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  border: 1.5px solid var(--border);
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+.char-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.char-icon { font-size: 1.5rem; margin-bottom: 0.4rem; }
+.char-title { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+
+/* MODAL */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(13,27,42,0.6);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backdrop-filter: blur(6px);
+}
+.overlay.active { display: flex; }
+.modal {
+  background: white;
+  border-radius: 20px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+  animation: pop 0.22s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes pop {
+  from { transform: scale(0.88); opacity: 0; }
+  to   { transform: scale(1);    opacity: 1; }
+}
+.modal-top {
+  padding: 1.5rem 1.5rem 1rem;
+  position: sticky; top: 0;
+  background: white;
+  border-radius: 20px 20px 0 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.modal-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.modal-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  color: var(--navy);
+}
+.modal-close {
+  background: var(--off-white);
+  border: none;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.modal-body { padding: 1.2rem 1.5rem 1.5rem; }
+.modal-desc { font-size: 0.9rem; line-height: 1.65; color: #444; margin-bottom: 1rem; }
+.modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.modal-list li {
+  display: flex; gap: 0.7rem;
+  font-size: 0.86rem; line-height: 1.5; color: #333;
+}
+.modal-list li::before { content: '→'; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.modal-tip {
+  margin-top: 1.2rem;
+  padding: 0.8rem 1rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* FOOTER */
+.cert-banner {
+  background: var(--navy);
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 2rem;
+}
+.cert-banner .score { font-size: 2.5rem; font-weight: 700; color: var(--gold); font-family: 'Playfair Display', serif; }
+.cert-banner p { color: rgba(255,255,255,0.7); font-size: 0.85rem; margin-top: 0.3rem; }
+.cert-banner .name { color: white; font-weight: 600; font-size: 1rem; margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-tag">Pendo × Mind the Product</div>
+  <h1>Product Management<br><span>Basics</span> Certification</h1>
+  <p>Complete Interactive Study Guide · 10 Modules · 59 Lessons</p>
+  <div class="score-row">
+    <span class="score-chip gold">98.3% · Passed</span>
+    <span class="score-chip">Issued 7 June 2026</span>
+    <span class="score-chip">Never Expires</span>
+    <span class="score-chip">Credly Badge</span>
+  </div>
+</header>
+
+<!-- LIFECYCLE -->
+<div class="lifecycle">
+  <h2>The Product Management Life Cycle</h2>
+  <div class="lc-row">
+    <div class="lc-step" onclick="openModal('lc_discover')">
+      <div class="lc-circle" style="background:#EEE8FB;border-color:#5C35A0">🔍</div>
+      <span class="lc-label" style="color:#5C35A0">Discover</span>
+    </div>
+    <div class="lc-arrow">→</div>
+    <div class="lc-step" onclick="openModal('lc_validate')">
+      <div class="lc-circle" style="background:#E3F0FD;border-color:#1565C0">✅</div>
+      <span class="lc-label" style="color:#1565C0">Validate</span>
+    </div>
+    <div class="lc-arrow">→</div>
+    <div class="lc-step" onclick="openModal('lc_build')">
+      <div class="lc-circle" style="background:#E0F5F3;border-color:#00897B">🛠️</div>
+      <span class="lc-label" style="color:#00897B">Build</span>
+    </div>
+    <div class="lc-arrow">→</div>
+    <div class="lc-step" onclick="openModal('lc_launch')">
+      <div class="lc-circle" style="background:#FEF6E4;border-color:#F4A623">🚀</div>
+      <span class="lc-label" style="color:#F4A623">Launch</span>
+    </div>
+    <div class="lc-arrow">→</div>
+    <div class="lc-step" onclick="openModal('lc_iterate')">
+      <div class="lc-circle" style="background:#E8F5E9;border-color:#2E7D32">🔄</div>
+      <span class="lc-label" style="color:#2E7D32">Iterate</span>
+    </div>
+  </div>
+  <p style="font-size:0.75rem;color:#aaa;margin-top:1rem">Tap any phase to explore</p>
+</div>
+
+<main>
+
+<!-- CHARACTERISTICS -->
+<div class="section-divider">5 Traits of Great PMs</div>
+<div class="char-grid">
+  <div class="char-card" onclick="openModal('char_acumen')">
+    <div class="char-icon">💼</div>
+    <div class="char-title">Business Acumen</div>
+  </div>
+  <div class="char-card" onclick="openModal('char_leader')">
+    <div class="char-icon">🎯</div>
+    <div class="char-title">Leadership & Communication</div>
+  </div>
+  <div class="char-card" onclick="openModal('char_data')">
+    <div class="char-icon">📊</div>
+    <div class="char-title">Data Over Gut Feel</div>
+  </div>
+  <div class="char-card" onclick="openModal('char_outcomes')">
+    <div class="char-icon">🏆</div>
+    <div class="char-title">Outcomes-Driven</div>
+  </div>
+  <div class="char-card" onclick="openModal('char_balance')" style="grid-column: span 2">
+    <div class="char-icon">⚖️</div>
+    <div class="char-title">Balance Innovation with Upkeep</div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<div class="section-divider">10 Modules · 59 Lessons</div>
+
+<!-- Module 1 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#EEE8FB;color:#5C35A0">01</div>
+    <div class="module-info">
+      <div class="module-title">Introduction to Product Management</div>
+      <div class="module-sub">The PM role · Product org · Stakeholders</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">Establishes the foundations of the PM role — who PMs are, what they do, who they work with, and the critical skills needed to succeed. Covers the evolution of product management from feature-shipping to strategic business leadership.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('The PM Role & Responsibilities', 'PMs are strategic leaders responsible for product direction, not just shipping features. They bridge business, technology, and user needs.')"><span class="lesson-dot" style="background:#5C35A0"></span>The PM Role & Responsibilities</div>
+      <div class="lesson-chip" onclick="openLesson('Product Organisation Structure', 'Understand how product teams are structured — PMs, designers, engineers, data analysts — and how each function contributes to product success.')"><span class="lesson-dot" style="background:#5C35A0"></span>Product Org Structure</div>
+      <div class="lesson-chip" onclick="openLesson('Who PMs Partner With', 'PMs work cross-functionally with engineering, design, marketing, sales, and customer success. Building strong relationships is key.')"><span class="lesson-dot" style="background:#5C35A0"></span>Who PMs Partner With</div>
+      <div class="lesson-chip" onclick="openLesson('Common PM Challenges', 'Challenges include competing priorities, lack of authority, unclear success metrics, and stakeholder misalignment. Learn how to overcome each.')"><span class="lesson-dot" style="background:#5C35A0"></span>Common PM Challenges</div>
+      <div class="lesson-chip" onclick="openLesson('5 Traits of Great PMs', 'Business acumen, leadership, data-driven decisions, outcomes focus, and balancing innovation with upkeep define the best PMs.')"><span class="lesson-dot" style="background:#5C35A0"></span>5 Traits of Great PMs</div>
+      <div class="lesson-chip" onclick="openLesson('PM Life Cycle Overview', 'The Product Management Life Cycle: Discover → Validate → Build → Launch → Iterate. A cyclical framework for building great products.')"><span class="lesson-dot" style="background:#5C35A0"></span>PM Life Cycle Overview</div>
+    </div>
+    <div class="pm-tip" style="background:#EEE8FB;color:#5C35A0">💡 PM Insight: The best PMs influence without authority — they lead through clarity, data, and trust rather than hierarchy.</div>
+  </div>
+</div>
+
+<!-- Module 2 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#E3F0FD;color:#1565C0">02</div>
+    <div class="module-info">
+      <div class="module-title">Discover Phase</div>
+      <div class="module-sub">Research · Customer insights · Opportunity identification</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">Deep dive into how PMs identify real customer problems using both quantitative and qualitative data. Moves beyond gut feel to evidence-based product decisions. Covers research methods, data analysis, and translating insights into opportunities.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('Quantitative Research Methods', 'Use analytics, usage data, and surveys to identify patterns at scale. Numbers tell you what is happening.')"><span class="lesson-dot" style="background:#1565C0"></span>Quantitative Research</div>
+      <div class="lesson-chip" onclick="openLesson('Qualitative Research Methods', 'User interviews, usability tests, and observation tell you WHY users behave the way they do. Combine with quantitative for full picture.')"><span class="lesson-dot" style="background:#1565C0"></span>Qualitative Research</div>
+      <div class="lesson-chip" onclick="openLesson('Customer Pain Point Analysis', 'Map customer pain points across their journey. Prioritise by frequency, severity, and business impact.')"><span class="lesson-dot" style="background:#1565C0"></span>Customer Pain Points</div>
+      <div class="lesson-chip" onclick="openLesson('Market & Competitive Analysis', 'Understand the competitive landscape, market trends, and whitespace opportunities. Know what others are building and where gaps exist.')"><span class="lesson-dot" style="background:#1565C0"></span>Market Analysis</div>
+      <div class="lesson-chip" onclick="openLesson('Turning Data Into Insights', 'Raw data is not insight. Learn to synthesise, pattern-match, and translate data into actionable product opportunities.')"><span class="lesson-dot" style="background:#1565C0"></span>Data to Insights</div>
+      <div class="lesson-chip" onclick="openLesson('Using Pendo for Discovery', 'Use Pendo analytics and session replay to understand in-app behaviour without asking users a single question.')"><span class="lesson-dot" style="background:#1565C0"></span>Pendo for Discovery</div>
+    </div>
+    <div class="pm-tip" style="background:#E3F0FD;color:#1565C0">💡 PM Insight: Great discovery means falling in love with the problem, not the solution. Resist the urge to jump to answers.</div>
+  </div>
+</div>
+
+<!-- Module 3 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#E0F5F3;color:#00897B">03</div>
+    <div class="module-info">
+      <div class="module-title">Validate Phase</div>
+      <div class="module-sub">Idea testing · Prototyping · Customer feedback</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">Before building, validate. This module teaches PMs how to pressure-test ideas with real customers before spending engineering resources. Covers prototyping, in-app surveys, fake door tests, and concept validation frameworks.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('Validation Frameworks', 'Use frameworks like RICE, MoSCoW, and opportunity scoring to validate which ideas are worth building.')"><span class="lesson-dot" style="background:#00897B"></span>Validation Frameworks</div>
+      <div class="lesson-chip" onclick="openLesson('Prototyping & MVPs', 'Build the smallest possible version of an idea to test assumptions. An MVP is not a bad version — it is a learning vehicle.')"><span class="lesson-dot" style="background:#00897B"></span>Prototyping & MVPs</div>
+      <div class="lesson-chip" onclick="openLesson('In-App Surveys & Prompts', 'Use in-app prompts to get feedback at the exact moment users encounter a problem or feature. Context-relevant feedback is gold.')"><span class="lesson-dot" style="background:#00897B"></span>In-App Surveys</div>
+      <div class="lesson-chip" onclick="openLesson('Fake Door Testing', 'Test demand for a feature before building it by measuring click rates on a non-functional button or link.')"><span class="lesson-dot" style="background:#00897B"></span>Fake Door Tests</div>
+      <div class="lesson-chip" onclick="openLesson('Stakeholder Validation', 'Get internal buy-in early. Validate ideas with leadership, sales, and customer success before committing to the roadmap.')"><span class="lesson-dot" style="background:#00897B"></span>Stakeholder Validation</div>
+      <div class="lesson-chip" onclick="openLesson('Using Pendo Validate', 'Pendo Validate helps PMs collect structured feedback on ideas directly inside the product from real users.')"><span class="lesson-dot" style="background:#00897B"></span>Pendo Validate Tool</div>
+    </div>
+    <div class="pm-tip" style="background:#E0F5F3;color:#00897B">💡 PM Insight: If you're not embarrassed by your first test, you waited too long to test it.</div>
+  </div>
+</div>
+
+<!-- Module 4 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#FEF6E4;color:#C47C0A">04</div>
+    <div class="module-info">
+      <div class="module-title">Strategy & Roadmapping</div>
+      <div class="module-sub">Product vision · Prioritisation · Roadmaps</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">Covers how to translate company strategy into a product vision, and that vision into an actionable roadmap. Teaches prioritisation frameworks and how to communicate the roadmap to different stakeholders — from engineers to executives.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('Product Vision & Strategy', 'A compelling product vision inspires the team and aligns stakeholders. It answers: What are we building and why does it matter?')"><span class="lesson-dot" style="background:#C47C0A"></span>Product Vision</div>
+      <div class="lesson-chip" onclick="openLesson('OKRs for Product Teams', 'Objectives and Key Results align product work to business outcomes. PMs use OKRs to stay focused on impact, not output.')"><span class="lesson-dot" style="background:#C47C0A"></span>OKRs & Goals</div>
+      <div class="lesson-chip" onclick="openLesson('Prioritisation Frameworks', 'RICE (Reach, Impact, Confidence, Effort), MoSCoW, and Value vs Effort matrix help PMs make defensible prioritisation decisions.')"><span class="lesson-dot" style="background:#C47C0A"></span>Prioritisation Frameworks</div>
+      <div class="lesson-chip" onclick="openLesson('Building Product Roadmaps', 'Roadmaps are communication tools, not commitment lists. They show direction and priorities, not exact timelines.')"><span class="lesson-dot" style="background:#C47C0A"></span>Building Roadmaps</div>
+      <div class="lesson-chip" onclick="openLesson('Communicating Roadmaps', 'Tailor roadmap communication to your audience — executives want outcomes, engineers want details, sales want dates.')"><span class="lesson-dot" style="background:#C47C0A"></span>Communicating Roadmaps</div>
+      <div class="lesson-chip" onclick="openLesson('Roadmap Anti-Patterns', 'Avoid feature factories, date-driven roadmaps, and HiPPO (Highest Paid Person\'s Opinion) driven decisions.')"><span class="lesson-dot" style="background:#C47C0A"></span>Roadmap Anti-Patterns</div>
+    </div>
+    <div class="pm-tip" style="background:#FEF6E4;color:#C47C0A">💡 PM Insight: A roadmap is a hypothesis, not a promise. The best PMs update it regularly based on new learning.</div>
+  </div>
+</div>
+
+<!-- Module 5 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#FDEEF1;color:#E8284A">05</div>
+    <div class="module-info">
+      <div class="module-title">Build Phase</div>
+      <div class="module-sub">Agile · Sprints · Engineering collaboration</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">The Build phase is where ideas become reality. Covers Agile methodology, sprint planning, writing effective user stories, and how PMs collaborate with engineering and design to ship quality products on time.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('Agile & Scrum Basics', 'Agile is a mindset; Scrum is a framework. PMs work within sprints (1-2 week cycles) to deliver value incrementally.')"><span class="lesson-dot" style="background:#E8284A"></span>Agile & Scrum</div>
+      <div class="lesson-chip" onclick="openLesson('Writing User Stories', 'Format: As a [user], I want [action] so that [outcome]. Good user stories include acceptance criteria and definition of done.')"><span class="lesson-dot" style="background:#E8284A"></span>User Stories</div>
+      <div class="lesson-chip" onclick="openLesson('PRDs & Specifications', 'Product Requirements Documents (PRDs) define what to build and why. They align engineering, design, and QA on the goal.')"><span class="lesson-dot" style="background:#E8284A"></span>PRDs & Specs</div>
+      <div class="lesson-chip" onclick="openLesson('Sprint Planning & Backlog', 'The backlog is a prioritised list of work. Sprint planning selects what gets done in the next cycle based on capacity and priority.')"><span class="lesson-dot" style="background:#E8284A"></span>Sprint Planning</div>
+      <div class="lesson-chip" onclick="openLesson('PM & Engineering Partnership', 'PMs define the WHAT and WHY. Engineers define the HOW. Respect this boundary for a healthy, high-performing team.')"><span class="lesson-dot" style="background:#E8284A"></span>PM-Eng Partnership</div>
+      <div class="lesson-chip" onclick="openLesson('Trade-offs & Scope Management', 'Scope creep kills products. PMs must confidently say no, manage trade-offs, and protect the team\'s focus.')"><span class="lesson-dot" style="background:#E8284A"></span>Scope Management</div>
+    </div>
+    <div class="pm-tip" style="background:#FDEEF1;color:#E8284A">💡 PM Insight: Your job in the Build phase is to remove blockers and make decisions fast — not to attend every standup and micromanage.</div>
+  </div>
+</div>
+
+<!-- Module 6 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#E8F5E9;color:#2E7D32">06</div>
+    <div class="module-info">
+      <div class="module-title">Launch Phase</div>
+      <div class="module-sub">GTM strategy · Feature rollout · User adoption</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">Launching is not just releasing code. This module covers Go-To-Market (GTM) strategy, feature rollout techniques, user onboarding, and how to drive adoption of new features to maximise the impact of every launch.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('Go-To-Market Strategy', 'GTM defines who you are targeting, how you will reach them, and what message will resonate. PMs own this alongside marketing.')"><span class="lesson-dot" style="background:#2E7D32"></span>GTM Strategy</div>
+      <div class="lesson-chip" onclick="openLesson('Feature Flags & Rollouts', 'Feature flags allow PMs to release features to specific user segments, reducing risk and enabling A/B testing in production.')"><span class="lesson-dot" style="background:#2E7D32"></span>Feature Flags</div>
+      <div class="lesson-chip" onclick="openLesson('User Onboarding & In-App Guides', 'Drive feature adoption through contextual in-app walkthroughs, tooltips, and announcements that reach users at the right moment.')"><span class="lesson-dot" style="background:#2E7D32"></span>User Onboarding</div>
+      <div class="lesson-chip" onclick="openLesson('Internal Launch Alignment', 'Sales, support, and marketing must be briefed before launch. PMs own internal enablement to ensure a smooth release.')"><span class="lesson-dot" style="background:#2E7D32"></span>Internal Alignment</div>
+      <div class="lesson-chip" onclick="openLesson('Launch Metrics & Success Criteria', 'Define what success looks like before you launch. Adoption rate, activation, engagement, and retention are key launch metrics.')"><span class="lesson-dot" style="background:#2E7D32"></span>Launch Metrics</div>
+      <div class="lesson-chip" onclick="openLesson('Post-Launch Monitoring', 'Watch the data closely after launch. Be ready to hotfix, roll back, or iterate based on what users actually do.')"><span class="lesson-dot" style="background:#2E7D32"></span>Post-Launch Monitoring</div>
+    </div>
+    <div class="pm-tip" style="background:#E8F5E9;color:#2E7D32">💡 PM Insight: A great feature nobody uses is a failed launch. Adoption is a product problem, not a marketing problem.</div>
+  </div>
+</div>
+
+<!-- Module 7 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#EEE8FB;color:#5C35A0">07</div>
+    <div class="module-info">
+      <div class="module-title">Iterate Phase</div>
+      <div class="module-sub">Analytics · Feedback loops · Continuous improvement</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">Product work is never done. The Iterate phase closes the loop — using data and feedback to continuously improve the product. Covers analytics, NPS, feature retirement, and building a culture of continuous learning.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('Product Analytics Fundamentals', 'Track activation, engagement, retention, and revenue (AARRR). Analytics tell you what to fix next.')"><span class="lesson-dot" style="background:#5C35A0"></span>Product Analytics</div>
+      <div class="lesson-chip" onclick="openLesson('NPS & Customer Satisfaction', 'Net Promoter Score measures customer loyalty. Use alongside CSAT and CES for a complete picture of user sentiment.')"><span class="lesson-dot" style="background:#5C35A0"></span>NPS & CSAT</div>
+      <div class="lesson-chip" onclick="openLesson('Feedback Management', 'Collect, organise, and prioritise user feedback systematically. Not all feedback deserves action — PMs must filter signal from noise.')"><span class="lesson-dot" style="background:#5C35A0"></span>Feedback Management</div>
+      <div class="lesson-chip" onclick="openLesson('A/B Testing & Experimentation', 'Test hypotheses with controlled experiments. A/B testing removes opinion from product decisions and replaces it with evidence.')"><span class="lesson-dot" style="background:#5C35A0"></span>A/B Testing</div>
+      <div class="lesson-chip" onclick="openLesson('Feature Retirement', 'Killing features is as important as launching them. Retire underused features to reduce complexity and tech debt.')"><span class="lesson-dot" style="background:#5C35A0"></span>Feature Retirement</div>
+      <div class="lesson-chip" onclick="openLesson('Using Pendo for Iteration', 'Pendo\'s analytics and feedback tools make iteration data-driven — know exactly which features to improve or cut.')"><span class="lesson-dot" style="background:#5C35A0"></span>Pendo for Iteration</div>
+    </div>
+    <div class="pm-tip" style="background:#EEE8FB;color:#5C35A0">💡 PM Insight: The iterate phase feeds directly back into discover. Great product teams are in a permanent learning loop.</div>
+  </div>
+</div>
+
+<!-- Module 8 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#E3F0FD;color:#1565C0">08</div>
+    <div class="module-info">
+      <div class="module-title">Metrics & Business Outcomes</div>
+      <div class="module-sub">KPIs · North Star metric · Outcome-driven PM</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">Great PMs obsess over outcomes, not output. This module covers how to define, track, and communicate meaningful product metrics that connect to business goals — moving beyond vanity metrics to metrics that matter.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('Defining Your North Star Metric', 'The North Star Metric captures the core value your product delivers. Everything else ladders up to it.')"><span class="lesson-dot" style="background:#1565C0"></span>North Star Metric</div>
+      <div class="lesson-chip" onclick="openLesson('Leading vs Lagging Indicators', 'Leading indicators predict future performance. Lagging indicators confirm past results. PMs need both.')"><span class="lesson-dot" style="background:#1565C0"></span>Leading vs Lagging KPIs</div>
+      <div class="lesson-chip" onclick="openLesson('Vanity vs Actionable Metrics', 'Page views and downloads feel good but don\'t drive decisions. Focus on retention, activation, and revenue impact.')"><span class="lesson-dot" style="background:#1565C0"></span>Vanity vs Actionable</div>
+      <div class="lesson-chip" onclick="openLesson('Product Health Dashboard', 'Build a dashboard that gives you a real-time view of product health — adoption, engagement, satisfaction, and revenue signals.')"><span class="lesson-dot" style="background:#1565C0"></span>Product Dashboard</div>
+      <div class="lesson-chip" onclick="openLesson('Communicating Metrics to Execs', 'Executives care about revenue, retention, and growth. Translate product metrics into business language they understand.')"><span class="lesson-dot" style="background:#1565C0"></span>Metrics Communication</div>
+      <div class="lesson-chip" onclick="openLesson('Outcome-Based Roadmapping', 'Structure your roadmap around outcomes (increase retention by 15%) not outputs (build feature X). This changes everything.')"><span class="lesson-dot" style="background:#1565C0"></span>Outcome-Based Roadmap</div>
+    </div>
+    <div class="pm-tip" style="background:#E3F0FD;color:#1565C0">💡 PM Insight: If you can't measure it, you can't manage it. Every feature should have a hypothesis and a measurable success criterion.</div>
+  </div>
+</div>
+
+<!-- Module 9 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#E0F5F3;color:#00897B">09</div>
+    <div class="module-info">
+      <div class="module-title">PM Next Steps & Career Growth</div>
+      <div class="module-sub">Career paths · PM skills · Growth frameworks</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">Covers how to grow as a product manager — from APM to Senior PM to Director of Product. Includes self-assessment frameworks, skill-building strategies, and how to position yourself in the job market.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('PM Career Ladder', 'APM → PM → Senior PM → Principal PM → Director → CPO. Each level requires broader scope, deeper strategy, and more leadership.')"><span class="lesson-dot" style="background:#00897B"></span>PM Career Ladder</div>
+      <div class="lesson-chip" onclick="openLesson('PM Skills Self-Assessment', 'Rate yourself on discovery, strategy, execution, metrics, and leadership. Your weakest area is your biggest growth opportunity.')"><span class="lesson-dot" style="background:#00897B"></span>Skills Assessment</div>
+      <div class="lesson-chip" onclick="openLesson('Building a PM Portfolio', 'Document your impact with case studies. Show the problem, your process, the solution, and measurable outcomes.')"><span class="lesson-dot" style="background:#00897B"></span>PM Portfolio</div>
+      <div class="lesson-chip" onclick="openLesson('PM Interview Preparation', 'PM interviews test product sense, analytical thinking, and leadership. Use the STAR method and practice with real product cases.')"><span class="lesson-dot" style="background:#00897B"></span>PM Interview Prep</div>
+      <div class="lesson-chip" onclick="openLesson('Continuous Learning for PMs', 'Great PMs never stop learning — books, podcasts, communities, and real-world experimentation compound over time.')"><span class="lesson-dot" style="background:#00897B"></span>Continuous Learning</div>
+      <div class="lesson-chip" onclick="openLesson('Applying PM Skills in Any Role', 'PM skills — prioritisation, data thinking, stakeholder management — are valuable in BDM, operations, and leadership roles too.')"><span class="lesson-dot" style="background:#00897B"></span>PM Skills in Any Role</div>
+    </div>
+    <div class="pm-tip" style="background:#E0F5F3;color:#00897B">💡 PM Insight: Your 22 years of cross-functional experience is a massive PM advantage — you already understand business, customers, and operations deeply.</div>
+  </div>
+</div>
+
+<!-- Module 10 -->
+<div class="module-card" onclick="toggleModule(this)">
+  <div class="module-header">
+    <div class="module-num" style="background:#FDEEF1;color:#E8284A">10</div>
+    <div class="module-info">
+      <div class="module-title">Certification Exam</div>
+      <div class="module-sub">Final assessment · 75% pass mark · Credly badge</div>
+    </div>
+    <div class="module-arrow">›</div>
+  </div>
+  <div class="module-body">
+    <p class="module-desc">The final certification exam tests knowledge across all 9 modules. Requires 75% to pass, with 5 attempts available. On passing, earners receive a Credly digital badge that can be shared on LinkedIn and verified by employers.</p>
+    <div class="lessons-grid">
+      <div class="lesson-chip" onclick="openLesson('Exam Format', '59 questions covering all modules. Multiple choice. 75% required to pass. You have 5 attempts.')"><span class="lesson-dot" style="background:#E8284A"></span>Exam Format</div>
+      <div class="lesson-chip" onclick="openLesson('Pass Mark & Attempts', 'Score of 75% or higher passes. Up to 5 attempts allowed. Shubhasish scored 98.3% on first attempt! 🏆')"><span class="lesson-dot" style="background:#E8284A"></span>Pass Mark: 75%</div>
+      <div class="lesson-chip" onclick="openLesson('Credly Digital Badge', 'A verifiable digital badge issued via Credly. Add to LinkedIn, email signature, and resume. Never expires.')"><span class="lesson-dot" style="background:#E8284A"></span>Credly Badge</div>
+      <div class="lesson-chip" onclick="openLesson('Certificate Value', 'Recognised by product managers globally. Pendo × Mind the Product certification signals PM fundamentals mastery to hiring managers.')"><span class="lesson-dot" style="background:#E8284A"></span>Certificate Value</div>
+    </div>
+    <div class="pm-tip" style="background:#FDEEF1;color:#E8284A">🏆 Shubhasish Dutta — 98.3% · First Attempt · Issued 7 June 2026 · Never Expires</div>
+  </div>
+</div>
+
+<!-- CERT BANNER -->
+<div class="cert-banner">
+  <div class="score">98.3%</div>
+  <div class="name">Shubhasish Dutta</div>
+  <p>Product Management Basics Certified · Pendo × Mind the Product</p>
+  <p style="margin-top:0.5rem;font-size:0.75rem">Issued 7 June 2026 · Never Expires · Verified via Credly</p>
+</div>
+
+</main>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal">
+    <div class="modal-top">
+      <div>
+        <div class="modal-tag" id="modal-tag"></div>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc" id="modal-desc"></p>
+      <ul class="modal-list" id="modal-list"></ul>
+      <div class="modal-tip" id="modal-tip"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const modalData = {
+  lc_discover: { tag:"Life Cycle Phase", color:"#5C35A0", title:"Discover", desc:"The Discover phase is about understanding real customer problems before jumping to solutions. PMs use a mix of quantitative and qualitative data to uncover pain points and opportunities.", points:["Talk to customers regularly — not just when you need validation for an idea you already have","Use product analytics to see WHERE users struggle, then interviews to understand WHY","Define the problem statement clearly before moving forward","Look for patterns across multiple data sources, not single data points","Challenge assumptions — the problem you think users have may not be the real one"], tip:"💡 The best discovery leads to surprising insights that change what you build." },
+  lc_validate: { tag:"Life Cycle Phase", color:"#1565C0", title:"Validate", desc:"Validation is about pressure-testing ideas before investing engineering resources. Use lightweight experiments to confirm or reject your assumptions about what users want.", points:["Build prototypes, not products — validate with the least effort possible","Use in-app surveys to get feedback from users at the exact moment of need","Fake door tests measure demand before you build anything","Get internal stakeholder validation early to avoid late-stage surprises","A validated idea has evidence; an unvalidated idea is just a hypothesis"], tip:"💡 Most ideas that fail in the market failed because they were never properly validated." },
+  lc_build: { tag:"Life Cycle Phase", color:"#00897B", title:"Build", desc:"The Build phase turns validated ideas into real features. PMs work closely with engineering and design, writing clear requirements and making fast decisions to keep teams unblocked.", points:["Write user stories with clear acceptance criteria","PRDs align all teams on the what and why before engineering starts","Agile sprints keep work incremental and review-able","PMs define what success looks like; engineers decide how to achieve it","Protect scope — say no to additions that dilute focus"], tip:"💡 Speed in the Build phase comes from clarity. Ambiguous requirements slow everything down." },
+  lc_launch: { tag:"Life Cycle Phase", color:"#C47C0A", title:"Launch", desc:"Launching is a coordinated effort across product, marketing, sales, and support. A great launch drives adoption; a poor launch wastes engineering investment.", points:["Define success metrics before launch, not after","Use feature flags for phased rollouts to reduce risk","Brief sales and support before the feature goes live","In-app guides and walkthroughs drive adoption post-launch","Monitor closely in the first 48 hours — be ready to act fast"], tip:"💡 Launch is a beginning, not an end. The real work of driving adoption starts on day one." },
+  lc_iterate: { tag:"Life Cycle Phase", color:"#2E7D32", title:"Iterate", desc:"The Iterate phase closes the learning loop. Use data and feedback to continuously improve the product, and feed those insights back into the next Discover phase.", points:["Track adoption, engagement, and retention — not just usage counts","NPS and CSAT give you a pulse on user satisfaction","A/B test improvements before rolling them out broadly","Retire features that aren't being used — simplicity is a feature","Document learnings so the next discovery cycle starts smarter"], tip:"💡 The product is never done. Iteration is the engine of continuous improvement." },
+  char_acumen: { tag:"Great PM Trait", color:"#E8284A", title:"Business Acumen", desc:"Great PMs understand how the business makes money and how product decisions impact revenue, cost, and growth. Technical skill alone is not enough.", points:["Understand your company's business model and revenue drivers","Know how your product metrics connect to company OKRs","Speak the language of finance, sales, and marketing","Make product decisions that balance user needs with business viability","Show ROI for product investments in terms executives understand"], tip:"💡 For you Asish — your 22 years in sales, banking, and business development IS business acumen. That's a huge PM advantage!" },
+  char_leader: { tag:"Great PM Trait", color:"#1565C0", title:"Leadership & Communication", desc:"PMs lead without authority. They influence engineers, designers, executives, and customers through clarity, trust, and compelling communication.", points:["Communicate the WHY behind every product decision clearly","Tailor your message to your audience — technical for eng, outcome-focused for exec","Build trust through consistency, transparency, and follow-through","Facilitate alignment without creating conflict","Written communication is as important as verbal in remote/async teams"], tip:"💡 Your BPO and client relationship background makes you a natural communicator — lean into that in PM interviews." },
+  char_data: { tag:"Great PM Trait", color:"#5C35A0", title:"Data Over Gut Feel", desc:"The best PMs root their decisions in data. While intuition has its place, decisions backed by evidence are more defensible and more likely to succeed.", points:["Define measurable success criteria for every feature before building","Use analytics to understand user behaviour objectively","Challenge assumptions with data — especially your own","Combine quantitative data (what) with qualitative insights (why)","Know the limits of your data — correlation is not causation"], tip:"💡 Data doesn't eliminate judgment — it informs it. The best PMs know when to trust the numbers and when to question them." },
+  char_outcomes: { tag:"Great PM Trait", color:"#00897B", title:"Outcomes-Driven", desc:"Output is what you build. Outcome is the impact it has. Great PMs measure success by outcomes — user behaviour change, retention, revenue — not features shipped.", points:["Frame every initiative as: 'We want to achieve X outcome, and we believe building Y will do that'","Resist the feature factory — more features ≠ better product","Set OKRs at the team level, not just individual level","Celebrate metric improvements, not just launch days","Hold yourself accountable to the outcome, not just the delivery"], tip:"💡 Shift your language from 'we built X' to 'we achieved X outcome by building Y' — this is the difference between a good and great PM." },
+  char_balance: { tag:"Great PM Trait", color:"#C47C0A", title:"Balance Innovation with Upkeep", desc:"New features get the glory, but maintaining and improving existing features is equally important. Great PMs balance building new things with making existing things work better.", points:["Allocate roadmap capacity for tech debt, bug fixes, and performance improvements","Not every sprint needs a new feature — sometimes stability is the priority","Listen to power users who rely on existing functionality","Innovation without reliability erodes trust","Use data to identify high-use, low-performing areas that need investment"], tip:"💡 The best products feel effortless because someone invested in upkeep. Don't let the new shiny thing crowd out essential maintenance." }
+};
+
+function openModal(key) {
+  const d = modalData[key];
+  if (!d) return;
+  document.getElementById('modal-tag').textContent = d.tag;
+  document.getElementById('modal-tag').style.color = d.color;
+  document.getElementById('modal-title').textContent = d.title;
+  const ul = document.getElementById('modal-list');
+  ul.innerHTML = '';
+  d.points.forEach(p => { const li = document.createElement('li'); li.textContent = p; ul.appendChild(li); });
+  document.getElementById('modal-desc').textContent = d.desc;
+  const tip = document.getElementById('modal-tip');
+  tip.textContent = d.tip;
+  tip.style.background = d.color + '15';
+  tip.style.color = d.color;
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function openLesson(title, desc) {
+  document.getElementById('modal-tag').textContent = 'Lesson Detail';
+  document.getElementById('modal-tag').style.color = '#666';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-desc').textContent = desc;
+  document.getElementById('modal-list').innerHTML = '';
+  document.getElementById('modal-tip').textContent = '';
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  event.stopPropagation();
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeOverlay(e) {
+  if (e.target === document.getElementById('overlay')) closeModal();
+}
+
+function toggleModule(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.module-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

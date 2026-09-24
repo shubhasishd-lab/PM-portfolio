@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OKR Fundamentals Certified — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F0F9FF;--card:#FFF;--border:#BAE6FD;--navy:#0C1A2E;--blue:#0369A1;--blue-l:#E0F2FE;--green:#15803D;--green-l:#DCFCE7;--orange:#C2410C;--orange-l:#FFF7ED;--purple:#7C3AED;--purple-l:#F5F3FF;--teal:#0F766E;--teal-l:#CCFBF1;--gray:#6B7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--navy);}
+header{background:linear-gradient(135deg,#0C1A2E,#0369A1,#0EA5E9);padding:2.5rem 2rem 2rem;text-align:center;}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.htag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:800;line-height:1.1;margin-bottom:.4rem;}
+header h1 span{color:#BAE6FD;}
+header p{color:rgba(255,255,255,.6);font-size:.8rem;margin-bottom:1.2rem;}
+.score-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.sc{font-size:.7rem;font-weight:500;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);}
+.sc.gold{background:rgba(250,204,21,.2);border-color:rgba(250,204,21,.4);color:#FDE047;}
+.okr-cycle{background:#fff;border-bottom:1px solid var(--border);padding:1.5rem;text-align:center;}
+.oc-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:1rem;}
+.oc-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;max-width:600px;margin:0 auto;}
+.oc-step{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer;transition:transform .2s;}
+.oc-step:hover{transform:translateY(-3px);}
+.oc-circle{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:2px solid;}
+.oc-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.oc-arrow{font-size:1rem;color:#ccc;margin:0 .2rem;padding-bottom:1.2rem;}
+main{max-width:700px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:1.8rem 0 .8rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .2s;text-align:center;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(3,105,161,.15);}
+.card-icon{font-size:1.4rem;margin-bottom:.3rem;}
+.card-title{font-size:.8rem;font-weight:700;margin-bottom:.1rem;}
+.card-sub{font-size:.65rem;color:var(--gray);line-height:1.3;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:14px;margin-bottom:.65rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 4px 16px rgba(3,105,161,.1);}
+.mod.open{border-color:var(--blue);}
+.mod-head{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;}
+.mn{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.12rem;}
+.ms{font-size:.7rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.82rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--blue);}
+.mod-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.83rem;line-height:1.6;color:#444;padding:.9rem 0 .7rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.45rem .65rem;font-size:.7rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.35rem;cursor:pointer;transition:all .15s;line-height:1.3;}
+.l:hover{background:var(--blue-l);border-color:var(--blue);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.tip{margin-top:.9rem;padding:.7rem .9rem;border-radius:8px;font-size:.75rem;line-height:1.5;font-style:italic;background:var(--blue-l);border:1px solid rgba(3,105,161,.2);color:var(--blue);}
+.cert{background:linear-gradient(135deg,#0C1A2E,#0369A1);border-radius:16px;padding:1.8rem;text-align:center;margin-top:1.8rem;}
+.cert-icon{font-size:2rem;margin-bottom:.4rem;}
+.cn{font-size:1.1rem;font-weight:800;color:#BAE6FD;margin-bottom:.2rem;}
+.cn2{font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.2rem;}
+.csub{font-size:.7rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(12,26,46,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:16px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.25);animation:pop .2s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.2rem 1.3rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:16px 16px 0 0;}
+.modal-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:26px;height:26px;border-radius:50%;font-size:.78rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1rem 1.3rem 1.3rem;}
+.modal-desc{font-size:.85rem;line-height:1.6;color:#444;margin-bottom:.9rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.modal-list li{display:flex;gap:.55rem;font-size:.82rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1rem;padding:.75rem .9rem;border-radius:8px;font-size:.76rem;line-height:1.5;font-style:italic;background:var(--blue-l);color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">OKRstudy</span><span class="htag">OKRFC™</span><span class="htag">OKR Fundamentals</span><span class="htag">Cert #20</span></div>
+  <h1>OKR Fundamentals<br><span>Certified (OKRFC™)</span></h1>
+  <p>Complete Interactive Guide · Objectives · Key Results · OKR Cycle · Implementation</p>
+  <div class="score-row"><span class="sc gold">Certified ✓</span><span class="sc">August 23 2026</span><span class="sc">ID: 1184581</span><span class="sc">OKRstudy</span></div>
+</header>
+
+<div class="okr-cycle">
+  <div class="oc-title">The OKR Cycle — Tap to Explore</div>
+  <div class="oc-row">
+    <div class="oc-step" onclick="openModal('cy1')"><div class="oc-circle" style="background:#E0F2FE;border-color:#0369A1">🎯</div><span class="oc-label" style="color:#0369A1">Set</span></div>
+    <div class="oc-arrow">→</div>
+    <div class="oc-step" onclick="openModal('cy2')"><div class="oc-circle" style="background:#DCFCE7;border-color:#15803D">⚡</div><span class="oc-label" style="color:#15803D">Execute</span></div>
+    <div class="oc-arrow">→</div>
+    <div class="oc-step" onclick="openModal('cy3')"><div class="oc-circle" style="background:#FFF7ED;border-color:#C2410C">📊</div><span class="oc-label" style="color:#C2410C">Track</span></div>
+    <div class="oc-arrow">→</div>
+    <div class="oc-step" onclick="openModal('cy4')"><div class="oc-circle" style="background:#F5F3FF;border-color:#7C3AED">🔍</div><span class="oc-label" style="color:#7C3AED">Review</span></div>
+    <div class="oc-arrow">→</div>
+    <div class="oc-step" onclick="openModal('cy5')"><div class="oc-circle" style="background:#CCFBF1;border-color:#0F766E">🔄</div><span class="oc-label" style="color:#0F766E">Reset</span></div>
+  </div>
+</div>
+
+<main>
+
+<div class="div">OKR Core Concepts</div>
+<div class="grid2">
+  <div class="card" onclick="openModal('c1')" style="border-color:rgba(3,105,161,.3)"><div class="card-icon">🎯</div><div class="card-title" style="color:#0369A1">What are OKRs?</div><div class="card-sub">Objectives & Key Results — the goal-setting framework</div></div>
+  <div class="card" onclick="openModal('c2')" style="border-color:rgba(21,128,61,.3)"><div class="card-icon">📈</div><div class="card-title" style="color:#15803D">OKR vs KPI</div><div class="card-sub">How OKRs and KPIs differ and work together</div></div>
+  <div class="card" onclick="openModal('c3')" style="border-color:rgba(194,65,12,.3)"><div class="card-icon">🏢</div><div class="card-title" style="color:#C2410C">OKR Levels</div><div class="card-sub">Company → Team → Individual alignment</div></div>
+  <div class="card" onclick="openModal('c4')" style="border-color:rgba(124,58,237,.3)"><div class="card-icon">⏱️</div><div class="card-title" style="color:#7C3AED">OKR Cadence</div><div class="card-sub">Annual, quarterly and weekly OKR rhythms</div></div>
+</div>
+
+<div class="div">Chapter 1 — OKR Fundamentals</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E0F2FE;color:#0369A1">01</div><div class="mi"><div class="mt">Introduction to OKRs</div><div class="ms">History · Definition · Why OKRs work</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">OKRs (Objectives and Key Results) were created by Andy Grove at Intel in the 1970s and popularised by John Doerr who introduced them to Google in 1999. Today they're used by Google, Spotify, Netflix, LinkedIn, Airbnb, and thousands of other organisations globally.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('History of OKRs','Created by Andy Grove at Intel in the 1970s as MBOs (Management by Objectives). John Doerr learned them at Intel and introduced them to Google in 1999 when they had just 40 employees. Google credits OKRs for 10x growth.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>History of OKRs</div>
+    <div class="l" onclick="openLesson('What is an Objective?','An Objective is a qualitative, inspiring description of WHAT you want to achieve. It must be: ambitious, motivating, time-bound, and written in plain language. NOT a number — that\'s what Key Results are for.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>What is an Objective?</div>
+    <div class="l" onclick="openLesson('What is a Key Result?','A Key Result is a quantitative measure of HOW you will know you\'ve achieved the Objective. Must be: specific, measurable, achievable, and time-bound. 2-5 Key Results per Objective is ideal.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>What is a Key Result?</div>
+    <div class="l" onclick="openLesson('OKR Formula','Objective: I will [WHAT] as measured by [Key Results]. Example: "I will become the top PM candidate in my market as measured by: 22 certifications completed, resume updated, 10 applications submitted."');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>OKR Formula</div>
+    <div class="l" onclick="openLesson('Why OKRs Work','OKRs create: Focus (what matters most), Alignment (everyone rowing same direction), Commitment (public goals create accountability), Tracking (weekly check-ins), Stretching (ambitious goals drive 10x thinking).');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>Why OKRs Work</div>
+    <div class="l" onclick="openLesson('OKRs at Google','Google has used OKRs since 1999. Every Googler sets OKRs — from CEO to individual contributor. OKRs are transparent — everyone can see everyone else\'s OKRs. This radical transparency drives alignment.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>OKRs at Google</div>
+  </div>
+  <div class="tip">💡 OKR insight: OKRs are not a performance management tool — they\'re a communication tool. They tell everyone what\'s most important right now and how success will be measured.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#DCFCE7;color:#15803D">02</div><div class="mi"><div class="mt">Writing Effective OKRs</div><div class="ms">Good vs bad OKRs · Writing criteria · Examples</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The most practical module — covers how to write OKRs that actually drive performance. Teaches the criteria for strong Objectives and measurable Key Results, with examples of good vs bad OKRs across different contexts.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Criteria for Strong Objectives','Strong Objectives are: inspirational (motivates the team), qualitative (no numbers), time-bound (this quarter), actionable (within team control), and aligned (connects to company goals).');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Strong Objectives</div>
+    <div class="l" onclick="openLesson('Criteria for Strong Key Results','Strong KRs are: quantitative (has a number), outcome-focused (not tasks), ambitious but achievable, and directly indicate Objective achievement. Bad KR: "Launch new feature". Good KR: "Increase DAU by 25%".');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Strong Key Results</div>
+    <div class="l" onclick="openLesson('Committed vs Aspirational OKRs','Committed OKRs: must be achieved 100% (operational goals). Aspirational OKRs: moonshots — 70% achievement is a success. Google uses 70% as the target for aspirational OKRs. Failing at 60% is fine.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Committed vs Aspirational</div>
+    <div class="l" onclick="openLesson('Health Metrics vs OKRs','Health metrics (like uptime, NPS, customer satisfaction) are NOT OKRs — they\'re guardrails. OKRs measure progress; health metrics ensure you don\'t break things while pursuing OKRs.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Health Metrics vs OKRs</div>
+    <div class="l" onclick="openLesson('OKR Anti-Patterns','Bad OKRs: too many (more than 5 objectives), too easy (sandbagging), output-focused (tasks not outcomes), disconnected from company strategy, or used as performance review tool.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>OKR Anti-Patterns</div>
+    <div class="l" onclick="openLesson('PM OKR Examples','Objective: Build a product that users love. KR1: NPS increases from 32 to 55. KR2: Day-30 retention increases from 25% to 40%. KR3: Feature adoption rate reaches 60% for core features.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>PM OKR Examples</div>
+  </div>
+  <div class="tip">💡 OKR insight: If your Key Results are tasks (verbs like "launch", "create", "build"), they\'re not Key Results — they\'re a to-do list. Key Results measure OUTCOMES, not activities.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF7ED;color:#C2410C">03</div><div class="mi"><div class="mt">OKR Alignment & Cascading</div><div class="ms">Company → Team → Individual · Top-down · Bottom-up</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">OKR alignment is what makes them powerful at scale. When every team's OKRs connect to company OKRs, everyone is rowing in the same direction. Covers both top-down (cascading) and bottom-up (contributing) alignment approaches.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('3 Levels of OKRs','Company OKRs: annual strategic direction. Team OKRs: quarterly tactical focus. Individual OKRs: personal contribution. Each level supports the level above it.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>3 Levels of OKRs</div>
+    <div class="l" onclick="openLesson('Top-Down Cascading','Company sets annual OKRs → teams create quarterly OKRs that support company OKRs → individuals create OKRs that support team OKRs. Creates vertical alignment throughout the organisation.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Top-Down Cascading</div>
+    <div class="l" onclick="openLesson('Bottom-Up Contributing','Teams and individuals propose their own OKRs based on what they believe will have most impact. Product Owner reviews and aligns with company strategy. Increases ownership and motivation.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Bottom-Up Contributing</div>
+    <div class="l" onclick="openLesson('Horizontal Alignment','Cross-functional teams (engineering + product + design + marketing) align OKRs to avoid conflicts and enable collaboration. Shared OKRs for interdependent teams prevent silo-thinking.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Horizontal Alignment</div>
+    <div class="l" onclick="openLesson('OKR Transparency','Best-practice OKR implementation makes all OKRs visible to everyone in the organisation. Transparency creates peer accountability, surfaces conflicts early, and enables cross-team collaboration.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>OKR Transparency</div>
+    <div class="l" onclick="openLesson('Shared OKRs','When two teams share a Key Result, they share accountability. Shared OKRs break down silos and force cross-functional collaboration. Use for outcomes that require multiple teams to achieve.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Shared OKRs</div>
+  </div>
+  <div class="tip">💡 OKR insight: The magic of OKRs is alignment. When every person in an organisation can draw a line from their daily work to the company\'s top priorities — that\'s organisational superpow er.</div></div>
+</div>
+
+<div class="div">Chapter 2 — OKR Implementation</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F5F3FF;color:#7C3AED">04</div><div class="mi"><div class="mt">OKR Cadence & Rhythm</div><div class="ms">Annual · Quarterly · Weekly check-ins · Scoring</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">OKRs work because of their rhythm — a predictable cycle of setting, checking in, and reviewing. Covers the standard OKR cadence from annual planning through quarterly execution to weekly check-ins.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Annual OKR Planning','Company sets 3-5 annual Objectives in Q4 for the following year. These become the strategic anchors for all quarterly OKRs. Annual OKRs should be ambitious enough to require 4 quarters to achieve.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Annual Planning</div>
+    <div class="l" onclick="openLesson('Quarterly OKR Cycle','Most organisations run OKRs on quarterly cycles. Quarter starts: set OKRs. Mid-quarter: check-in review. Quarter end: grade OKRs, retrospect, celebrate wins, set next quarter OKRs.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Quarterly Cycle</div>
+    <div class="l" onclick="openLesson('Weekly Check-ins','Every week: update Key Result progress (%), identify what\'s blocking progress, celebrate wins, and adjust approach if needed. 15-30 minutes per team. The heartbeat of OKR execution.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Weekly Check-ins</div>
+    <div class="l" onclick="openLesson('OKR Scoring','At quarter end, score each Key Result 0.0-1.0. 0.7 = success for aspirational OKRs. 1.0 consistently = OKRs are too easy. 0.4 consistently = too ambitious or wrong strategy. Aim for 0.6-0.7.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>OKR Scoring</div>
+    <div class="l" onclick="openLesson('OKR Retrospective','End-of-quarter: What did we achieve? What did we learn? What would we do differently? What should carry forward? Feeds directly into next quarter\'s OKR planning session.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>OKR Retrospective</div>
+    <div class="l" onclick="openLesson('OKR Grading','Google\'s grade scale: 0.0-0.3 (failure), 0.4-0.6 (progress), 0.7-1.0 (success). Consistently scoring 1.0 means sandbagging — set more ambitious OKRs next quarter.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>OKR Grading Scale</div>
+  </div>
+  <div class="tip">💡 OKR insight: Weekly check-ins are where OKRs become real. Without them, OKRs are just a document. With them, OKRs become the team\'s weekly compass for prioritisation.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#CCFBF1;color:#0F766E">05</div><div class="mi"><div class="mt">Implementing OKRs in Your Organisation</div><div class="ms">Rollout · Common mistakes · OKR tools · Success factors</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers the practical steps for introducing OKRs to an organisation — from pilot teams to company-wide rollout. Includes common implementation mistakes, recommended OKR tools, and the key success factors that determine whether OKRs succeed or fail.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('OKR Rollout Approach','Start with a pilot: one team for one quarter. Learn, adjust, then expand. Don\'t try to implement company-wide on day one. Executive sponsorship is critical — OKRs fail without leadership commitment.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Rollout Approach</div>
+    <div class="l" onclick="openLesson('Common OKR Mistakes','1. Too many OKRs (more than 5). 2. OKRs as task lists. 3. No check-ins. 4. Linking OKRs to compensation. 5. Setting and forgetting. 6. Cascade-only (no bottom-up). 7. No retrospectives.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Common Mistakes</div>
+    <div class="l" onclick="openLesson('OKR Tools','Popular OKR tools: Weekdone, Lattice, Betterworks, Leapsome, Notion (DIY), Google Sheets (simple start), Jira (for product teams). Tool doesn\'t matter as much as discipline and cadence.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>OKR Tools</div>
+    <div class="l" onclick="openLesson('OKRs & Performance Reviews','OKRs should NOT be linked to compensation or performance reviews. When OKRs become a performance tool, people sandbag (set easy goals) to protect their ratings. Keep them separate.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>OKRs & Performance</div>
+    <div class="l" onclick="openLesson('OKR Success Factors','Success requires: Executive sponsorship, dedicated OKR champion, consistent check-in cadence, psychological safety to set ambitious goals, and patience (OKRs take 2-3 quarters to feel natural).');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Success Factors</div>
+    <div class="l" onclick="openLesson('OKRs for Product Managers','PMs use OKRs to: align product strategy with business goals, prioritise the roadmap by impact on OKRs, measure product success beyond feature delivery, and communicate priorities to stakeholders.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>OKRs for PMs</div>
+  </div>
+  <div class="tip">💡 OKR insight: OKRs are simple to understand but hard to implement well. The most common failure is treating them as a task management system. They\'re a communication and focus system.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E0F2FE;color:#0369A1">06</div><div class="mi"><div class="mt">OKRs with AI (OKRFC Module)</div><div class="ms">AI-assisted OKR setting · AI tracking · Future of OKRs</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers how AI is transforming OKR management — from AI-assisted goal setting to automated progress tracking and intelligent insights. The OKRstudy OKRFC certification includes this forward-looking module on AI's role in the future of goal management.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('AI for OKR Writing','AI tools like Claude can help write better OKRs: critique vague objectives, suggest measurable Key Results, check alignment with company strategy, and identify potential OKR anti-patterns.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>AI for OKR Writing</div>
+    <div class="l" onclick="openLesson('AI for OKR Tracking','AI can automatically pull Key Result data from connected tools (analytics, CRM, project management) and update OKR progress without manual data entry — reducing check-in friction dramatically.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>AI for Tracking</div>
+    <div class="l" onclick="openLesson('AI for OKR Insights','AI surfaces patterns across OKR data: which objectives consistently underperform, which teams consistently overperform, and which Key Results are leading indicators of success.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>AI for Insights</div>
+    <div class="l" onclick="openLesson('Using Claude for OKRs','Prompt: "I\'m a PM at a B2B SaaS company. Our company OKR is to grow ARR by 40%. Write 3 product team OKRs that support this goal, with 3 measurable Key Results each." Claude excels at this.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>Using Claude for OKRs</div>
+    <div class="l" onclick="openLesson('Future of OKRs with AI','AI-powered OKR platforms will: auto-generate draft OKRs from strategy documents, predict likelihood of achieving Key Results, suggest interventions when goals are off-track, and learn from historical OKR data.');event.stopPropagation()"><span class="ld" style="background:#0369A1"></span>Future of OKRs + AI</div>
+  </div>
+  <div class="tip">💡 OKR + AI insight: You already use Claude daily Asish — combining your OKR knowledge with Claude\'s AI capabilities makes you a uniquely valuable PM candidate in 2026.</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🏆</div>
+  <div class="cn">OKR Fundamentals Certified (OKRFC™)</div>
+  <div class="cn2">Shubhasish Dutta — OKRstudy</div>
+  <div class="csub">August 23 2026 · ID: 1184581 · Cert #20 · VMEdu Inc.</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  cy1:{tag:"OKR Cycle",title:"Set OKRs",desc:"The OKR setting phase defines WHAT you want to achieve (Objective) and HOW you'll measure success (Key Results).",points:["Company sets annual OKRs in Q4 for following year","Teams set quarterly OKRs aligned to company OKRs","Individuals contribute OKRs that support team OKRs","Bottom-up input ensures team ownership and motivation","OKRs made transparent across the organisation","2-5 Key Results per Objective is the ideal range"],tip:"💡 Great OKR setting takes time. Don't rush it — a well-crafted OKR saves weeks of misdirected effort."},
+  cy2:{tag:"OKR Cycle",title:"Execute",desc:"The execution phase is where teams do the actual work to achieve their OKRs — guided by the Key Results as a compass.",points:["Teams work on initiatives that move Key Results","Weekly check-ins keep everyone aligned and accountable","OKRs guide prioritisation: does this task move a KR?","Roadblocks surfaced and addressed quickly","Cross-team collaboration enabled by shared OKRs","Focus: say no to work that doesn't contribute to OKRs"],tip:"💡 OKRs should be the first thing you look at when deciding what to work on. If a task doesn't move a Key Result, question whether it should be done at all."},
+  cy3:{tag:"OKR Cycle",title:"Track Progress",desc:"Weekly progress updates keep OKRs alive and meaningful throughout the quarter.",points:["Update Key Result scores weekly (0.0-1.0)","Add confidence level: on track / at risk / off track","Note what's working and what's blocking progress","Scrum-style: quick update, not a long meeting","Make progress visible to all stakeholders","Flag at-risk OKRs early — before it's too late to course-correct"],tip:"💡 Tracking without action is theatre. If an OKR is off track, the check-in must produce a specific intervention — not just an acknowledgment."},
+  cy4:{tag:"OKR Cycle",title:"Review",desc:"End-of-quarter review: grade OKRs, extract learnings, and celebrate wins before setting the next quarter's OKRs.",points:["Grade each Key Result: 0.0-1.0","0.7 = success for aspirational OKRs (Google's standard)","1.0 consistently = OKRs are too easy — be more ambitious","Below 0.4 = strategy problem or unrealistic target","Extract learnings: what worked? what didn't? why?","Celebrate achievements before moving to next quarter"],tip:"💡 The OKR review is as important as the setting. Teams that skip it miss the learning that makes each quarter better than the last."},
+  cy5:{tag:"OKR Cycle",title:"Reset",desc:"The transition from one OKR cycle to the next — carrying forward learnings and setting fresh OKRs for the new quarter.",points:["Retrospect: what to start, stop, continue?","Archive completed OKRs for historical reference","Set new OKRs informed by previous quarter's learnings","Adjust ambition level based on grading patterns","Update alignment as company strategy evolves","Celebrate the cycle — each reset is an organisational learning moment"],tip:"💡 The best OKR practitioners treat each quarter as a learning experiment. The reset is where that learning is captured and applied to the next cycle."},
+  c1:{tag:"Core Concept",title:"What are OKRs?",desc:"OKR stands for Objectives and Key Results — a goal-setting framework that helps organisations define goals and track outcomes.",points:["O = Objective: qualitative, inspiring, directional — WHAT you want to achieve","KR = Key Results: quantitative, measurable — HOW you'll know you got there","Created by Andy Grove at Intel, popularised by John Doerr at Google","Used by: Google, Spotify, Netflix, LinkedIn, Airbnb, Twitter, Uber","2-5 Key Results per Objective — enough to define success, few enough to focus","OKRs are set quarterly (usually) and checked in on weekly"],tip:"💡 The simplest OKR formula: I will [Objective] as measured by [Key Results]. Try writing your own job hunt OKR with this formula!"},
+  c2:{tag:"Core Concept",title:"OKR vs KPI",desc:"OKRs and KPIs serve different purposes and work best when used together — not as replacements for each other.",points:["KPIs: ongoing health metrics (always tracked) — e.g. NPS, revenue, uptime","OKRs: time-bound change goals (quarterly) — e.g. increase NPS from 32 to 55","KPIs tell you if you're healthy; OKRs tell you if you're improving","A KPI can become a Key Result when you want to specifically improve it","KPIs are business-as-usual; OKRs are the change agenda","Both are needed: KPIs ensure stability; OKRs drive growth"],tip:"💡 Think of KPIs as your body's vital signs (always monitoring) and OKRs as your fitness goals (specific improvements you're working toward this quarter)."},
+  c3:{tag:"Core Concept",title:"OKR Levels",desc:"OKRs work at three levels that cascade from company strategy down to individual contribution.",points:["Company OKRs: annual strategic direction (3-5 objectives max)","Team OKRs: quarterly tactical focus aligned to company OKRs","Individual OKRs: personal contribution to team OKRs","Each level's OKRs should demonstrably support the level above","Bottom-up contribution (not just top-down cascade) improves ownership","Transparency across levels creates organisational alignment and accountability"],tip:"💡 In great OKR organisations, every employee can explain how their daily work connects to the company's top priorities. That's the power of cascaded OKRs."},
+  c4:{tag:"Core Concept",title:"OKR Cadence",desc:"The OKR rhythm — annual, quarterly, and weekly — is what gives OKRs their power. Without cadence, OKRs become shelf documents.",points:["Annual: company strategy OKRs set in Q4 for following year","Quarterly: team OKRs — most common OKR cycle for execution","Monthly: optional mid-quarter review for fast-moving teams","Weekly: check-ins — update scores, identify blockers, celebrate wins","Daily: individual task prioritisation guided by OKRs","Quarterly retrospective: grade, learn, reset before next cycle"],tip:"💡 The weekly check-in is the heartbeat of OKR execution. Without it, OKRs die by week 4 of the quarter. With it, they stay alive and guide every prioritisation decision."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

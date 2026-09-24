@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Visualization using Tableau — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F0F4FF;--card:#FFF;--border:#D4E0FF;--navy:#1A1F5E;--blue:#1F5EFF;--blue-l:#E8EEFF;--orange:#E97000;--orange-l:#FFF3E6;--green:#1A7A40;--green-l:#E6F5EC;--purple:#6B2DF2;--purple-l:#F0EAFF;--gray:#6B7280;--teal:#0D7377;--teal-l:#E0F5F4;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);}
+header{background:linear-gradient(135deg,#1A1F5E,#2B4EFF,#E97000);padding:2.5rem 2rem 2rem;text-align:center;}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.htag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:800;line-height:1.1;margin-bottom:.4rem;}
+header h1 span{color:#FFD199;}
+header p{color:rgba(255,255,255,.6);font-size:.8rem;margin-bottom:1.2rem;}
+.score-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.sc{font-size:.7rem;font-weight:500;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);}
+.sc.gold{background:rgba(250,204,21,.2);border-color:rgba(250,204,21,.4);color:#FDE047;}
+.stats{background:#fff;border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;text-align:center;}
+.stat-num{font-size:1.4rem;font-weight:800;color:var(--blue);}
+.stat-lbl{font-size:.62rem;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;}
+main{max-width:700px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:1.8rem 0 .8rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .2s;text-align:center;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(31,94,255,.12);}
+.card-icon{font-size:1.4rem;margin-bottom:.3rem;}
+.card-title{font-size:.8rem;font-weight:700;margin-bottom:.1rem;}
+.card-sub{font-size:.65rem;color:var(--gray);line-height:1.3;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:14px;margin-bottom:.65rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 4px 16px rgba(31,94,255,.1);}
+.mod.open{border-color:var(--blue);}
+.mod-head{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;}
+.mn{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.12rem;}
+.ms{font-size:.7rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.82rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--blue);}
+.mod-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.83rem;line-height:1.6;color:#444;padding:.9rem 0 .7rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.45rem .65rem;font-size:.7rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.35rem;cursor:pointer;transition:all .15s;line-height:1.3;}
+.l:hover{background:var(--blue-l);border-color:var(--blue);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.tip{margin-top:.9rem;padding:.7rem .9rem;border-radius:8px;font-size:.75rem;line-height:1.5;font-style:italic;background:var(--blue-l);border:1px solid rgba(31,94,255,.2);color:var(--blue);}
+/* DATA TYPES VISUAL */
+.dt-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem;margin:.5rem 0;}
+.dt-chip{padding:.5rem .8rem;border-radius:8px;font-size:.75rem;font-weight:700;text-align:center;cursor:pointer;transition:all .2s;border:1.5px solid;}
+.dt-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+/* CHART TYPES */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:.5rem 0;}
+.chart-card{background:var(--card);border:1.5px solid var(--border);border-radius:10px;padding:.8rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.6rem;}
+.chart-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(31,94,255,.1);}
+.chart-icon{font-size:1.4rem;flex-shrink:0;}
+.chart-info{flex:1;}
+.chart-name{font-size:.78rem;font-weight:700;color:var(--navy);}
+.chart-sub{font-size:.65rem;color:var(--gray);margin-top:.1rem;}
+/* TABLEAU INTERFACE */
+.interface-map{background:var(--navy);border-radius:12px;padding:1rem;margin:.5rem 0;}
+.im-title{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.5);margin-bottom:.7rem;text-align:center;}
+.im-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;}
+.im-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:7px;padding:.5rem .7rem;cursor:pointer;transition:all .2s;}
+.im-item:hover{background:rgba(31,94,255,.2);border-color:rgba(31,94,255,.4);}
+.im-label{font-size:.72rem;font-weight:700;color:#fff;}
+.im-sub{font-size:.62rem;color:rgba(255,255,255,.5);margin-top:.1rem;}
+.cert{background:linear-gradient(135deg,#1A1F5E,#2B4EFF);border-radius:16px;padding:1.8rem;text-align:center;margin-top:1.8rem;}
+.cert-icon{font-size:2rem;margin-bottom:.4rem;}
+.cn{font-size:1.1rem;font-weight:800;color:#FFD199;margin-bottom:.2rem;}
+.cn2{font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.2rem;}
+.csub{font-size:.7rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,31,94,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:16px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.25);animation:pop .2s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.2rem 1.3rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:16px 16px 0 0;}
+.modal-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:26px;height:26px;border-radius:50%;font-size:.78rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1rem 1.3rem 1.3rem;}
+.modal-desc{font-size:.85rem;line-height:1.6;color:#444;margin-bottom:.9rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.modal-list li{display:flex;gap:.55rem;font-size:.82rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1rem;padding:.75rem .9rem;border-radius:8px;font-size:.76rem;line-height:1.5;font-style:italic;background:var(--blue-l);color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Great Learning</span><span class="htag">Tableau</span><span class="htag">Data Visualization</span><span class="htag">Cert #24</span></div>
+  <h1>Data Visualization<br><span>using Tableau</span></h1>
+  <p>12 Videos · Business Intelligence · Charts · Dashboards · Sample Superstore</p>
+  <div class="score-row"><span class="sc gold">9/10 Quiz ✓</span><span class="sc">Great Learning</span><span class="sc">Sept 2026</span><span class="sc">Cert #24</span></div>
+</header>
+
+<div class="stats">
+  <div><div class="stat-num">12</div><div class="stat-lbl">Videos</div></div>
+  <div><div class="stat-num">6</div><div class="stat-lbl">Data Types</div></div>
+  <div><div class="stat-num">4</div><div class="stat-lbl">Chart Types</div></div>
+  <div><div class="stat-num">9/10</div><div class="stat-lbl">Quiz Score</div></div>
+</div>
+
+<main>
+
+<div class="div">4 Core Learning Modules</div>
+<div class="grid2">
+  <div class="card" onclick="openModal('m1')" style="border-color:rgba(31,94,255,.3)"><div class="card-icon">📊</div><div class="card-title" style="color:#1F5EFF">Business Intelligence</div><div class="card-sub">What is BI · Data Visualization · Tools overview</div></div>
+  <div class="card" onclick="openModal('m2')" style="border-color:rgba(233,112,0,.3)"><div class="card-icon">🔷</div><div class="card-title" style="color:#E97000">Tableau Fundamentals</div><div class="card-sub">Installation · Data Types · Interface Navigation</div></div>
+  <div class="card" onclick="openModal('m3')" style="border-color:rgba(26,122,64,.3)"><div class="card-icon">📈</div><div class="card-title" style="color:#1A7A40">Charts & Dashboards</div><div class="card-sub">Bar · Line · Histogram · Pie · Dashboard building</div></div>
+  <div class="card" onclick="openModal('m4')" style="border-color:rgba(107,45,242,.3)"><div class="card-icon">🎯</div><div class="card-title" style="color:#6B2DF2">PM Applications</div><div class="card-sub">How data viz powers product decisions</div></div>
+</div>
+
+<div class="div">Module 1 — Business Intelligence & Data Visualization</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E8EEFF;color:#1F5EFF">01</div><div class="mi"><div class="mt">Introduction, Business Intelligence & Data Visualization</div><div class="ms">BI definition · Data viz concepts · Tools landscape · Why Tableau</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The foundation videos establish what Business Intelligence means, how data visualization fits into the BI ecosystem, and why Tableau has become the leading data visualization tool used by analysts, PMs, and data scientists globally.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Introduction & Agenda','Course overview: 12 videos covering BI fundamentals, Tableau setup, data types, interface navigation, chart creation, and dashboard building. Goal: make you a confident Tableau user for PM data analysis.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>Introduction & Agenda</div>
+    <div class="l" onclick="openLesson('What is Business Intelligence?','BI is the process of collecting, analysing, and presenting business data to support decision-making. BI transforms raw data into actionable insights through dashboards, reports, and visualisations.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>What is Business Intelligence?</div>
+    <div class="l" onclick="openLesson('What is Data Visualization?','Data visualization is the graphical representation of information and data. Using visual elements like charts, graphs, and maps, data viz makes complex data easier to understand, analyse, and act on.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>What is Data Visualization?</div>
+    <div class="l" onclick="openLesson('Why Data Visualization Matters for PMs','PMs use data viz to: communicate product metrics to stakeholders, identify trends in user behaviour, present A/B test results, track OKR progress visually, and make roadmap decisions data-driven.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>Why Data Viz Matters</div>
+    <div class="l" onclick="openLesson('Data Visualization Tools Landscape','Major tools: Tableau (enterprise standard), Power BI (Microsoft ecosystem), Google Looker Studio (free, Google data), Metabase (open source), and built-in analytics in Amplitude/Mixpanel/Pendo.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>Data Viz Tools</div>
+    <div class="l" onclick="openLesson('What is Tableau?','Tableau is a leading data visualization platform that connects to virtually any data source and creates interactive, shareable dashboards without coding. Used by 90%+ of Fortune 500 companies.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>What is Tableau?</div>
+  </div>
+  <div class="tip">💡 PM insight: Data visualization is the bridge between raw data and business decisions. A PM who can build compelling visualisations communicates product health more powerfully than one who only shares numbers in tables.</div></div>
+</div>
+
+<div class="div">Module 2 — Tableau Setup & Data Types</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF3E6;color:#E97000">02</div><div class="mi"><div class="mt">Tableau Installation & Data Types</div><div class="ms">Setup · 6 data types · Boolean · Number · Date · String · Geographic</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers getting Tableau installed and understanding the 6 fundamental data types that Tableau works with. Data type knowledge is critical — choosing the wrong data type causes incorrect analysis and chart rendering errors.</p>
+
+  <p style="font-size:.78rem;font-weight:700;color:var(--navy);margin:.8rem 0 .4rem;">6 Tableau Data Types — Tap to Learn</p>
+  <div class="dt-grid">
+    <div class="dt-chip" onclick="openLesson('Boolean Data Type','Boolean = True or False only. Used for: binary flags (is_premium_user, has_churned, is_active). Boolean fields create yes/no filters and conditional logic in Tableau dashboards.')" style="background:#E8EEFF;color:#1F5EFF;border-color:#1F5EFF">🔵 Boolean</div>
+    <div class="dt-chip" onclick="openLesson('Number Data Type','Numbers = integers (whole numbers: 1, 2, 3) or decimals (3.14, 99.99). Used for: revenue, user counts, conversion rates, page views, session duration. Most metrics are Number type.')" style="background:#E6F5EC;color:#1A7A40;border-color:#1A7A40">🟢 Number</div>
+    <div class="dt-chip" onclick="openLesson('Date Data Type','Date = calendar date (2026-09-09). Used for: event timestamps, signup dates, transaction dates. Enables date filtering, time series charts, and cohort analysis in Tableau.')" style="background:#FFF3E6;color:#E97000;border-color:#E97000">🟠 Date</div>
+    <div class="dt-chip" onclick="openLesson('Text / String Data Type','Text/String = any sequence of characters. Used for: product names, user names, categories, URLs, error messages. Cannot perform mathematical operations on strings.')" style="background:#F0EAFF;color:#6B2DF2;border-color:#6B2DF2">🟣 Text/String</div>
+    <div class="dt-chip" onclick="openLesson('Date/Time Data Type','Date/Time = date AND time combined (2026-09-09 14:32:00). More precise than Date. Used for: event timestamps, session start/end times, API call logs. Essential for time-based user journey analysis.')" style="background:#E0F5F4;color:#0D7377;border-color:#0D7377">🔵 Date/Time</div>
+    <div class="dt-chip" onclick="openLesson('Geographic Data Type','Geographic = location data (city, state, country, postal code, lat/long). Enables map visualisations in Tableau. Used for: user distribution maps, regional sales performance, market penetration analysis.')" style="background:#FFF3E6;color:#E97000;border-color:#E97000">🗺️ Geographic</div>
+  </div>
+
+  <div class="ls" style="margin-top:.8rem">
+    <div class="l" onclick="openLesson('Tableau Installation','Tableau Desktop: full version for analysis and publishing. Tableau Public: free version for public dashboards. Tableau Reader: free for viewing. For PM use: Tableau Public is sufficient for learning and portfolio building.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Tableau Installation</div>
+    <div class="l" onclick="openLesson('Connecting to Data Sources','Tableau connects to: Excel/CSV files, SQL databases, Google Sheets, cloud databases (AWS, BigQuery), and web data connectors. Sample Superstore dataset is the built-in practice dataset.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Connecting Data Sources</div>
+    <div class="l" onclick="openLesson('Data Type Best Practices','Always verify data types after connecting. Common issues: dates stored as strings (cannot create time series), numbers stored as text (cannot calculate), postcodes stored as numbers (lose leading zeros).');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Data Type Best Practices</div>
+    <div class="l" onclick="openLesson('Sample Superstore Dataset','Built-in Tableau practice dataset covering: Customer orders, Sales by product category, Regional performance, Profit margins, Ship modes and dates. Used throughout the course for all demos.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Sample Superstore Dataset</div>
+  </div>
+  <div class="tip">💡 Tableau insight: Wrong data types = wrong analysis. If your dates are stored as strings, Tableau can't create time series. If your numbers are strings, you can't calculate averages. Always check types first.</div></div>
+</div>
+
+<div class="div">Module 3 — Tableau Interface</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E6F5EC;color:#1A7A40">03</div><div class="mi"><div class="mt">Tableau Interface Navigation</div><div class="ms">Workspace · Data pane · Columns/Rows · Marks card · Show Me</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers the Tableau workspace — every panel, shelf, and card that makes up the Tableau interface. Understanding the interface is essential before building any visualisation. Based on the Sample Superstore demo shown in the course videos.</p>
+
+  <div class="interface-map">
+    <div class="im-title">Tableau Workspace — Key Areas</div>
+    <div class="im-grid">
+      <div class="im-item" onclick="openLesson('Data Pane (Left Panel)','Left panel shows all fields from your connected data source. Divided into: Dimensions (blue — categorical fields like Category, Region, Product Name) and Measures (green — numeric fields like Sales, Profit, Quantity).')"><div class="im-label">📋 Data Pane</div><div class="im-sub">Fields from your data source</div></div>
+      <div class="im-item" onclick="openLesson('Columns & Rows Shelves','Drag fields here to define your chart axes. Columns = X-axis (horizontal). Rows = Y-axis (vertical). Example: drag Order Date to Columns, Sales to Rows = time series line chart of sales over time.')"><div class="im-label">🔲 Columns/Rows</div><div class="im-sub">Define chart axes</div></div>
+      <div class="im-item" onclick="openLesson('Marks Card','Controls the visual appearance of your chart: Color (colour by category), Size (size by value), Text (add labels), Detail (break down without changing chart type), Tooltip (customise hover information).')"><div class="im-label">🎨 Marks Card</div><div class="im-sub">Color, Size, Text, Detail, Tooltip</div></div>
+      <div class="im-item" onclick="openLesson('Show Me Panel','Right panel shows all available chart types based on the fields you have selected. Tableau recommends the best chart type. Click any chart thumbnail to instantly switch visualisation type.')"><div class="im-label">📊 Show Me</div><div class="im-sub">Chart type selector</div></div>
+      <div class="im-item" onclick="openLesson('Filters Shelf','Drag fields to Filters to narrow your analysis. Example: filter to show only West region data, or only orders from 2025. Filters apply to the current view only unless published to the data source.')"><div class="im-label">🔍 Filters</div><div class="im-sub">Narrow your data view</div></div>
+      <div class="im-item" onclick="openLesson('Pages Shelf','Splits your visualisation across multiple pages by a dimension or measure. Example: one page per year shows animated progression of data over time. Used for presenting temporal changes.')"><div class="im-label">📄 Pages Shelf</div><div class="im-sub">Paginate by dimension</div></div>
+      <div class="im-item" onclick="openLesson('Worksheet / Sheet','Each Tableau workbook tab is a Sheet containing one visualisation. Multiple sheets can be combined into a Dashboard. Sheet tabs appear at the bottom of the Tableau workspace.')"><div class="im-label">📑 Sheets</div><div class="im-sub">Individual visualisation tabs</div></div>
+      <div class="im-item" onclick="openLesson('Dashboard Tab','A Dashboard combines multiple sheets into one interactive view. Users can click on one chart to filter other charts (action filters). This is the final output shared with stakeholders.')"><div class="im-label">🖥️ Dashboard</div><div class="im-sub">Combine multiple sheets</div></div>
+    </div>
+  </div>
+
+  <div class="ls" style="margin-top:.8rem">
+    <div class="l" onclick="openLesson('Dimensions vs Measures','Dimensions (blue pills): categorical fields that describe your data — Category, Region, Customer Name. Measures (green pills): numeric fields that can be aggregated — SUM(Sales), AVG(Profit), COUNT(Orders).');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>Dimensions vs Measures</div>
+    <div class="l" onclick="openLesson('Drag and Drop Workflow','Tableau works by dragging fields from the Data Pane onto Columns, Rows, or the Marks Card. No code required. Tableau instantly renders a visualisation when fields are placed on shelves.');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>Drag & Drop Workflow</div>
+    <div class="l" onclick="openLesson('Tableau Data Source Folders','Sample Superstore fields organised into: Customer (Name, Segment), Order (Date, ID, Ship Date, Mode), Location (Country, State, City, Postal Code), Product (Category, Sub-Category, Name).');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>Data Source Folders</div>
+    <div class="l" onclick="openLesson('Creating a New Worksheet','Click the + icon at bottom of screen to create a new worksheet tab. Each worksheet is independent. New worksheets start blank — drag fields to build your visualisation from scratch.');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>Creating New Worksheets</div>
+  </div>
+  <div class="tip">💡 Tableau insight: The drag-and-drop interface is Tableau's superpower. You can build a sales-by-region bar chart in under 30 seconds — no SQL, no Python, no formulas. This is why PMs love it.</div></div>
+</div>
+
+<div class="div">Module 4 — Chart Types</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0EAFF;color:#6B2DF2">04</div><div class="mi"><div class="mt">Bar Charts, Line Charts, Histograms & Pie Charts</div><div class="ms">When to use each · How to build · Best practices · PM use cases</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The most practical module — covers the 4 core chart types every PM needs to master. Includes when to use each chart, how to build it in Tableau, and real PM use cases from product analytics.</p>
+
+  <div class="chart-grid">
+    <div class="chart-card" onclick="openModal('chart_bar')"><div class="chart-icon">📊</div><div class="chart-info"><div class="chart-name">Bar Chart</div><div class="chart-sub">Compare categories side by side</div></div></div>
+    <div class="chart-card" onclick="openModal('chart_line')"><div class="chart-icon">📈</div><div class="chart-info"><div class="chart-name">Line Chart</div><div class="chart-sub">Show trends over time</div></div></div>
+    <div class="chart-card" onclick="openModal('chart_histogram')"><div class="chart-icon">📉</div><div class="chart-info"><div class="chart-name">Histogram</div><div class="chart-sub">Show frequency distribution</div></div></div>
+    <div class="chart-card" onclick="openModal('chart_pie')"><div class="chart-icon">🥧</div><div class="chart-info"><div class="chart-name">Pie Chart</div><div class="chart-sub">Show part-to-whole proportions</div></div></div>
+  </div>
+
+  <div class="ls" style="margin-top:.8rem">
+    <div class="l" onclick="openLesson('Building a Bar Chart in Tableau','1. Drag a Dimension (e.g. Category) to Columns. 2. Drag a Measure (e.g. Sales) to Rows. 3. Tableau auto-creates a bar chart. 4. Drag another Dimension to Color to segment bars. Done in 30 seconds!');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Building Bar Charts</div>
+    <div class="l" onclick="openLesson('Building a Line Chart in Tableau','1. Drag Order Date to Columns (set to Month/Year). 2. Drag Sales to Rows. 3. Tableau creates a line chart. 4. Drag Category to Color to see separate lines per category. Classic time series!');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Building Line Charts</div>
+    <div class="l" onclick="openLesson('Building a Histogram in Tableau','1. Drag a Measure to Columns. 2. In Show Me, select Histogram. 3. Tableau automatically creates bins (buckets) and counts frequency per bin. 4. Adjust bin size by right-clicking the axis.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Building Histograms</div>
+    <div class="l" onclick="openLesson('Building a Pie Chart in Tableau','1. Drag Dimension to Color. 2. Drag Measure to Size. 3. In Show Me, select Pie Chart. 4. Add labels by dragging Measure to Label in Marks Card. Use sparingly — bar charts usually communicate better.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Building Pie Charts</div>
+    <div class="l" onclick="openLesson('Choosing the Right Chart','Comparison (categories): Bar chart. Trend over time: Line chart. Distribution: Histogram. Part of whole (max 5 slices): Pie chart. Geographic: Map. Correlation: Scatter plot. Always match chart to the question.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Choosing the Right Chart</div>
+    <div class="l" onclick="openLesson('Chart Best Practices','Always label axes. Include a title that states the insight not just the data. Use consistent colours across related charts. Remove unnecessary gridlines. Start axes at zero for bar charts. Use colour purposefully.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Chart Best Practices</div>
+  </div>
+  <div class="tip">💡 PM insight: Most PM analytics use only 3 charts: bar (compare), line (trend), and scatter (correlation). Master these three and you can answer 90% of product data questions.</div></div>
+</div>
+
+<div class="div">Module 5 — Tableau Dashboard</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E0F5F4;color:#0D7377">05</div><div class="mi"><div class="mt">Tableau Dashboard Building</div><div class="ms">Dashboard layout · Combining sheets · Filters · Actions · Sharing</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">A Dashboard in Tableau combines multiple worksheets into a single interactive view. Dashboards are the final deliverable — what stakeholders, executives, and cross-functional teams use to monitor product health and business performance.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Creating a Dashboard','Click Dashboard menu → New Dashboard. Drag sheets from the left panel onto the canvas. Resize each sheet by dragging corners. Add text boxes, images, and web pages as additional elements.');event.stopPropagation()"><span class="ld" style="background:#0D7377"></span>Creating a Dashboard</div>
+    <div class="l" onclick="openLesson('Dashboard Layout Options','Tiled layout: sheets snap to a grid (recommended for clean, structured dashboards). Floating layout: sheets can overlap and be placed anywhere (flexible but harder to maintain).');event.stopPropagation()"><span class="ld" style="background:#0D7377"></span>Dashboard Layout</div>
+    <div class="l" onclick="openLesson('Action Filters (Interactivity)','When a user clicks a bar in one chart, other charts on the dashboard filter to show data for that selection. Action filters make dashboards self-service — stakeholders can explore without PM support.');event.stopPropagation()"><span class="ld" style="background:#0D7377"></span>Action Filters</div>
+    <div class="l" onclick="openLesson('Dashboard Filters','Add global filters that apply to ALL sheets on the dashboard simultaneously. Example: a Region filter that updates every chart when a region is selected. Makes the dashboard highly interactive.');event.stopPropagation()"><span class="ld" style="background:#0D7377"></span>Dashboard Filters</div>
+    <div class="l" onclick="openLesson('Publishing & Sharing','Publish to Tableau Public (free, public) or Tableau Server/Cloud (paid, private). Share as a link, embed in a webpage, or export as PDF/image. Tableau Public dashboards can be shared with a simple URL.');event.stopPropagation()"><span class="ld" style="background:#0D7377"></span>Publishing & Sharing</div>
+    <div class="l" onclick="openLesson('PM Dashboard Examples','Useful PM dashboards: Weekly product metrics (DAU, sessions, conversions), Feature adoption by cohort, Funnel drop-off visualisation, A/B test results, NPS trend by segment, Revenue by feature/segment.');event.stopPropagation()"><span class="ld" style="background:#0D7377"></span>PM Dashboard Examples</div>
+  </div>
+  <div class="tip">💡 PM insight: A great Tableau dashboard answers the question before the stakeholder asks it. Build dashboards that give executives instant visibility into the 5-7 metrics that define product health.</div></div>
+</div>
+
+<div class="div">Module 6 — Demo: Visual Analytics & Dashboards</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E8EEFF;color:#1F5EFF">06</div><div class="mi"><div class="mt">Visual Analytics & Dashboard Demos</div><div class="ms">Hands-on demo · Sample Superstore · Real analysis workflow</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The capstone videos walk through complete, hands-on demos using the Sample Superstore dataset. Shows the full Tableau workflow from raw data to polished, shareable dashboard — exactly the process you'll follow in real PM work.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Demo: Visual Analytics Walkthrough','Full end-to-end demo: connect to Sample Superstore → explore data structure → build bar chart of Sales by Category → add colour segmentation by Region → create filters → format for clarity.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>Visual Analytics Demo</div>
+    <div class="l" onclick="openLesson('Demo: Dashboard Building Walkthrough','Build a complete executive dashboard: Sales trend (line chart) + Category breakdown (bar chart) + Regional map + KPI numbers. Add action filters so clicking one chart filters others.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>Dashboard Demo</div>
+    <div class="l" onclick="openLesson('Analysing Sample Superstore Data','Sample Superstore contains: 4 main folders (Customer, Order, Location, Product) + Parameters (Profit Bin Size, Top Customers). Perfect for practising all chart types and dashboard building.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>Sample Superstore Analysis</div>
+    <div class="l" onclick="openLesson('Real-World PM Analysis with Tableau','PM workflow: Export product data (from Amplitude/Mixpanel/database) as CSV → Connect in Tableau → Build charts for each key metric → Assemble into stakeholder dashboard → Share via link or PDF.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>PM Real-World Workflow</div>
+    <div class="l" onclick="openLesson('Tableau vs Amplitude/Mixpanel for PMs','Amplitude/Mixpanel: best for product-specific event analytics (feature adoption, funnels, retention). Tableau: best for cross-functional dashboards combining product + business data. Use both.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>Tableau vs Product Analytics</div>
+    <div class="l" onclick="openLesson('Building Your Tableau Portfolio','Create 3 public Tableau dashboards on Tableau Public to demonstrate data viz skills to hiring managers. Suggested topics: personal certification journey, product metrics simulation, market analysis.');event.stopPropagation()"><span class="ld" style="background:#1F5EFF"></span>Building Tableau Portfolio</div>
+  </div>
+  <div class="tip">💡 PM insight: A Tableau Public portfolio with 2-3 dashboards is more compelling to a data-driven hiring manager than 5 additional certifications. Show don't tell!</div></div>
+</div>
+
+<div class="div">PG Programs Overview — Additional Resources</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E6F5EC;color:#1A7A40">PG</div><div class="mi"><div class="mt">PG Programs Overview</div><div class="ms">2 Videos · 3 Resources · DSBA · AI & ML · Career Transition</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The PG Programs Overview section introduces Great Learning's advanced Post Graduate programs — providing context for how this Tableau course fits into broader data science and AI learning pathways available for career advancement.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Data Science & Business Analytics Program','Great Learning\'s flagship PG program covering: Statistics, Python, Machine Learning, Data Visualization, and Business Analytics. Designed for professionals transitioning into data-driven roles. Tableau is one of the core tools covered.');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>Data Science & Business Analytics</div>
+    <div class="l" onclick="openLesson('Career Transition with DSBA Program','The DSBA program is specifically designed for professionals like PMs, BDMs, and operations managers who want to add data science skills to their existing domain expertise. Bridges business experience with data skills.');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>Career Transition with DSBA</div>
+    <div class="l" onclick="openLesson('Artificial Intelligence & Machine Learning Program','Great Learning\'s AI & ML PG program covers: Python for AI, Machine Learning algorithms, Deep Learning, NLP, and Computer Vision. Complements the Tableau visualization skills with AI-powered analytics.');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>AI & Machine Learning Program</div>
+    <div class="l" onclick="openLesson('How Tableau Fits the Bigger Picture','Data Visualization using Tableau is a foundational skill within all data science programs. Before building ML models or AI systems, professionals must master data exploration and visualization — which is exactly what this course delivers.');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>Tableau in the Bigger Picture</div>
+    <div class="l" onclick="openLesson('PG Programs for PMs','For a PM with 22 years of experience, a PG program in DSBA or AI/ML could be the next step after certifications — adding deeper technical credibility to an already strong product and business background.');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>PG Programs for PMs</div>
+    <div class="l" onclick="openLesson('Great Learning Academy','Great Learning Academy offers free short courses (like this Tableau course) as entry points into their paid PG programs. The free courses demonstrate Great Learning\'s teaching quality and help learners decide on full programs.');event.stopPropagation()"><span class="ld" style="background:#1A7A40"></span>Great Learning Academy</div>
+  </div>
+  <div class="tip">💡 Career insight: Your 22 years of business experience + 24 certifications + a PG program in DSBA would make you one of the most comprehensively qualified PM candidates in the Indian market.</div></div>
+</div>
+
+<div class="div">Learning Material — Course Reference PDF</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF3E6;color:#E97000">📄</div><div class="mi"><div class="mt">Data Visualisation using Tableau.pdf</div><div class="ms">Course reference guide · Key concepts · Quick reference · Study material</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The official course PDF reference material covering all 12 video topics in a downloadable, readable format. Serves as a quick reference guide for all Tableau concepts covered in the course — from data types to dashboard building.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('PDF Contents: BI & Data Viz Fundamentals','PDF Section 1: What is Business Intelligence, What is Data Visualization, Data Visualization Tools landscape, and introduction to Tableau as the leading enterprise visualization platform.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>BI & Data Viz Fundamentals</div>
+    <div class="l" onclick="openLesson('PDF Contents: Tableau Setup','PDF Section 2: Tableau installation guide, connecting to data sources, understanding the Tableau workspace, and the Sample Superstore dataset overview.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Tableau Setup Guide</div>
+    <div class="l" onclick="openLesson('PDF Contents: Data Types Reference','PDF Section 3: Complete reference for all 6 Tableau data types — Boolean, Number, Date, Text/String, Date/Time, and Geographic — with examples and common use cases for each.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Data Types Reference</div>
+    <div class="l" onclick="openLesson('PDF Contents: Interface Guide','PDF Section 4: Annotated guide to the Tableau interface — Data Pane, Columns/Rows shelves, Marks Card, Filters, Pages, Show Me panel, and worksheet navigation.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Interface Guide</div>
+    <div class="l" onclick="openLesson('PDF Contents: Chart Types Guide','PDF Section 5: Step-by-step instructions for building Bar Charts, Line Charts, Histograms, and Pie Charts — including when to use each and Tableau-specific build steps.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Chart Types Guide</div>
+    <div class="l" onclick="openLesson('PDF Contents: Dashboard Building','PDF Section 6: Complete dashboard building reference — creating dashboards, adding sheets, applying filters, setting up action filters, and publishing/sharing to Tableau Public.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Dashboard Building Guide</div>
+    <div class="l" onclick="openLesson('Using the PDF as Quick Reference','The PDF is your go-to study companion when revising Tableau concepts without re-watching videos. Use it before PM interviews to quickly refresh: data types, chart selection rules, and dashboard building steps.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>Using PDF as Quick Reference</div>
+    <div class="l" onclick="openLesson('PDF for Interview Preparation','Before any PM interview where data visualization may be discussed: review the PDF\'s chart selection guide and data types section. Being able to articulate WHEN to use each chart type impresses interviewers.');event.stopPropagation()"><span class="ld" style="background:#E97000"></span>PDF for Interview Prep</div>
+  </div>
+  <div class="tip">💡 Study tip: Download and save the PDF alongside this flowchart. Together they form your complete Tableau reference — the flowchart for interactive exploration, the PDF for quick reading revision.</div></div>
+</div>
+
+<div class="div">Data Visualization Best Practices for PMs</div>
+<div class="grid2">
+  <div class="card" onclick="openModal('bp1')" style="border-color:rgba(31,94,255,.3)"><div class="card-icon">🎯</div><div class="card-title" style="color:#1F5EFF">Choose the Right Chart</div><div class="card-sub">Match chart type to the question you're answering</div></div>
+  <div class="card" onclick="openModal('bp2')" style="border-color:rgba(26,122,64,.3)"><div class="card-icon">🔍</div><div class="card-title" style="color:#1A7A40">Tell a Story</div><div class="card-sub">Lead with insight, support with data</div></div>
+  <div class="card" onclick="openModal('bp3')" style="border-color:rgba(233,112,0,.3)"><div class="card-icon">⚡</div><div class="card-title" style="color:#E97000">Keep it Simple</div><div class="card-sub">Remove chart junk — every element must earn its place</div></div>
+  <div class="card" onclick="openModal('bp4')" style="border-color:rgba(107,45,242,.3)"><div class="card-icon">📱</div><div class="card-title" style="color:#6B2DF2">Design for Audience</div><div class="card-sub">Executive dashboard ≠ analyst deep-dive</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🏆</div>
+  <div class="cn">Data Visualization using Tableau</div>
+  <div class="cn2">Shubhasish Dutta — Great Learning</div>
+  <div class="csub">Quiz Score: 9/10 · 12 Videos · Sept 2026 · Cert #24 · The Final Certification!</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  m1:{tag:"Core Module",title:"Business Intelligence & Data Visualization",desc:"The foundational concepts that underpin all data visualization work — understanding what BI is and why visualization is its most powerful communication tool.",points:["BI = collecting, analysing, and presenting data for decisions","Data visualization makes complex data instantly comprehensible","PMs use viz for: stakeholder communication, roadmap decisions, OKR tracking","Tableau is the enterprise standard for interactive data visualization","Data visualization is a PM superpower — most PMs can't do it well","Mastering viz differentiates you in PM interviews and on the job"],tip:"💡 The PM who can visualise data clearly and compellingly has an enormous advantage. Executives make decisions faster when they can see the data, not just read it."},
+  m2:{tag:"Core Module",title:"Tableau Fundamentals",desc:"The practical skills needed to get started in Tableau — installation, data connection, and understanding the 6 data types that determine how you can analyse your data.",points:["6 data types: Boolean, Number, Date, Text/String, Date/Time, Geographic","Tableau connects to 100+ data sources without coding","Data type errors cause analysis failures — always verify first","Sample Superstore = built-in practice dataset for all exercises","Dimensions (blue) = categorical fields; Measures (green) = numeric fields","Tableau Public is free — sufficient for learning and portfolio building"],tip:"💡 The biggest beginner mistake in Tableau is wrong data types. Spend 5 minutes verifying types after connecting data and save hours of troubleshooting."},
+  m3:{tag:"Core Module",title:"Charts & Dashboards",desc:"The heart of the course — building the 4 core chart types and combining them into executive dashboards that drive business decisions.",points:["4 core chart types: Bar (comparison), Line (trend), Histogram (distribution), Pie (proportion)","Bar charts: most versatile and most commonly needed in PM work","Line charts: essential for tracking metrics over time (DAU, revenue, retention)","Histograms: understand distribution of values (session length, purchase amounts)","Dashboards combine multiple charts with interactive action filters","Publish to Tableau Public for free portfolio building and sharing"],tip:"💡 Start with bar and line charts. These two alone will cover 80% of your PM data communication needs. Add histogram and pie as needed for specific use cases."},
+  m4:{tag:"Core Module",title:"PM Applications of Data Visualization",desc:"How Tableau and data visualization skills translate directly into stronger PM decision-making, stakeholder communication, and career prospects.",points:["Build product health dashboards stakeholders actually use","Visualise A/B test results for faster, clearer decision-making","Create feature adoption heatmaps from product analytics data","Present roadmap rationale with data visualisation backing","Connect to Amplitude/Mixpanel exports for rich product dashboards","Tableau portfolio = tangible proof of data skills for PM job applications"],tip:"💡 Asish — your combination of Amplitude + Mixpanel + Google Analytics + Tableau certs makes you a genuinely data-literate PM candidate. That's rare and valuable!"},
+  chart_bar:{tag:"Chart Type",title:"Bar Chart",desc:"The most versatile and widely used chart type. Use bar charts whenever you need to compare values across categories.",points:["Use when: comparing categories, ranking items, showing before/after","Horizontal bars: best when category names are long","Vertical bars: best for time-based categories (months, quarters)","Add colour segmentation to show sub-categories within each bar","Stacked bars: show composition within each category","PM use cases: feature usage by segment, revenue by product, NPS by region"],tip:"💡 If in doubt, use a bar chart. It's the clearest, most universally understood data visualisation for comparison tasks."},
+  chart_line:{tag:"Chart Type",title:"Line Chart",desc:"The definitive chart for showing how metrics change over time. Essential for tracking any time-series product metric.",points:["Use when: showing trends over time, tracking metric performance","X-axis = time (days, weeks, months, quarters, years)","Y-axis = the metric being tracked (DAU, revenue, conversion rate)","Multiple lines = multiple metrics or segments on the same time axis","Smoothed lines: reduce noise for clearer trend visibility","PM use cases: DAU trend, revenue growth, feature adoption over time, retention curves"],tip:"💡 Line charts are the PM's most important chart. Every weekly product review should include a time-series line chart of your North Star Metric."},
+  chart_histogram:{tag:"Chart Type",title:"Histogram",desc:"Shows the distribution of a numeric variable — how frequently different value ranges occur. Reveals whether data is normally distributed, skewed, or bimodal.",points:["Use when: understanding distribution of values, finding outliers","X-axis = value ranges (bins), Y-axis = frequency (count)","Tableau automatically creates bins — can adjust bin size manually","Normal distribution: bell curve shape — most values clustered in middle","Right-skewed: most users have low values, few have very high (typical for session length)","PM use cases: session length distribution, purchase amounts, NPS score distribution"],tip:"💡 Histograms reveal what averages hide. 'Average session length is 5 minutes' tells you nothing. A histogram showing the distribution tells you if most sessions are 1 minute or 10 minutes."},
+  chart_pie:{tag:"Chart Type",title:"Pie Chart",desc:"Shows part-to-whole proportions — what percentage each category contributes to the total. Use sparingly and carefully.",points:["Use when: showing composition of a total (max 5 categories)","Each slice = one category's proportion of the whole","Humans are poor at estimating angles — hard to compare similar-sized slices","Never use with more than 5-6 categories — becomes unreadable","Bar chart is usually clearer for the same data","PM use cases: platform split (iOS/Android/Web), user tier breakdown, revenue by product line"],tip:"💡 Pie charts are overused and often misleading. Before using a pie chart, ask: would a bar chart communicate this more clearly? Usually the answer is yes."},
+  bp1:{tag:"Best Practice",title:"Choose the Right Chart",desc:"Matching chart type to your analytical question is the most important data visualization decision.",points:["Comparison (which is bigger?): Bar chart","Trend over time (how is it changing?): Line chart","Distribution (how spread out?): Histogram","Part of whole (what % is each?): Pie chart (max 5 categories)","Correlation (does A relate to B?): Scatter plot","Geographic (where?): Map visualisation"],tip:"💡 Wrong chart type = misleading insights, even with correct data. A pie chart showing 8 categories tells nobody anything. Match the chart to the question."},
+  bp2:{tag:"Best Practice",title:"Tell a Story with Data",desc:"The most impactful visualisations don't just show data — they tell a clear, actionable story.",points:["Lead with the insight: title should state the conclusion, not just describe the data","'Sales Declined 23% in Q3' beats 'Q3 Sales by Month'","Annotate key events on line charts (feature launches, campaigns)","Highlight the most important data point with colour or size","Remove or dim data that doesn't support the narrative","End with a clear implication: 'This means we should...'"],tip:"💡 Data storytelling is a skill that compounds over your career. Every chart you build is an opportunity to practice turning numbers into narratives."},
+  bp3:{tag:"Best Practice",title:"Keep It Simple",desc:"The best visualisations remove every element that doesn't add information value.",points:["Remove gridlines if they don't help reading","Remove 3D effects — they distort data and look amateur","Avoid dual-axis charts unless absolutely necessary","Use direct labels instead of legends where possible","Limit colour palette to 3-4 colours maximum","'Chart junk' = decorative elements that add noise, not signal. Kill them all."],tip:"💡 Edward Tufte's rule: maximise the data-ink ratio. Every drop of ink on the chart should encode information. Remove everything that doesn't."},
+  bp4:{tag:"Best Practice",title:"Design for Your Audience",desc:"The right chart for a data scientist is wrong for a CEO. Always design for who will read the visualisation.",points:["Executive dashboard: 5-7 top-level KPIs, minimal detail, mobile-friendly","Analyst deep-dive: multiple linked charts, filters, drill-down capability","Engineering team: technical metrics, real-time if possible","Sales team: customer-level data, pipeline views, regional breakdowns","Investors: growth metrics, retention, unit economics","Design for the decision, not the data: what action should this chart drive?"],tip:"💡 Before building any dashboard, ask: who is this for and what decision will it help them make? The answer determines every design choice."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

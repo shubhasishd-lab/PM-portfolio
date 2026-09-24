@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Fluency for Small Businesses — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F0EB;--card:#FFFFFF;--border:#E8E0D5;--navy:#1A1A1A;--teal:#0F6E56;--teal-l:#E1F5EE;--orange:#C2410C;--orange-l:#FFF0EB;--purple:#5B21B6;--purple-l:#EDE9FE;--blue:#1D4ED8;--blue-l:#EFF6FF;--gold:#92400E;--gold-l:#FEF3C7;--gray:#6B7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;}
+header{background:linear-gradient(135deg,#0F6E56,#1A4A3A);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05);}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.htag{font-size:.63rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,5vw,3rem);color:#fff;line-height:1.1;margin-bottom:.5rem;}
+header h1 em{color:#A7F3D0;font-style:italic;}
+header p{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:1.5rem;}
+.score-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;}
+.sc{font-size:.73rem;font-weight:500;padding:.3rem .9rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(245,158,11,.2);border-color:rgba(245,158,11,.4);color:#FCD34D;}
+.partners{background:#fff;border-bottom:1px solid var(--border);padding:1rem 1.5rem;text-align:center;}
+.p-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:.7rem;}
+.p-row{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+.p-item{font-size:.78rem;font-weight:600;color:var(--navy);}
+main{max-width:700px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:2rem 0 1rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.fourd-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.5rem;}
+.fourd-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1.1rem;cursor:pointer;transition:all .2s;text-align:center;}
+.fourd-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,110,86,.15);}
+.fd-icon{font-size:2rem;margin-bottom:.4rem;}
+.fd-title{font-size:.9rem;font-weight:700;margin-bottom:.2rem;}
+.fd-sub{font-size:.72rem;color:var(--gray);line-height:1.4;}
+.loop-box{background:var(--navy);border-radius:16px;padding:1.5rem;margin:1rem 0;display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+.loop-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:.9rem;cursor:pointer;transition:all .2s;text-align:center;}
+.loop-item:hover{background:rgba(15,110,86,.2);border-color:rgba(167,243,208,.3);transform:translateY(-2px);}
+.li-title{font-size:.82rem;font-weight:600;color:#fff;margin-bottom:.2rem;}
+.li-sub{font-size:.7rem;color:rgba(255,255,255,.5);line-height:1.35;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:16px;margin-bottom:.75rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 6px 20px rgba(15,110,86,.1);}
+.mod.open{border-color:var(--teal);}
+.mod-head{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;}
+.mn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.15rem;}
+.ms{font-size:.72rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.85rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--teal);}
+.mod-body{display:none;padding:0 1.3rem 1.3rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.86rem;line-height:1.65;color:#444;padding:1rem 0 .8rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-top:.5rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font-size:.73rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.4rem;cursor:pointer;transition:all .15s;line-height:1.35;}
+.l:hover{background:var(--teal-l);border-color:var(--teal);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tip{margin-top:1rem;padding:.75rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--teal-l);border:1px solid rgba(15,110,86,.2);color:var(--teal);}
+.cert{background:linear-gradient(135deg,#0F6E56,#1A4A3A);border-radius:20px;padding:2rem;text-align:center;margin-top:2rem;}
+.cert-icon{font-size:2.5rem;margin-bottom:.5rem;}
+.cn{font-family:'DM Serif Display',serif;font-size:1.3rem;color:#A7F3D0;margin-bottom:.3rem;}
+.cn2{font-size:.95rem;font-weight:600;color:#fff;margin-bottom:.3rem;}
+.csub{font-size:.75rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,26,26,.75);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.2);animation:pop .22s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:20px 20px 0 0;}
+.modal-tag{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);margin-bottom:.3rem;}
+.modal-title{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:28px;height:28px;border-radius:50%;font-size:.8rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1.2rem 1.5rem 1.5rem;}
+.modal-desc{font-size:.88rem;line-height:1.65;color:#444;margin-bottom:1rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.modal-list li{display:flex;gap:.6rem;font-size:.84rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--teal);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1.2rem;padding:.8rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--teal-l);color:var(--teal);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Anthropic</span><span class="htag">PayPal</span><span class="htag">Prospect Butcher</span><span class="htag">MAKS TIPM</span></div>
+  <h1>AI Fluency for<br><em>Small Businesses</em></h1>
+  <p>Complete Interactive Guide · 4 Sections · 9 Lectures · The 4D Framework</p>
+  <div class="score-row"><span class="sc gold">Certified ✓</span><span class="sc">Anthropic Academy</span><span class="sc">June 2026</span><span class="sc">Free Certificate</span></div>
+</header>
+
+<div class="partners">
+  <div class="p-title">Built in partnership with</div>
+  <div class="p-row">
+    <div class="p-item">🔵 Anthropic</div>
+    <div class="p-item">💙 PayPal</div>
+    <div class="p-item">🥩 Prospect Butcher Co.</div>
+    <div class="p-item">⚙️ MAKS TIPM Rebuilders</div>
+  </div>
+</div>
+
+<main>
+
+<div class="div">The 4D Framework — Core of This Course</div>
+<div class="fourd-grid">
+  <div class="fourd-card" onclick="openModal('d1')" style="border-color:rgba(91,33,182,.3)">
+    <div class="fd-icon">🎯</div>
+    <div class="fd-title" style="color:#5B21B6">Delegation</div>
+    <div class="fd-sub">Deciding which tasks to hand off to AI and which to keep human</div>
+  </div>
+  <div class="fourd-card" onclick="openModal('d2')" style="border-color:rgba(29,78,216,.3)">
+    <div class="fd-icon">✍️</div>
+    <div class="fd-title" style="color:#1D4ED8">Description</div>
+    <div class="fd-sub">Writing clear, context-rich prompts that get the right AI outputs</div>
+  </div>
+  <div class="fourd-card" onclick="openModal('d3')" style="border-color:rgba(15,110,86,.3)">
+    <div class="fd-icon">🔍</div>
+    <div class="fd-title" style="color:#0F6E56">Discernment</div>
+    <div class="fd-sub">Critically evaluating AI outputs before using or sharing them</div>
+  </div>
+  <div class="fourd-card" onclick="openModal('d4')" style="border-color:rgba(194,65,12,.3)">
+    <div class="fd-icon">🛡️</div>
+    <div class="fd-title" style="color:#C2410C">Diligence</div>
+    <div class="fd-sub">Using AI responsibly, ethically, and safely in your business</div>
+  </div>
+</div>
+
+<div class="div">2 Core AI Loops</div>
+<div class="loop-box">
+  <div class="loop-item" onclick="openModal('loop1')">
+    <div class="li-title">📝 Description–Discernment Loop</div>
+    <div class="li-sub">Prompt well → Evaluate critically → Refine → Repeat</div>
+  </div>
+  <div class="loop-item" onclick="openModal('loop2')">
+    <div class="li-title">🔄 Delegation–Diligence Loop</div>
+    <div class="li-sub">Decide what AI does → Verify responsibly → Act</div>
+  </div>
+</div>
+
+<div class="div">4 Sections · 9 Lectures</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EDE9FE;color:#5B21B6">01</div><div class="mi"><div class="mt">Introduction & The AI Fluency Framework</div><div class="ms">4D Framework · AI Fluency definition · Values & goals</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Introduces AI Fluency and the 4D Framework — Delegation, Description, Discernment, and Diligence. Establishes why small businesses need a structured approach to AI collaboration and how to ground every AI interaction in your business values.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is AI Fluency?','AI Fluency is the ability to collaborate with AI systems effectively, efficiently, ethically, and safely. It\'s not about coding — it\'s about working with AI as a capable but imperfect partner.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>What is AI Fluency?</div>
+    <div class="l" onclick="openLesson('The 4D Framework Overview','Delegation (what to hand off), Description (how to communicate), Discernment (how to evaluate), Diligence (how to act responsibly). All four work together — none alone is enough.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>4D Framework Overview</div>
+    <div class="l" onclick="openLesson('Articulating Your Business Values','Before using AI, define: what your business stands for, what constraints you operate under, and what customer experience you want to deliver. This context shapes every AI interaction.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Business Values & AI</div>
+    <div class="l" onclick="openLesson('Small Business AI Opportunity','Small businesses can now access AI capabilities previously only available to large enterprises — levelling the playing field against bigger competitors with larger teams.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Small Business AI Opportunity</div>
+    <div class="l" onclick="openLesson('The AI Fluency Course Structure','4 sections: Framework intro → How AI works → Using AI in practice → Putting it all together. Each section builds on the previous one for a complete AI fluency skill set.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Course Structure</div>
+  </div>
+  <div class="tip">💡 Key insight: AI Fluency is a skill, not a personality trait. Anyone can develop it with the right framework and consistent practice.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EFF6FF;color:#1D4ED8">02</div><div class="mi"><div class="mt">How AI Works</div><div class="ms">Next-token prediction · Context window · AI limitations</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Builds a practical mental model of how AI works — without technical jargon. Covers next-token prediction, the context window, and why AI can be confidently wrong. Uses an interactive next-token simulator to make abstract concepts tangible.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Next-Token Prediction','AI generates text one token at a time by predicting what word should come next based on patterns in training data. This is why AI sounds fluent but can still be factually wrong.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Next-Token Prediction</div>
+    <div class="l" onclick="openLesson('The AI Context Window','The context window is AI\'s working memory — everything you\'ve shared in the conversation. AI only knows what\'s in the window. Each new chat starts fresh with no memory.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>The Context Window</div>
+    <div class="l" onclick="openLesson('Why AI Gets Things Wrong','AI can hallucinate — confidently stating false information. Causes: training data gaps, ambiguous prompts, or questions that push past the model\'s knowledge boundaries.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Why AI Gets Things Wrong</div>
+    <div class="l" onclick="openLesson('Building Confidence Through Iteration','Start small: test AI on low-stakes tasks first. Compare AI outputs against your own knowledge. Build confidence in AI capabilities by observing where it excels and where it struggles.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Building AI Confidence</div>
+    <div class="l" onclick="openLesson('AI Capabilities vs Limitations Spectrum','AI excels at: summarisation, drafting, brainstorming, translation. AI struggles with: real-time information, physical world tasks, consistent factual accuracy, and nuanced judgment.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Capabilities vs Limitations</div>
+  </div>
+  <div class="tip">💡 Key insight: Understanding HOW AI works makes you a better user. You\'ll know when to trust it, when to verify it, and when to do the task yourself.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E1F5EE;color:#0F6E56">03</div><div class="mi"><div class="mt">Using AI in Practice</div><div class="ms">Description-Discernment loop · Delegation-Diligence loop · Real tasks</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The most practical module — applies the 4D Framework to real small business tasks. Covers the Description-Discernment loop for research tasks and the Delegation-Diligence loop for working with customer data. Includes real examples from Prospect Butcher Co. and MAKS TIPM Rebuilders.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Description: Context-Rich Prompting','Include in every prompt: who you are, your business context, what you need, format required, and any constraints. More context = better output. Vague prompts waste time.');event.stopPropagation()"><span class="ld" style="background:#0F6E56"></span>Context-Rich Prompting</div>
+    <div class="l" onclick="openLesson('Discernment: Evaluating AI Research','When AI provides research: verify key facts independently, check for recency, look for bias or gaps, and always apply your own domain expertise before acting on AI output.');event.stopPropagation()"><span class="ld" style="background:#0F6E56"></span>Evaluating AI Research</div>
+    <div class="l" onclick="openLesson('The Description-Discernment Loop','Describe clearly → Get AI output → Discern critically → Refine description → Better output → Discern again. This iterative loop is the engine of effective AI collaboration.');event.stopPropagation()"><span class="ld" style="background:#0F6E56"></span>Description-Discernment Loop</div>
+    <div class="l" onclick="openLesson('Delegation: Working with Customer Data','Before delegating tasks involving customer data to AI: check data privacy rules, anonymise PII where possible, understand your AI tool\'s data retention policy.');event.stopPropagation()"><span class="ld" style="background:#0F6E56"></span>Delegation & Customer Data</div>
+    <div class="l" onclick="openLesson('Diligence: Responsible Data Handling','Diligence means: never share customer PII with public AI tools, understand what data your AI stores, maintain human oversight of AI outputs that affect customers.');event.stopPropagation()"><span class="ld" style="background:#0F6E56"></span>Responsible Data Handling</div>
+    <div class="l" onclick="openLesson('Real Example: Prospect Butcher Co.','The Brooklyn butcher shop used AI to streamline vendor billing workflows — saving hours of manual work while keeping human oversight on all customer-facing communications.');event.stopPropagation()"><span class="ld" style="background:#0F6E56"></span>Prospect Butcher Case Study</div>
+  </div>
+  <div class="tip">💡 Key insight: The Description-Discernment loop is the most valuable daily habit you can build. Master it and AI becomes genuinely useful, not just occasionally helpful.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF0EB;color:#C2410C">04</div><div class="mi"><div class="mt">Putting It All Together</div><div class="ms">AI workflow · AI policy · Next steps · Certificate</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Brings all four dimensions of the 4D Framework together to build a repeatable AI workflow for your business and create a short, practical AI use policy for your team. Closes with next steps and certificate of completion.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Building Your AI Workflow','Map your 3 most time-consuming tasks → identify which the 4D Framework applies to → design a repeatable AI-augmented workflow → test and refine it over 2 weeks.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Building Your AI Workflow</div>
+    <div class="l" onclick="openLesson('Writing Your AI Use Policy','A good small business AI policy covers: which tools are approved, what data can be shared, who reviews AI outputs, and how to handle AI mistakes. Keep it to one page.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Writing an AI Use Policy</div>
+    <div class="l" onclick="openLesson('The Human in the Loop','AI augments human judgment — it doesn\'t replace it. Always maintain human oversight for: customer communications, financial decisions, and anything with legal implications.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Human in the Loop</div>
+    <div class="l" onclick="openLesson('Real Example: MAKS TIPM Rebuilders','The automotive power-module rebuilder used AI to improve customer communication and parts sourcing research — freeing up technical staff time for higher-value work.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>MAKS TIPM Case Study</div>
+    <div class="l" onclick="openLesson('Next Steps After This Course','Complete AI Fluency: Framework & Foundations for deeper understanding. Experiment with Claude.ai on one real business task daily. Share learnings with your team.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Next Steps</div>
+    <div class="l" onclick="openLesson('Certificate of Completion','9 lectures, 1 quiz, 0.9 hours of video. Free certificate from Anthropic Academy powered by Skilljar. Add to LinkedIn to demonstrate AI fluency to employers and clients.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Certificate of Completion</div>
+  </div>
+  <div class="tip">🏆 Shubhasish Dutta — AI Fluency for Small Businesses · Anthropic Academy · June 2026</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">✅</div>
+  <div class="cn">AI Fluency for Small Businesses</div>
+  <div class="cn2">Shubhasish Dutta — Anthropic Academy</div>
+  <div class="csub">Anthropic · PayPal · Prospect Butcher · MAKS TIPM · June 2026</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  d1:{tag:"4D Framework",title:"Delegation",desc:"Delegation is the skill of deciding which tasks are appropriate to hand off to AI — and which require human judgment, expertise, or accountability.",points:["Ideal for AI: repetitive writing, research summaries, drafting templates, brainstorming","Keep human: final customer decisions, sensitive communications, legal and financial matters","Start with low-stakes tasks to build confidence before delegating important work","Consider: what happens if AI gets this wrong? If the answer is serious, keep it human","Delegation is not abdication — you remain responsible for AI outputs you use","Good delegation saves time; poor delegation creates problems you have to fix later"],tip:"💡 For your SD Enterprise background Asish — AI can handle supplier research, draft emails, and summarise market data. Keep human oversight on all customer relationships."},
+  d2:{tag:"4D Framework",title:"Description",desc:"Description is the art of writing clear, context-rich prompts that consistently get high-quality AI outputs — the most learnable and impactful AI skill.",points:["Include: who you are, your business context, the specific task, format needed, and constraints","More context always produces better results — don't assume AI knows your situation","Use examples to show AI the style and format you want","Be specific about the audience: 'write for a non-technical customer' changes everything","Iterate: treat the first output as a draft, not a final product","Save effective prompts as templates for recurring tasks"],tip:"💡 The 4D Framework was built with real small business owners — the Description principles apply directly to your pharmaceutical distribution and BDM work."},
+  d3:{tag:"4D Framework",title:"Discernment",desc:"Discernment is the critical thinking skill of evaluating AI outputs before using, sharing, or acting on them — the most important safeguard in AI collaboration.",points:["Always verify factual claims, especially statistics, citations, and specific data","Check: does this match my knowledge of the business, customer, or market?","Look for: hallucinations, outdated information, missing nuance, or inappropriate tone","Apply domain expertise: AI doesn't know your specific business context the way you do","If something feels off — it probably is. Trust your instincts and verify","Discernment improves with practice: the more you use AI, the better you get at spotting issues"],tip:"💡 Discernment is your most valuable AI skill. It's what separates professionals who use AI effectively from those who get burned by it."},
+  d4:{tag:"4D Framework",title:"Diligence",desc:"Diligence is using AI responsibly, ethically, and safely — protecting your customers, your business, and your reputation in everything AI touches.",points:["Never share customer PII (names, contact details, financial info) with public AI tools","Understand your AI tool's data retention and privacy policy before using it","Maintain a human in the loop for decisions that affect customers or legal obligations","Disclose AI use where appropriate — transparency builds trust with customers","Create a simple AI use policy for your team: approved tools, data rules, oversight requirements","Document AI usage so you can audit and improve your processes over time"],tip:"💡 Diligence is what makes AI sustainable. One privacy breach or factual error can damage a small business's reputation far more than it saves in productivity."},
+  loop1:{tag:"AI Loop",title:"Description–Discernment Loop",desc:"The core daily habit of effective AI collaboration — a continuous cycle of prompting well and evaluating critically.",points:["Step 1: DESCRIBE — write a clear, context-rich prompt with all relevant information","Step 2: GET OUTPUT — receive AI's response without immediately accepting it","Step 3: DISCERN — critically evaluate: Is it accurate? Appropriate? Complete?","Step 4: REFINE — improve your description based on what was missing or wrong","Step 5: REPEAT — iterate until the output meets your standard","This loop makes AI collaboration faster and more reliable over time"],tip:"💡 Most people skip the Discernment step — they accept AI output too quickly. The loop is what makes AI collaboration professional rather than risky."},
+  loop2:{tag:"AI Loop",title:"Delegation–Diligence Loop",desc:"The framework for deciding what to hand to AI and ensuring it's used responsibly — especially when customer data or sensitive business information is involved.",points:["Step 1: DELEGATE — decide this task is appropriate for AI assistance","Step 2: PROVIDE CONTEXT — share only what AI needs, protecting sensitive data","Step 3: GET OUTPUT — receive AI's contribution to the task","Step 4: EXERCISE DILIGENCE — verify, check for privacy issues, apply judgment","Step 5: ACT — use the verified output responsibly in your business","Step 6: REVIEW — assess the outcome and refine your delegation criteria"],tip:"💡 The Delegation-Diligence loop is especially important for customer-facing tasks. Always ask: 'Would my customer be comfortable knowing AI was involved in this?'"}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

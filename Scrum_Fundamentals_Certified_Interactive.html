@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scrum Fundamentals Certified (SFC) — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F0FDF4;--card:#FFF;--border:#BBF7D0;--navy:#052E16;--green:#16A34A;--green-l:#DCFCE7;--blue:#1D4ED8;--blue-l:#EFF6FF;--orange:#EA580C;--orange-l:#FFF7ED;--purple:#7C3AED;--purple-l:#F5F3FF;--red:#DC2626;--red-l:#FEF2F2;--teal:#0F766E;--teal-l:#F0FDFA;--gold:#B45309;--gold-l:#FFFBEB;--gray:#6B7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--navy);}
+header{background:linear-gradient(135deg,#052E16,#166534,#16A34A);padding:2.5rem 2rem 2rem;text-align:center;}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.htag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:800;line-height:1.1;margin-bottom:.4rem;}
+header h1 span{color:#86EFAC;}
+header p{color:rgba(255,255,255,.6);font-size:.8rem;margin-bottom:1.2rem;}
+.score-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.sc{font-size:.7rem;font-weight:500;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);}
+.sc.gold{background:rgba(250,204,21,.2);border-color:rgba(250,204,21,.4);color:#FDE047;}
+.stats{background:#fff;border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;justify-content:center;gap:2.5rem;flex-wrap:wrap;text-align:center;}
+.stat-num{font-size:1.4rem;font-weight:800;color:var(--green);}
+.stat-lbl{font-size:.62rem;color:var(--gray);text-transform:uppercase;letter-spacing:.08em;}
+main{max-width:700px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:1.8rem 0 .8rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .2s;text-align:center;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(22,163,74,.15);}
+.card-icon{font-size:1.4rem;margin-bottom:.3rem;}
+.card-title{font-size:.8rem;font-weight:700;margin-bottom:.1rem;}
+.card-sub{font-size:.65rem;color:var(--gray);line-height:1.3;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:14px;margin-bottom:.65rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 4px 16px rgba(22,163,74,.1);}
+.mod.open{border-color:var(--green);}
+.mod-head{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;}
+.mn{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.12rem;}
+.ms{font-size:.7rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.82rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--green);}
+.mod-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.83rem;line-height:1.6;color:#444;padding:.9rem 0 .7rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.45rem .65rem;font-size:.7rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.35rem;cursor:pointer;transition:all .15s;line-height:1.3;}
+.l:hover{background:var(--green-l);border-color:var(--green);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.tip{margin-top:.9rem;padding:.7rem .9rem;border-radius:8px;font-size:.75rem;line-height:1.5;font-style:italic;background:var(--green-l);border:1px solid rgba(22,163,74,.2);color:var(--green);}
+.process-grid{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem;}
+.process-item{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.45rem .65rem;font-size:.68rem;color:var(--navy);font-weight:500;cursor:pointer;transition:all .15s;line-height:1.3;}
+.process-item:hover{background:var(--gold-l);border-color:var(--gold);color:var(--gold);}
+.cert{background:linear-gradient(135deg,#052E16,#16A34A);border-radius:16px;padding:1.8rem;text-align:center;margin-top:1.8rem;}
+.cert-icon{font-size:2rem;margin-bottom:.4rem;}
+.cn{font-size:1.1rem;font-weight:800;color:#86EFAC;margin-bottom:.2rem;}
+.cn2{font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.2rem;}
+.csub{font-size:.7rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(5,46,22,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:16px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.25);animation:pop .2s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.2rem 1.3rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:16px 16px 0 0;}
+.modal-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:.25rem;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:26px;height:26px;border-radius:50%;font-size:.78rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1rem 1.3rem 1.3rem;}
+.modal-desc{font-size:.85rem;line-height:1.6;color:#444;margin-bottom:.9rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.modal-list li{display:flex;gap:.55rem;font-size:.82rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--green);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1rem;padding:.75rem .9rem;border-radius:8px;font-size:.76rem;line-height:1.5;font-style:italic;background:var(--green-l);color:var(--green);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">SCRUMstudy</span><span class="htag">SFC™</span><span class="htag">SBOK Guide</span><span class="htag">Cert #13</span></div>
+  <h1>Scrum Fundamentals<br><span>Certified (SFC™)</span></h1>
+  <p>6 Principles · 5 Aspects · 19 Processes · 3 Roles · 5 Ceremonies · 3 Artifacts · 5 Phases</p>
+  <div class="score-row"><span class="sc gold">Certified ✓</span><span class="sc">August 10 2026</span><span class="sc">ID: 1180588</span><span class="sc">SCRUMstudy</span></div>
+</header>
+
+<div class="stats">
+  <div><div class="stat-num">6</div><div class="stat-lbl">Principles</div></div>
+  <div><div class="stat-num">5</div><div class="stat-lbl">Aspects</div></div>
+  <div><div class="stat-num">19</div><div class="stat-lbl">Processes</div></div>
+  <div><div class="stat-num">5</div><div class="stat-lbl">Phases</div></div>
+  <div><div class="stat-num">3</div><div class="stat-lbl">Roles</div></div>
+</div>
+
+<main>
+
+<!-- 6 PRINCIPLES -->
+<div class="div">6 Scrum Principles — The Foundation</div>
+<div class="grid2">
+  <div class="card" onclick="openModal('pr1')" style="border-color:rgba(22,163,74,.3)"><div class="card-icon">🔍</div><div class="card-title" style="color:#16A34A">Empirical Process Control</div><div class="card-sub">Transparency, Inspection & Adaptation</div></div>
+  <div class="card" onclick="openModal('pr2')" style="border-color:rgba(29,78,216,.3)"><div class="card-icon">🤝</div><div class="card-title" style="color:#1D4ED8">Self-Organisation</div><div class="card-sub">Teams decide HOW to do the work</div></div>
+  <div class="card" onclick="openModal('pr3')" style="border-color:rgba(124,58,237,.3)"><div class="card-icon">🤜</div><div class="card-title" style="color:#7C3AED">Collaboration</div><div class="card-sub">Awareness, Articulation & Appropriation</div></div>
+  <div class="card" onclick="openModal('pr4')" style="border-color:rgba(234,88,12,.3)"><div class="card-icon">🎯</div><div class="card-title" style="color:#EA580C">Value-Based Prioritisation</div><div class="card-sub">Highest value items first, always</div></div>
+  <div class="card" onclick="openModal('pr5')" style="border-color:rgba(15,118,110,.3)"><div class="card-icon">⏱️</div><div class="card-title" style="color:#0F766E">Time-boxing</div><div class="card-sub">Fixed-length events create focus & rhythm</div></div>
+  <div class="card" onclick="openModal('pr6')" style="border-color:rgba(220,38,38,.3)"><div class="card-icon">🔄</div><div class="card-title" style="color:#DC2626">Iterative Development</div><div class="card-sub">Build in short cycles, inspect & adapt</div></div>
+</div>
+
+<!-- 5 ASPECTS -->
+<div class="div">5 Scrum Aspects</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EFF6FF;color:#1D4ED8">A1</div><div class="mi"><div class="mt">Organisation</div><div class="ms">Scrum roles · Core team · Non-core stakeholders</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Organisation aspect covers all roles in a Scrum project — both the Scrum Core Team (who do the work) and the non-core stakeholders (who have an interest in the outcome).</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Scrum Core Team','3 roles: Product Owner (owns backlog & value), Scrum Master (servant leader & coach), Scrum Team (builds the product). All three are essential — no role is optional.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Scrum Core Team</div>
+    <div class="l" onclick="openLesson('Product Owner','Owns the Product Backlog. Prioritises by value. Accepts or rejects deliverables. Single voice for the product. Cannot be a committee.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Product Owner</div>
+    <div class="l" onclick="openLesson('Scrum Master','Servant leader. Facilitates ceremonies. Removes impediments. Protects team from interference. Coaches on Scrum. NOT a project manager.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Scrum Master</div>
+    <div class="l" onclick="openLesson('Scrum Team','Self-organising, cross-functional. 3-9 members. Decides HOW to do the work. Owns the Sprint Backlog. Collectively accountable for delivery.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Scrum Team</div>
+    <div class="l" onclick="openLesson('Non-Core Stakeholders','Stakeholder (customer/user/sponsor), Vendors, Scrum Guidance Body. They influence but don\'t directly participate in sprint execution.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Non-Core Stakeholders</div>
+    <div class="l" onclick="openLesson('Chief Product Owner','For large programmes with multiple Scrum teams: Chief Product Owner coordinates between team-level Product Owners. Manages the Programme Product Backlog.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Chief Product Owner</div>
+  </div>
+  <div class="tip">💡 Scrum insight: Clear role definition prevents the #1 Scrum failure mode — people reverting to traditional command-and-control behaviours under pressure.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#DCFCE7;color:#16A34A">A2</div><div class="mi"><div class="mt">Business Justification</div><div class="ms">Value-driven delivery · ROI · Business case</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Business Justification aspect ensures every Scrum project is driven by demonstrable business value. The Product Owner is accountable for ensuring the project remains justified throughout its life — not just at the start.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Value-Driven Delivery','Scrum prioritises delivering the highest business value features first. If a project must stop early, the most valuable features have already been delivered.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Value-Driven Delivery</div>
+    <div class="l" onclick="openLesson('Business Case','The initial justification for starting a Scrum project. Includes: expected benefits, costs, risks, and timeline. Product Owner owns and maintains the business case throughout.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Business Case</div>
+    <div class="l" onclick="openLesson('Continuous Justification','Unlike waterfall (justify once at start), Scrum requires continuous re-evaluation: is this project still worth doing? Product Owner reassesses after each sprint.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Continuous Justification</div>
+    <div class="l" onclick="openLesson('Expected Benefits','Tangible: revenue, cost savings, market share. Intangible: brand value, customer satisfaction, employee morale. Both matter for business justification.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Expected Benefits</div>
+  </div>
+  <div class="tip">💡 Scrum insight: Business justification is not a one-time exercise. If a project stops delivering value, Scrum gives the Product Owner the authority to terminate it early.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF7ED;color:#EA580C">A3</div><div class="mi"><div class="mt">Quality</div><div class="ms">Definition of Done · Acceptance criteria · Continuous improvement</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Quality in Scrum means delivering a product that meets acceptance criteria and achieves the business outcomes expected. Quality is everyone's responsibility — not just testers.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Definition of Done (DoD)','A shared team agreement on what "complete" means for any backlog item. Must include: coded, tested, documented, peer-reviewed, and meets acceptance criteria. DoD prevents "done but broken".');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Definition of Done</div>
+    <div class="l" onclick="openLesson('Acceptance Criteria','Specific conditions an item must meet to be accepted by the Product Owner. Written BEFORE development starts. Prevents scope disagreements at demo time.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Acceptance Criteria</div>
+    <div class="l" onclick="openLesson('Continuous Quality','Quality is built in — not inspected in at the end. Daily code reviews, continuous integration, test-driven development, and pair programming are all Scrum-compatible quality practices.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Continuous Quality</div>
+    <div class="l" onclick="openLesson('Technical Debt','Shortcuts taken to meet sprint deadlines accumulate as Technical Debt. Unaddressed technical debt slows future delivery. Scrum teams should allocate backlog capacity to debt reduction.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Technical Debt</div>
+  </div>
+  <div class="tip">💡 Scrum insight: Quality cannot be traded for speed. A team that ships broken software faster is not a high-performing team — they\'re creating problems for the future.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F5F3FF;color:#7C3AED">A4</div><div class="mi"><div class="mt">Change</div><div class="ms">Embracing change · Change management · Adaptability</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Scrum is designed to embrace change rather than resist it. Changes in requirements are expected and welcome — the Product Backlog can be updated at any time, and the team adapts sprint by sprint.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Welcoming Change','Agile Manifesto: "Responding to change over following a plan." Scrum\'s short sprint cycles mean changes can be incorporated quickly — typically within 1-4 weeks.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Welcoming Change</div>
+    <div class="l" onclick="openLesson('Change to Product Backlog','Product Owner can add, remove, or reprioritise backlog items between sprints. No formal change request process needed. Backlog is always current.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Backlog Changes</div>
+    <div class="l" onclick="openLesson('Sprint Scope Protection','While the Product Backlog can change freely between sprints, the Sprint Backlog is protected during execution. Only the team can add work to an active sprint.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Sprint Protection</div>
+    <div class="l" onclick="openLesson('Sprint Cancellation','Only the Product Owner can cancel a sprint — only in extreme cases where the Sprint Goal becomes obsolete. Rare but possible. Team regroups and plans a new sprint.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Sprint Cancellation</div>
+  </div>
+  <div class="tip">💡 Scrum insight: Change is not the enemy — it\'s reality. Scrum\'s genius is making change cheap by reducing the cost of each iteration.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDFA;color:#0F766E">A5</div><div class="mi"><div class="mt">Risk</div><div class="ms">Risk identification · Assessment · Mitigation · Adaptation</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Risk management in Scrum is continuous and built into the framework. Short sprint cycles naturally reduce risk by producing working software frequently and enabling early detection of problems.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Risk Identification','Risks are identified throughout the project — in sprint planning, daily standups, reviews, and retrospectives. Not just at project start. Product Owner maintains a risk register.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Risk Identification</div>
+    <div class="l" onclick="openLesson('Risk Assessment','Assess risks by: probability (how likely?) and impact (how damaging?). High probability + high impact = top priority for mitigation. Quantify where possible.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Risk Assessment</div>
+    <div class="l" onclick="openLesson('Risk Mitigation Strategies','4 strategies: Avoid (eliminate the risk), Mitigate (reduce probability/impact), Transfer (shift risk to third party), Accept (acknowledge and monitor).');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Risk Mitigation</div>
+    <div class="l" onclick="openLesson('Iterative Risk Reduction','Each sprint reduces risk by delivering working software. The further you progress, the more certainty you have about the final product. Scrum naturally de-risks projects over time.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Iterative Risk Reduction</div>
+  </div>
+  <div class="tip">💡 Scrum insight: Scrum is inherently risk-reducing. Short sprints mean problems surface quickly — long before they become project-ending crises.</div></div>
+</div>
+
+<!-- 19 PROCESSES across 5 PHASES -->
+<div class="div">19 Scrum Processes — Across 5 Phases</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EFF6FF;color:#1D4ED8">P1</div><div class="mi"><div class="mt">Initiate Phase — 6 Processes</div><div class="ms">Vision · Team · Backlog · Stakeholders</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Initiate phase establishes the foundation. 6 processes create the project vision, identify the team, develop Epics, and set up the initial Product Backlog.</p>
+  <div class="process-grid">
+    <div class="process-item" onclick="openLesson('1. Create Project Vision','Define the WHY. The Project Vision Statement guides all project decisions. Created by the Product Owner with sponsor/stakeholder input. Should be inspiring and clear.')">1. Create Project Vision</div>
+    <div class="process-item" onclick="openLesson('2. Identify Scrum Master & Stakeholders','Select Scrum Master based on servant leadership skills. Identify all stakeholders and their communication preferences. Document in the Stakeholder Register.')">2. Identify SM & Stakeholders</div>
+    <div class="process-item" onclick="openLesson('3. Form Scrum Team','Select cross-functional team of 3-9 members. Ensure all skills needed to deliver are present. Team should be co-located where possible for maximum collaboration.')">3. Form Scrum Team</div>
+    <div class="process-item" onclick="openLesson('4. Develop Epics','Translate the Project Vision into high-level requirements (Epics). Epics are large user stories that will be broken down in later phases. Document in the Epic List.')">4. Develop Epics</div>
+    <div class="process-item" onclick="openLesson('5. Create Prioritised Product Backlog','Break Epics into User Stories and prioritise by business value, risk, and dependencies. This becomes the master list of all product requirements. Owned by Product Owner.')">5. Create Prioritised Backlog</div>
+    <div class="process-item" onclick="openLesson('6. Conduct Release Planning','Create a high-level plan for when features will be released. Based on team velocity estimates and backlog size. Provides stakeholder predictability without rigid commitments.')">6. Release Planning</div>
+  </div>
+  <div class="tip">💡 Phase 1 insight: The Project Vision is the North Star for the entire project. Invest time getting it right — everything else follows from it.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#DCFCE7;color:#16A34A">P2</div><div class="mi"><div class="mt">Plan & Estimate Phase — 6 Processes</div><div class="ms">Stories · Estimation · Sprint planning · Commitment</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Plan & Estimate phase takes the Product Backlog and turns it into an executable sprint plan. 6 processes cover user story creation, estimation, task breakdown, and sprint commitment.</p>
+  <div class="process-grid">
+    <div class="process-item" onclick="openLesson('7. Create User Stories','Break Epics into User Stories: As a [user], I want [action], so that [benefit]. Each story should be completable within a single sprint. Apply INVEST criteria.')">7. Create User Stories</div>
+    <div class="process-item" onclick="openLesson('8. Approve, Estimate & Commit User Stories','Product Owner approves stories. Team estimates using Story Points (Planning Poker/Fibonacci). Team commits to stories they can complete in one sprint.')">8. Approve, Estimate & Commit</div>
+    <div class="process-item" onclick="openLesson('9. Create Tasks','Break User Stories into tasks (1-12 hours each). Tasks are the atomic unit of sprint execution. Team members self-assign tasks during the sprint.')">9. Create Tasks</div>
+    <div class="process-item" onclick="openLesson('10. Estimate Tasks','Estimate task duration in hours. Used for daily burndown tracking. Task estimates made by the person who will do the work — not by managers.')">10. Estimate Tasks</div>
+    <div class="process-item" onclick="openLesson('11. Create Sprint Backlog','Finalise the list of User Stories + Tasks for the upcoming sprint. Sprint Backlog is the team\'s commitment and daily work guide for the sprint.')">11. Create Sprint Backlog</div>
+    <div class="process-item" onclick="openLesson('12. Update Release Plan','Update the Release Plan based on sprint commitments and any changes to priorities or team velocity. Keeps stakeholders informed of delivery forecasts.')">12. Update Release Plan</div>
+  </div>
+  <div class="tip">💡 Phase 2 insight: Good estimation is a team skill — it improves with practice. Never let managers override team estimates. The team does the work; the team estimates the work.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF7ED;color:#EA580C">P3</div><div class="mi"><div class="mt">Implement Phase — 4 Processes</div><div class="ms">Sprint execution · Standup · Impediments · Deliverables</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Implement phase is where value is created. 4 processes govern sprint execution, daily synchronisation, impediment removal, and deliverable production.</p>
+  <div class="process-grid">
+    <div class="process-item" onclick="openLesson('13. Create Deliverables','Team builds the Sprint Backlog items into working software. Self-organises around tasks. Updates the Scrum Board daily to reflect task status (To Do → In Progress → Done).')">13. Create Deliverables</div>
+    <div class="process-item" onclick="openLesson('14. Conduct Daily Standup','15-minute daily synchronisation. 3 questions: What did I do yesterday? What will I do today? Any impediments? Scrum Master facilitates and logs impediments.')">14. Daily Standup</div>
+    <div class="process-item" onclick="openLesson('15. Groom Prioritised Product Backlog','Ongoing backlog refinement during the sprint. Product Owner and team refine upcoming stories: add detail, re-estimate, split large stories, reprioritise. ~10% of sprint capacity.')">15. Groom Product Backlog</div>
+    <div class="process-item" onclick="openLesson('16. Update Sprint Burndown Chart','Daily update showing remaining work vs time remaining. Healthy burndown trends toward zero. Flat or rising burndown triggers immediate team discussion and replanning.')">16. Update Burndown Chart</div>
+  </div>
+  <div class="tip">💡 Phase 3 insight: The Scrum Board (physical or digital) is the team\'s heartbeat during sprint execution. It makes work visible, surfaces blockers, and creates shared accountability.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F5F3FF;color:#7C3AED">P4</div><div class="mi"><div class="mt">Review & Retrospect Phase — 2 Processes</div><div class="ms">Sprint review · Retrospective · Inspect & adapt</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Review & Retrospect phase closes each sprint with inspection and adaptation — the two most powerful words in Scrum. 2 processes drive product improvement and team improvement simultaneously.</p>
+  <div class="process-grid">
+    <div class="process-item" onclick="openLesson('17. Demonstrate & Validate Sprint','Sprint Review: demonstrate working software to stakeholders. Only Done items shown. Product Owner accepts or rejects deliverables. Stakeholders provide feedback. Backlog updated.')">17. Demonstrate & Validate</div>
+    <div class="process-item" onclick="openLesson('18. Retrospect Sprint','Sprint Retrospective: what went well? What didn\'t? What to improve? Safe space. 3 hours max for 4-week sprint. Produces 1-3 committed improvements for next sprint.')">18. Retrospect Sprint</div>
+  </div>
+  <div class="tip">💡 Phase 4 insight: These 2 processes — Review and Retrospect — are what make Scrum a learning system. Teams that skip them stop improving and eventually stop delivering value.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FEF2F2;color:#DC2626">P5</div><div class="mi"><div class="mt">Release Phase — 1 Process</div><div class="ms">Ship · Working agreement · Lessons learned</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Release phase covers shipping the Potentially Shippable Product Increment to end users. 1 process governs the release decision, documentation, and lessons learned capture.</p>
+  <div class="process-grid">
+    <div class="process-item" onclick="openLesson('19. Ship Deliverables','Product Owner decides to release. Working software shipped to users. Release retrospective captures lessons across multiple sprints. Product Roadmap and backlog updated. Celebrate the team!')">19. Ship Deliverables</div>
+  </div>
+  <div class="tip">💡 Phase 5 insight: In best-practice Scrum, every sprint produces a potentially shippable increment. The business decides when to actually ship — but the team is always ready.</div></div>
+</div>
+
+<!-- 3 ROLES -->
+<div class="div">3 Scrum Roles · 5 Ceremonies · 3 Artifacts</div>
+<div class="grid3">
+  <div class="card" onclick="openModal('r1')" style="border-color:rgba(29,78,216,.3)"><div class="card-icon">👑</div><div class="card-title" style="color:#1D4ED8">Product Owner</div><div class="card-sub">Backlog · Value · Acceptance</div></div>
+  <div class="card" onclick="openModal('r2')" style="border-color:rgba(22,163,74,.3)"><div class="card-icon">🛡️</div><div class="card-title" style="color:#16A34A">Scrum Master</div><div class="card-sub">Facilitate · Coach · Remove</div></div>
+  <div class="card" onclick="openModal('r3')" style="border-color:rgba(124,58,237,.3)"><div class="card-icon">👥</div><div class="card-title" style="color:#7C3AED">Scrum Team</div><div class="card-sub">Build · Self-organise · Deliver</div></div>
+</div>
+<div class="grid3">
+  <div class="card" onclick="openModal('a1')" style="border-color:rgba(234,88,12,.3)"><div class="card-icon">📦</div><div class="card-title" style="color:#EA580C">Product Backlog</div><div class="card-sub">All requirements · PO owned</div></div>
+  <div class="card" onclick="openModal('a2')" style="border-color:rgba(22,163,74,.3)"><div class="card-icon">📋</div><div class="card-title" style="color:#16A34A">Sprint Backlog</div><div class="card-sub">Sprint commitment · Team owned</div></div>
+  <div class="card" onclick="openModal('a3')" style="border-color:rgba(29,78,216,.3)"><div class="card-icon">🚀</div><div class="card-title" style="color:#1D4ED8">Product Increment</div><div class="card-sub">Working software · Every sprint</div></div>
+</div>
+
+<!-- 5 SCRUM VALUES -->
+<div class="div">5 Scrum Values</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#DCFCE7;color:#16A34A">V</div><div class="mi"><div class="mt">Commitment · Courage · Focus · Openness · Respect</div><div class="ms">The behavioural foundation of effective Scrum</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The 5 Scrum Values are not guidelines — they are the cultural bedrock that makes Scrum work. When teams live these values, trust is built, ceremonies become meaningful, and delivery accelerates.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Commitment','Personal commitment to Sprint Goals and team objectives. Not just task commitment — commitment to the team\'s success as a whole. Shared commitment creates mutual accountability.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Commitment</div>
+    <div class="l" onclick="openLesson('Courage','Courage to: raise impediments early, give honest retrospective feedback, say no to mid-sprint scope changes, challenge unproductive processes, and escalate when needed.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Courage</div>
+    <div class="l" onclick="openLesson('Focus','Everyone focuses on the Sprint Goal. Minimise context switching. One thing at a time. Say no to work outside the Sprint Backlog. Focus is what makes sprints productive.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Focus</div>
+    <div class="l" onclick="openLesson('Openness','Open about: progress, blockers, concerns, and failures. No surprises in the Sprint Review. Transparency enables early problem detection and builds stakeholder trust.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Openness</div>
+    <div class="l" onclick="openLesson('Respect','Respect each other\'s skills, time, and autonomy. Scrum Master respects team self-organisation. Product Owner respects team estimates. Team respects the Sprint Goal.');event.stopPropagation()"><span class="ld" style="background:#16A34A"></span>Respect</div>
+  </div>
+  <div class="tip">💡 Scrum insight: When Scrum fails, it\'s almost always a values failure — not a process failure. Build the culture first; the process follows.</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🏆</div>
+  <div class="cn">Scrum Fundamentals Certified (SFC™)</div>
+  <div class="cn2">Shubhasish Dutta — SCRUMstudy</div>
+  <div class="csub">6 Principles · 5 Aspects · 19 Processes · August 10 2026 · ID: 1180588 · Cert #13</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  pr1:{tag:"Scrum Principle",title:"Empirical Process Control",desc:"The foundation of Scrum — based on three pillars: Transparency (everyone sees the truth), Inspection (regularly examine progress), and Adaptation (change when needed).",points:["Transparency: work, progress, and blockers visible to all","Inspection: every ceremony is an inspection point","Adaptation: sprint review updates the backlog; retro updates the process","Empirical means evidence-based — not plan-based","Opposite of predictive (waterfall) planning","This principle makes Scrum honest and self-correcting"],tip:"💡 The three pillars (Transparency, Inspection, Adaptation) appear in the SFC exam. Know them and their corresponding Scrum ceremonies."},
+  pr2:{tag:"Scrum Principle",title:"Self-Organisation",desc:"Scrum teams decide HOW to accomplish their work. No manager tells them how to do the technical work — they self-organise around the Sprint Goal.",points:["Teams choose their own approach to completing Sprint Backlog","Self-organisation increases innovation, motivation, and accountability","Manager's role: provide context and resources, not instructions","Product Owner defines WHAT; team decides HOW","Self-organising teams outperform traditionally managed teams","Requires psychological safety and managerial trust to work"],tip:"💡 Self-organisation is the most challenging principle for organisations coming from traditional management. It requires a genuine culture shift."},
+  pr3:{tag:"Scrum Principle",title:"Collaboration",desc:"Scrum values collaboration over negotiation. Three dimensions: Awareness (understand each other's work), Articulation (communicate clearly), Appropriation (adapt together).",points:["Awareness: team members understand each other's work and progress","Articulation: explicit, clear communication — especially about blockers","Appropriation: adapt and build on each other's contributions","Co-location maximises collaboration effectiveness","Daily Standup is the primary collaboration synchronisation tool","Cross-functional teams enable collaboration without hand-offs"],tip:"💡 Collaboration in Scrum means the team succeeds or fails together. Individual heroics are a red flag — they mask systemic problems."},
+  pr4:{tag:"Scrum Principle",title:"Value-Based Prioritisation",desc:"The Product Backlog is always ordered by business value. The highest-value items are always worked on first, ensuring maximum ROI even if the project ends early.",points:["Product Owner prioritises by: business value, risk, dependencies, stakeholder feedback","High-value items at the top are small and well-defined","Low-value items at the bottom can be large and vague — may never be built","If project stops early, highest-value features are already delivered","Value can be: revenue, cost savings, risk reduction, user satisfaction","Reprioritisation between sprints allows response to changing market conditions"],tip:"💡 Value-based prioritisation is what separates Product Owners from project managers. It requires understanding business strategy, not just managing a task list."},
+  pr5:{tag:"Scrum Principle",title:"Time-boxing",desc:"All Scrum events have a fixed maximum duration (timebox). Time-boxes create focus, prevent perfectionism, and establish a predictable rhythm.",points:["Sprint: 1-4 weeks (most common: 2 weeks)","Sprint Planning: 8 hours for 4-week sprint","Daily Standup: 15 minutes, every day","Sprint Review: 4 hours for 4-week sprint","Sprint Retrospective: 3 hours for 4-week sprint","Shorter sprints = shorter ceremonies proportionally"],tip:"💡 Time-boxing is Scrum's forcing function. Without it, meetings expand to fill all available time and work expands indefinitely."},
+  pr6:{tag:"Scrum Principle",title:"Iterative Development",desc:"Scrum builds products in short iterations (sprints), producing working software each time. Each iteration incorporates feedback and improves on the previous.",points:["1-4 week sprints produce a Potentially Shippable Product Increment","Each sprint builds on the previous — cumulative delivery of value","Stakeholder feedback incorporated between sprints","Mistakes are caught early — not at the end of a long project","Iterative development enables course correction before it's too late","The earlier a defect or wrong assumption is found, the cheaper it is to fix"],tip:"💡 Iterative development is why Scrum products align with user needs better than waterfall — users see and react to real software, not requirements documents."},
+  r1:{tag:"Scrum Role",title:"Product Owner",desc:"The single voice of the business and users — responsible for maximising product value through expert backlog management.",points:["Owns and prioritises the Product Backlog","Creates and communicates the Product Vision","Writes User Stories and Acceptance Criteria (or reviews them)","Only role that can accept or reject sprint deliverables","Attends Sprint Planning, Sprint Review, and Backlog Refinement","Must be available to the team daily for questions and decisions"],tip:"💡 The Product Owner is the most business-critical role in Scrum. A weak PO creates chaotic, low-value sprints. A strong PO creates focused, high-value delivery."},
+  r2:{tag:"Scrum Role",title:"Scrum Master",desc:"The servant leader who enables the team to perform at their best by removing obstacles, facilitating ceremonies, and coaching on Scrum.",points:["Servant leader — influence through coaching, not authority","Facilitates all 5 Scrum ceremonies","Removes impediments — same day if possible","Protects the team from external interference during sprints","Coaches the organisation on Scrum values and principles","Helps Product Owner maintain a healthy, well-refined backlog"],tip:"💡 The Scrum Master's power is indirect. They succeed by making everyone else more effective — not by controlling work or making decisions."},
+  r3:{tag:"Scrum Role",title:"Scrum Team",desc:"The cross-functional, self-organising team that builds the product. Collectively accountable for Sprint Goal delivery.",points:["Self-organising: decides HOW to do the work","Cross-functional: has all skills to deliver without external dependencies","3-9 members — optimal for communication and collaboration","No titles or sub-teams within the Scrum Team","Owns the Sprint Backlog — external parties cannot add to it mid-sprint","Estimates effort — no manager can override team estimates"],tip:"💡 The Scrum Team's size limit (3-9) is not arbitrary. Smaller = communication overhead; larger = coordination overhead. 5-7 is the sweet spot for most teams."},
+  a1:{tag:"Scrum Artifact",title:"Product Backlog",desc:"The single ordered list of everything needed in the product. The Product Owner's primary tool for managing product direction and value delivery.",points:["Owned exclusively by the Product Owner","Contains: User Stories, Epics, Bugs, Tech Debt, Research tasks","Ordered by: business value, risk, and dependencies","Top items: small, well-defined, estimated","Bottom items: large, vague — may be refined or dropped","Never complete — always evolving with the product and market"],tip:"💡 A well-maintained Product Backlog is a Product Owner's superpower. It makes strategy visible, priorities clear, and planning fast."},
+  a2:{tag:"Scrum Artifact",title:"Sprint Backlog",desc:"The set of Product Backlog items selected for the sprint, plus the plan for delivering them. Created in Sprint Planning; owned by the Scrum Team.",points:["Created during Sprint Planning by the Scrum Team","Contains: selected User Stories + breakdown into Tasks","Owned by Scrum Team — NOT the Product Owner","Locked during sprint — protected from external scope changes","Updated daily to reflect actual remaining work","Visible to everyone on a Scrum Board (physical or digital)"],tip:"💡 Protect the Sprint Backlog from scope creep. Every mid-sprint addition reduces the team's chance of achieving the Sprint Goal."},
+  a3:{tag:"Scrum Artifact",title:"Potentially Shippable Product Increment",desc:"The cumulative sum of all completed Product Backlog items at the end of a sprint — always in a usable, working state.",points:["Produced every sprint — no exceptions","Must meet the Definition of Done for every included item","Additive: each sprint's increment builds on all previous sprints","'Potentially shippable' = could be released immediately if business chooses","Quality is non-negotiable — incomplete items are excluded","The Product Owner decides IF and WHEN to actually release to users"],tip:"💡 The Potentially Shippable Increment is Scrum's core promise. Every 1-4 weeks, real working software exists — not just progress reports."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

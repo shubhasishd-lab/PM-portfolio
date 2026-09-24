@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amplitude Foundations Analytics — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF8F5;--card:#FFFFFF;--border:#FFD4C2;--navy:#1A0A00;--orange:#E8540A;--orange-l:#FFF0EB;--blue:#1B6FD8;--blue-l:#EFF6FF;--purple:#7C3AED;--purple-l:#F5F3FF;--teal:#0F766E;--teal-l:#F0FDFA;--green:#15803D;--green-l:#F0FDF4;--pink:#BE185D;--pink-l:#FDF2F8;--gray:#6B7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;}
+header{background:linear-gradient(135deg,#1A0A00,#3D1500,#E8540A);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.05);}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.htag{font-size:.63rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(1.8rem,5vw,3rem);color:#fff;font-weight:800;line-height:1.1;margin-bottom:.5rem;}
+header h1 span{color:#FFB494;}
+header p{color:rgba(255,255,255,.55);font-size:.85rem;margin-bottom:1.5rem;}
+.score-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;}
+.sc{font-size:.73rem;font-weight:500;padding:.3rem .9rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(245,158,11,.2);border-color:rgba(245,158,11,.4);color:#FCD34D;}
+.analytics-flow{background:#fff;border-bottom:1px solid var(--border);padding:1.8rem 1.5rem;text-align:center;}
+.af-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:1.2rem;}
+.af-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;max-width:640px;margin:0 auto;}
+.afstep{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer;transition:transform .2s;}
+.afstep:hover{transform:translateY(-3px);}
+.afcircle{width:56px;height:56px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:2px solid;transition:box-shadow .2s;}
+.afstep:hover .afcircle{box-shadow:0 6px 20px rgba(0,0,0,.15);}
+.aflabel{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.afarrow{font-size:1.1rem;color:#ccc;margin:0 .2rem;padding-bottom:1.2rem;}
+main{max-width:700px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:2rem 0 1rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.5rem;}
+.chart-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1rem;cursor:pointer;transition:all .2s;text-align:center;}
+.chart-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(232,84,10,.12);border-color:var(--orange);}
+.cc-icon{font-size:1.5rem;margin-bottom:.3rem;}
+.cc-title{font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:.1rem;}
+.cc-sub{font-size:.7rem;color:var(--gray);line-height:1.3;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:16px;margin-bottom:.75rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 6px 20px rgba(232,84,10,.1);}
+.mod.open{border-color:var(--orange);}
+.mod-head{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;}
+.mn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.15rem;}
+.ms{font-size:.72rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.85rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--orange);}
+.mod-body{display:none;padding:0 1.3rem 1.3rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.86rem;line-height:1.65;color:#444;padding:1rem 0 .8rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-top:.5rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font-size:.73rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.4rem;cursor:pointer;transition:all .15s;line-height:1.35;}
+.l:hover{background:var(--orange-l);border-color:var(--orange);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tip{margin-top:1rem;padding:.75rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--orange-l);border:1px solid rgba(232,84,10,.2);color:var(--orange);}
+.cert{background:linear-gradient(135deg,#1A0A00,#3D1500,#E8540A);border-radius:20px;padding:2rem;text-align:center;margin-top:2rem;}
+.cert-badge{font-size:3rem;margin-bottom:.5rem;}
+.cn{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:800;color:#FFB494;margin-bottom:.3rem;}
+.cn2{font-size:.95rem;font-weight:600;color:#fff;margin-bottom:.3rem;}
+.csub{font-size:.75rem;color:rgba(255,255,255,.5);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,10,0,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.3);animation:pop .22s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:20px 20px 0 0;}
+.modal-tag{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:.3rem;}
+.modal-title{font-family:'Space Grotesk',sans-serif;font-size:1.2rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:28px;height:28px;border-radius:50%;font-size:.8rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1.2rem 1.5rem 1.5rem;}
+.modal-desc{font-size:.88rem;line-height:1.65;color:#444;margin-bottom:1rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.modal-list li{display:flex;gap:.6rem;font-size:.84rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--orange);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1.2rem;padding:.8rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--orange-l);color:var(--orange);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Amplitude Academy</span><span class="htag">Foundations</span><span class="htag">Analytics Badge</span></div>
+  <h1>Amplitude <span>Foundations</span><br>Analytics</h1>
+  <p>Complete Interactive Guide · Events · Properties · Charts · Cohorts · Global Chat</p>
+  <div class="score-row"><span class="sc gold">Badge Earned ✓</span><span class="sc">Amplitude Academy</span><span class="sc">June 2026</span><span class="sc">Foundations Level</span></div>
+</header>
+
+<div class="analytics-flow">
+  <div class="af-title">The Amplitude Analytics Workflow</div>
+  <div class="af-row">
+    <div class="afstep" onclick="openModal('af1')"><div class="afcircle" style="background:#FFF0EB;border-color:#E8540A">📡</div><span class="aflabel" style="color:#E8540A">Instrument</span></div>
+    <div class="afarrow">→</div>
+    <div class="afstep" onclick="openModal('af2')"><div class="afcircle" style="background:#EFF6FF;border-color:#1B6FD8">📊</div><span class="aflabel" style="color:#1B6FD8">Analyse</span></div>
+    <div class="afarrow">→</div>
+    <div class="afstep" onclick="openModal('af3')"><div class="afcircle" style="background:#F5F3FF;border-color:#7C3AED">👥</div><span class="aflabel" style="color:#7C3AED">Segment</span></div>
+    <div class="afarrow">→</div>
+    <div class="afstep" onclick="openModal('af4')"><div class="afcircle" style="background:#F0FDFA;border-color:#0F766E">🤖</div><span class="aflabel" style="color:#0F766E">Ask AI</span></div>
+    <div class="afarrow">→</div>
+    <div class="afstep" onclick="openModal('af5')"><div class="afcircle" style="background:#F0FDF4;border-color:#15803D">🎯</div><span class="aflabel" style="color:#15803D">Decide</span></div>
+  </div>
+  <p style="font-size:.72rem;color:#aaa;margin-top:1rem">Tap any step to explore</p>
+</div>
+
+<main>
+
+<div class="div">8 Core Amplitude Chart Types</div>
+<div class="chart-grid">
+  <div class="chart-card" onclick="openModal('chart_segmentation')"><div class="cc-icon">📈</div><div class="cc-title">Segmentation</div><div class="cc-sub">Track any event over time by user property</div></div>
+  <div class="chart-card" onclick="openModal('chart_funnel')"><div class="cc-icon">🔽</div><div class="cc-title">Funnel</div><div class="cc-sub">Measure conversion between key steps</div></div>
+  <div class="chart-card" onclick="openModal('chart_retention')"><div class="cc-icon">🔄</div><div class="cc-title">Retention</div><div class="cc-sub">See how many users return over time</div></div>
+  <div class="chart-card" onclick="openModal('chart_journey')"><div class="cc-icon">🗺️</div><div class="cc-title">Journeys</div><div class="cc-sub">Visualise actual paths users take</div></div>
+  <div class="chart-card" onclick="openModal('chart_revenue')"><div class="cc-icon">💰</div><div class="cc-title">Revenue LTV</div><div class="cc-sub">Track revenue and lifetime value by cohort</div></div>
+  <div class="chart-card" onclick="openModal('chart_compass')"><div class="cc-icon">🧭</div><div class="cc-title">Compass</div><div class="cc-sub">Find the feature most correlated with retention</div></div>
+  <div class="chart-card" onclick="openModal('chart_impact')"><div class="cc-icon">⚡</div><div class="cc-title">Impact Analysis</div><div class="cc-sub">Measure feature impact on retention</div></div>
+  <div class="chart-card" onclick="openModal('chart_experiment')"><div class="cc-icon">🧪</div><div class="cc-title">Experiment Results</div><div class="cc-sub">Analyse A/B test results statistically</div></div>
+</div>
+
+<div class="div">5 Modules — Full Curriculum</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF0EB;color:#E8540A">01</div><div class="mi"><div class="mt">Events & Properties — The Foundation</div><div class="ms">Events · Properties · Taxonomy · Instrumentation</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The bedrock of all Amplitude analytics. Everything in Amplitude is built on Events and Properties. Understanding how they work, how to name them, and how to structure them is the most important foundational skill for any Amplitude user.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is an Event?','An event is any action a user takes in your product: clicked_button, viewed_page, completed_checkout. Events are the raw data that power all Amplitude analysis.');event.stopPropagation()"><span class="ld" style="background:#E8540A"></span>What is an Event?</div>
+    <div class="l" onclick="openLesson('What is an Event Property?','Properties add context to events. event: purchased_item. properties: item_name, price, category, payment_method. Properties let you slice and filter your analysis.');event.stopPropagation()"><span class="ld" style="background:#E8540A"></span>Event Properties</div>
+    <div class="l" onclick="openLesson('What is a User Property?','User properties describe who the user is: plan_type, country, signup_date, role. They persist across events and allow powerful segmentation by user characteristics.');event.stopPropagation()"><span class="ld" style="background:#E8540A"></span>User Properties</div>
+    <div class="l" onclick="openLesson('Event Naming Best Practices','Use object_action format: report_exported, feature_clicked, account_created. Consistent naming prevents taxonomy drift and makes analysis much faster.');event.stopPropagation()"><span class="ld" style="background:#E8540A"></span>Event Naming Convention</div>
+    <div class="l" onclick="openLesson('Active Events vs Inactive Events','Active events fire regularly. Inactive events haven\'t fired in 30+ days. Review inactive events regularly — they may indicate feature abandonment or instrumentation issues.');event.stopPropagation()"><span class="ld" style="background:#E8540A"></span>Active vs Inactive Events</div>
+    <div class="l" onclick="openLesson('What are Group Properties?','Group properties describe accounts or organisations (not individual users). Essential for B2B analytics: company_size, industry, plan_tier, contract_value.');event.stopPropagation()"><span class="ld" style="background:#E8540A"></span>Group Properties (B2B)</div>
+    <div class="l" onclick="openLesson('Amplitude Taxonomy Design','A taxonomy is your complete naming system for events and properties. Good taxonomy = fast, reliable analysis. Bad taxonomy = conflicting data, wrong conclusions.');event.stopPropagation()"><span class="ld" style="background:#E8540A"></span>Taxonomy Design</div>
+    <div class="l" onclick="openLesson('Data Governance in Amplitude','Governance prevents event sprawl. Use Amplitude\'s Data product to define, document, and manage your taxonomy centrally across all teams.');event.stopPropagation()"><span class="ld" style="background:#E8540A"></span>Data Governance</div>
+  </div>
+  <div class="tip">💡 Amplitude insight: Garbage taxonomy = garbage analysis. Invest time upfront defining your events and properties correctly — it saves months of confusion later.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EFF6FF;color:#1B6FD8">02</div><div class="mi"><div class="mt">Charts & Analysis — Building Insights</div><div class="ms">Chart types · Metrics · Filters · Breakdowns</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The most comprehensive module — covers all 8 Amplitude chart types and how to use them to answer specific product questions. Teaches how to apply filters, breakdowns, and date ranges to extract precise insights from your data.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Segmentation Chart','The Swiss Army knife of Amplitude. Track any event over time, broken down by any property. Answers: How many users did X? How does it vary by Y?');event.stopPropagation()"><span class="ld" style="background:#1B6FD8"></span>Segmentation Chart</div>
+    <div class="l" onclick="openLesson('Funnel Analysis Chart','Shows conversion rate between key steps. Identify exactly where users drop off. Essential for onboarding, checkout, and activation analysis.');event.stopPropagation()"><span class="ld" style="background:#1B6FD8"></span>Funnel Chart</div>
+    <div class="l" onclick="openLesson('Retention Analysis Chart','3 retention types: N-Day (did user return on day N?), Unbounded (ever returned?), Bracket (returned within window?). Each answers a different retention question.');event.stopPropagation()"><span class="ld" style="background:#1B6FD8"></span>Retention Chart</div>
+    <div class="l" onclick="openLesson('Journeys Chart','Shows the actual paths users take through your product — before an event (paths to conversion) or after (what users do next). Reveals unexpected navigation patterns.');event.stopPropagation()"><span class="ld" style="background:#1B6FD8"></span>Journeys Chart</div>
+    <div class="l" onclick="openLesson('Compass Chart','Automatically finds the feature most correlated with long-term retention. The most powerful feature discovery tool in Amplitude — tells you what to prioritise.');event.stopPropagation()"><span class="ld" style="background:#1B6FD8"></span>Compass Chart</div>
+    <div class="l" onclick="openLesson('Impact Analysis Chart','Measures the causal impact of a feature on retention. Compares users who adopted a feature vs those who didn\'t, controlling for selection bias.');event.stopPropagation()"><span class="ld" style="background:#1B6FD8"></span>Impact Analysis</div>
+    <div class="l" onclick="openLesson('Using Filters & Breakdowns','Filters narrow your analysis to specific users. Breakdowns split your metric by a property dimension. Together they reveal the full story behind your numbers.');event.stopPropagation()"><span class="ld" style="background:#1B6FD8"></span>Filters & Breakdowns</div>
+    <div class="l" onclick="openLesson('Computed Metrics & Formulas','Create custom metrics from multiple events: DAU/MAU ratio, revenue per user, events per session. Computed metrics make complex analysis reusable.');event.stopPropagation()"><span class="ld" style="background:#1B6FD8"></span>Computed Metrics</div>
+  </div>
+  <div class="tip">💡 Amplitude insight: Start with Segmentation for any question. If it doesn't answer it, use Funnel (conversion), Retention (stickiness), or Journeys (paths) next.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F5F3FF;color:#7C3AED">03</div><div class="mi"><div class="mt">Cohorts — Power Segmentation</div><div class="ms">Behavioural cohorts · Predictive · Syncing · Use cases</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Cohorts are Amplitude's most powerful analysis tool — allowing you to group users by behaviour and analyse them separately. Covers behavioural cohorts, predictive cohorts, and how to sync cohorts to marketing and engagement tools for action.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is a Cohort?','A cohort is a group of users defined by shared behaviour or properties. Example: users who completed onboarding in the last 30 days and used the export feature.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>What is a Cohort?</div>
+    <div class="l" onclick="openLesson('Behavioural Cohorts','Define cohorts by what users DID: completed_signup AND used_feature_x AND did_not_churn. Far more predictive than demographic cohorts.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Behavioural Cohorts</div>
+    <div class="l" onclick="openLesson('Predictive Cohorts','AI-powered cohorts that predict future behaviour: users likely to convert, likely to churn, likely to upgrade. Act before the behaviour happens.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Predictive Cohorts</div>
+    <div class="l" onclick="openLesson('Cohort Comparison Analysis','Compare metrics between cohorts: power users vs casual users, paid vs free, activated vs not activated. Reveals what behaviours drive retention.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Cohort Comparison</div>
+    <div class="l" onclick="openLesson('Syncing Cohorts to Tools','Sync Amplitude cohorts to Braze, Intercom, Salesforce, or ad platforms for targeted campaigns. Behaviour-based targeting massively outperforms demographic targeting.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Syncing Cohorts</div>
+    <div class="l" onclick="openLesson('Dynamic vs Static Cohorts','Dynamic cohorts update automatically as users meet or leave the criteria. Static cohorts are snapshots in time. Use dynamic for ongoing campaigns, static for point-in-time analysis.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Dynamic vs Static</div>
+  </div>
+  <div class="tip">💡 Amplitude insight: The power of cohorts is not just analysis — it\'s action. Sync cohorts to engagement tools to turn insights into personalised user experiences.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDFA;color:#0F766E">04</div><div class="mi"><div class="mt">Global Chat — AI-Powered Analytics</div><div class="ms">Ask AI · Natural language · Insight generation · AI accuracy</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Global Chat is Amplitude's AI layer — allowing anyone to ask product analytics questions in plain English and get instant chart-backed answers. Covers how to ask effective questions, understand AI-generated insights, and improve AI accuracy with clean data.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is Global Chat?','Global Chat lets you ask Amplitude questions in plain language: "Show me retention for users who used the export feature last month." AI builds the chart instantly.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>What is Global Chat?</div>
+    <div class="l" onclick="openLesson('How to Ask Effective Questions','Be specific: include the event, time period, user segment, and metric you want. "What is the 30-day retention of users who completed onboarding in May?" is better than "show retention".');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Asking Effective Questions</div>
+    <div class="l" onclick="openLesson('Understanding AI-Generated Charts','Global Chat explains what it built and why. Always verify the chart matches your question before sharing. AI can misinterpret ambiguous queries.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Understanding AI Charts</div>
+    <div class="l" onclick="openLesson('Improving AI Accuracy with Clean Data','Global Chat accuracy depends on data taxonomy quality. Clean event names, documented properties, and consistent taxonomy dramatically improve AI answers.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>AI Accuracy & Data Quality</div>
+    <div class="l" onclick="openLesson('3 Easy Data Cleanup Actions','1. Rename ambiguous events with clear object_action names. 2. Add descriptions to events and properties. 3. Mark duplicate events as inactive. Improves AI immediately.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>3 Data Cleanup Actions</div>
+    <div class="l" onclick="openLesson('Global Chat for Non-Technical Users','Global Chat democratises analytics — marketers, CSMs, and executives can ask product questions without needing to build charts manually. Analytics becomes self-serve.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Global Chat for All Teams</div>
+  </div>
+  <div class="tip">💡 Amplitude insight: Global Chat is only as smart as your data taxonomy. Clean data = smarter AI = faster insights = better product decisions. Invest in taxonomy first.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDF4;color:#15803D">05</div><div class="mi"><div class="mt">Foundations Badge Assessment</div><div class="ms">Badge criteria · Assessment · Career value</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Amplitude Foundations Analytics badge is earned by completing the foundational learning path and passing the skills assessment. It demonstrates core Amplitude proficiency to employers and product teams.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Foundations Badge Criteria','Complete all courses in the Foundations Analytics learning path + pass the skills assessment. Badge is verified and shareable on LinkedIn.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Badge Criteria</div>
+    <div class="l" onclick="openLesson('What the Badge Certifies','Proficiency in: Events & Properties, Chart analysis, Cohort creation, Global Chat usage, and data-driven product decision making with Amplitude.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>What Badge Certifies</div>
+    <div class="l" onclick="openLesson('Amplitude Badge vs Expert Cert','Foundations badge = core competency. Expert Certification = advanced mastery. Use code ANALYZETHIS2026 for free Expert Cert exam (valid thru 6/30/2026).');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Badge vs Expert Cert</div>
+    <div class="l" onclick="openLesson('Career Value of Amplitude Badge','Amplitude is one of the most widely used product analytics platforms. Badge signals hands-on analytics proficiency — valued in PM, growth, and data roles.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Career Value</div>
+    <div class="l" onclick="openLesson('Amplitude + Mixpanel + Pendo Stack','Amplitude (deep analytics) + Mixpanel (event analytics) + Pendo (in-app + feedback) = complete product analytics knowledge. Asish has all three!');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Analytics Tool Stack</div>
+  </div>
+  <div class="tip">🏆 Shubhasish Dutta — Amplitude Foundations Analytics Badge · June 2026 · Verified by Amplitude Academy</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-badge">⭐</div>
+  <div class="cn">Foundations · Analytics</div>
+  <div class="cn2">Shubhasish Dutta — Amplitude Academy</div>
+  <div class="csub">June 2026 · Verified Badge · amplitude.com/academy</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  af1:{tag:"Analytics Workflow",title:"Instrument",desc:"Instrumentation is the process of adding tracking code to your product to capture user behaviour as events and properties.",points:["Define your taxonomy BEFORE instrumenting — naming consistency is critical","Use Amplitude's SDK or third-party CDPs like Segment to send data","Track events at key moments: sign-up, activation, feature use, conversion","Add properties to every event for richer segmentation later","Test instrumentation in a dev environment before production","Review and update instrumentation every quarter as the product evolves"],tip:"💡 Instrumentation is a one-time investment that pays dividends forever. Do it right the first time."},
+  af2:{tag:"Analytics Workflow",title:"Analyse",desc:"Analysis is where raw event data becomes product insight. Amplitude's 8 chart types let you answer any product question.",points:["Start with Segmentation for basic trend questions","Use Funnel for conversion and drop-off analysis","Use Retention for stickiness and engagement depth","Use Journeys for understanding actual user navigation paths","Use Compass to find what features correlate with retention","Combine multiple charts for complete picture — no single chart tells the full story"],tip:"💡 The best analysts ask better questions, not just use fancier charts. Start with the question, then choose the right chart."},
+  af3:{tag:"Analytics Workflow",title:"Segment",desc:"Segmentation lets you slice your analysis by user characteristics or behaviour — revealing differences that aggregate data hides.",points:["Segment by user properties: plan, country, company size, role","Segment by behaviour: users who did X but not Y","Create cohorts for recurring analysis: power users, at-risk users, new users","Compare segments to find what differentiates high-value users","Sync segments to engagement tools for targeted campaigns","Dynamic cohorts update automatically as users meet new criteria"],tip:"💡 Average metrics lie. Segmentation reveals the truth behind your product's performance."},
+  af4:{tag:"Analytics Workflow",title:"Ask AI (Global Chat)",desc:"Global Chat lets anyone ask product analytics questions in plain English and get instant chart-backed answers powered by AI.",points:["Ask in plain English: 'Show me 30-day retention for power users'","AI builds the appropriate Amplitude chart automatically","Verify AI output matches your question before sharing","AI accuracy improves with cleaner event taxonomy","Non-technical teams can now access analytics without PM bottleneck","Global Chat makes the whole organisation data-literate, not just analysts"],tip:"💡 Global Chat is Amplitude's biggest differentiator. It democratises product analytics across the entire organisation."},
+  af5:{tag:"Analytics Workflow",title:"Decide & Act",desc:"Analytics only creates value when it drives product decisions and actions — from prioritisation to personalisation to experimentation.",points:["Share insights in weekly product reviews with chart evidence","Use cohort analysis to inform roadmap prioritisation","Sync cohorts to engagement tools for personalised campaigns","Run A/B tests to validate insights before shipping","Document decisions and the data behind them for future reference","Close the loop: measure the impact of decisions you made based on data"],tip:"💡 An insight that doesn't drive action is just interesting trivia. Every Amplitude analysis should end with a clear decision or next step."},
+  chart_segmentation:{tag:"Chart Type",title:"Segmentation Chart",desc:"The most versatile Amplitude chart. Track any event over time and break it down by any property to understand who is doing what.",points:["Answers: How many users did X? How often? In what segments?","Break down by user property: country, plan, device, cohort","Measure: event totals, unique users, or custom formulas","Compare time periods to see trends (Week over Week, Month over Month)","Apply filters to narrow to specific user segments","Use as the starting point for almost any analytics question"],tip:"💡 If you don't know which chart to use, start with Segmentation. It answers more questions than any other chart type."},
+  chart_funnel:{tag:"Chart Type",title:"Funnel Analysis",desc:"Measures conversion between sequential steps in a user journey. Identifies exactly where and when users drop off.",points:["Define 2-10 steps in a conversion flow","Measure: overall conversion rate, step-by-step drop-off","Filter by user segment to compare conversion by cohort","Set conversion window: how long users have to complete the funnel","Use holding property to ensure users stay on the same session/device","Every drop-off point is a discovery and optimisation opportunity"],tip:"💡 The highest drop-off step in your funnel is your most valuable optimisation target. Focus there first."},
+  chart_retention:{tag:"Chart Type",title:"Retention Analysis",desc:"Shows what percentage of users return to perform a specific action after an initial event. The core metric for product stickiness.",points:["N-Day: did user return on exactly day N after first event?","Unbounded: did user ever return after first event?","Bracket: did user return within a specific time window?","Set the return event to any action — not just app opens","Compare retention by cohort: new users vs power users","Retention curve shape tells you a lot: steep drop = poor stickiness, plateau = strong habit"],tip:"💡 A retention curve that flattens — even at 10% — means you have a core group of highly engaged users. Focus on expanding that group."},
+  chart_journey:{tag:"Chart Type",title:"Journeys Chart",desc:"Visualises the actual paths users take through your product before or after a key event. Reveals unexpected navigation patterns.",points:["Paths to an event: what did users do BEFORE converting?","Paths from an event: what do users do AFTER a key action?","Reveals the most common paths AND the most surprising ones","Unexpected paths signal UX confusion or hidden feature discovery","Compare paths between segments: power users take different paths than churned users","Use to design better onboarding by following the paths power users actually take"],tip:"💡 Users rarely follow the path you designed. Journeys shows the path they actually take — use it to redesign the intended experience."},
+  chart_revenue:{tag:"Chart Type",title:"Revenue LTV",desc:"Tracks revenue metrics and lifetime value by user cohort, connecting product behaviour to business outcomes.",points:["Track total revenue, ARPU, ARPPU by cohort over time","LTV curves show revenue accumulation by acquisition cohort","Compare LTV by acquisition channel, plan tier, or user segment","Identify which cohorts generate the most long-term revenue","Use to inform pricing, packaging, and upsell strategy","Essential for B2C and B2B SaaS businesses tracking subscription revenue"],tip:"💡 LTV by cohort tells you which types of users are worth acquiring. Use it to focus your growth efforts on the highest-value segments."},
+  chart_compass:{tag:"Chart Type",title:"Compass Chart",desc:"Amplitude's most unique chart — automatically finds the feature most correlated with long-term user retention.",points:["Analyses ALL events in your product simultaneously","Scores each event by correlation with long-term retention","Identifies your product's 'aha moment' feature automatically","Shows optimal usage frequency for maximum retention impact","Surfaces features you didn't know were driving retention","Use to prioritise feature investment and guide onboarding design"],tip:"💡 Compass is the most underused Amplitude chart and arguably the most powerful. It tells you exactly what to build and improve for maximum retention impact."},
+  chart_impact:{tag:"Chart Type",title:"Impact Analysis",desc:"Measures the causal impact of feature adoption on user retention, controlling for selection bias.",points:["Compares users who adopted a feature vs those who didn't","Controls for the fact that power users adopt more features generally","Shows retention impact at 1, 7, 14, 30, 60 days post-adoption","Positive impact = feature genuinely improves retention","Negative or neutral impact = feature may not be adding real value","Use to prioritise features for sunsetting vs investment"],tip:"💡 Impact Analysis answers the question Compass raises: not just 'what correlates with retention?' but 'does this feature CAUSE retention to improve?'"},
+  chart_experiment:{tag:"Chart Type",title:"Experiment Results",desc:"Statistical analysis of A/B test results integrated directly into Amplitude analytics.",points:["Connects experiment variants to any Amplitude metric","Statistical significance calculated automatically (p-value, confidence intervals)","Segment experiment results by user property to find differential effects","Sequential testing mode allows you to check results without inflating false positive rate","Connect to Amplitude Experiment for end-to-end experimentation platform","Reduces the risk of shipping features based on false positive test results"],tip:"💡 Always let experiments run to statistical significance. Checking results too early and stopping is the most common experimentation mistake."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

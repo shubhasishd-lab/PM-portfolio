@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI for Product Management — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,wght@0,700;0,900;1,700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0E1A;
+  --bg2: #111827;
+  --card: #141B2D;
+  --border: #1E2A42;
+  --accent: #4F8EF7;
+  --accent2: #7C3AED;
+  --gold: #F59E0B;
+  --green: #10B981;
+  --red: #EF4444;
+  --teal: #06B6D4;
+  --white: #F1F5F9;
+  --muted: #64748B;
+  --text: #CBD5E1;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Space Grotesk', sans-serif; background: var(--bg); color: var(--white); min-height: 100vh; }
+
+/* STARS BG */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 20%, rgba(79,142,247,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 80%, rgba(124,58,237,0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* HEADER */
+header {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(79,142,247,0.05) 0%, transparent 100%);
+}
+.header-pills { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+.pill {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 0.25rem 0.8rem; border-radius: 50px; border: 1px solid;
+}
+.pill-blue { color: var(--accent); border-color: rgba(79,142,247,0.3); background: rgba(79,142,247,0.1); }
+.pill-purple { color: #A78BFA; border-color: rgba(124,58,237,0.3); background: rgba(124,58,237,0.1); }
+.pill-gold { color: var(--gold); border-color: rgba(245,158,11,0.3); background: rgba(245,158,11,0.1); }
+header h1 { font-family: 'Fraunces', serif; font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.1; margin-bottom: 0.6rem; }
+header h1 span { color: var(--accent); }
+header p { color: var(--muted); font-size: 0.88rem; font-weight: 400; margin-bottom: 1.5rem; }
+.score-display {
+  display: inline-flex; align-items: center; gap: 0.8rem;
+  background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3);
+  border-radius: 50px; padding: 0.5rem 1.5rem;
+}
+.score-num { font-family: 'Fraunces', serif; font-size: 2rem; color: var(--green); }
+.score-label { font-size: 0.78rem; color: var(--green); font-weight: 500; text-align: left; line-height: 1.3; }
+
+/* COLLAB STRIP */
+.collab {
+  position: relative; z-index: 1;
+  display: flex; justify-content: center; align-items: center; gap: 2rem; flex-wrap: wrap;
+  padding: 1.2rem; background: var(--bg2); border-bottom: 1px solid var(--border);
+}
+.collab-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.78rem; color: var(--muted); }
+.collab-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* MAIN */
+main { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+/* DIVIDER */
+.divider {
+  display: flex; align-items: center; gap: 1rem;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--muted); margin: 2rem 0 1rem;
+}
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* AI ROLE CARDS */
+.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.5rem; }
+.role-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+  padding: 1.2rem; cursor: pointer; transition: all 0.2s;
+}
+.role-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,142,247,0.15); }
+.role-icon { font-size: 1.8rem; margin-bottom: 0.5rem; }
+.role-title { font-size: 0.88rem; font-weight: 600; color: var(--white); margin-bottom: 0.2rem; }
+.role-sub { font-size: 0.75rem; color: var(--muted); line-height: 1.4; }
+
+/* MODULE CARDS */
+.module {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  margin-bottom: 0.75rem; overflow: hidden; cursor: pointer; transition: border-color 0.2s;
+}
+.module:hover { border-color: rgba(79,142,247,0.4); }
+.module.open { border-color: rgba(79,142,247,0.5); }
+.module-head {
+  display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem;
+}
+.mod-num {
+  width: 38px; height: 38px; border-radius: 10px; display: flex;
+  align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+}
+.mod-info { flex: 1; }
+.mod-title { font-size: 0.92rem; font-weight: 600; color: var(--white); margin-bottom: 0.15rem; }
+.mod-sub { font-size: 0.73rem; color: var(--muted); }
+.mod-chevron { color: var(--muted); font-size: 0.85rem; transition: transform 0.2s; }
+.module.open .mod-chevron { transform: rotate(90deg); color: var(--accent); }
+
+.module-body {
+  display: none; padding: 0 1.3rem 1.3rem;
+  border-top: 1px solid var(--border);
+}
+.module.open .module-body { display: block; }
+.mod-desc { font-size: 0.86rem; line-height: 1.65; color: var(--text); padding: 1rem 0 0.8rem; }
+
+.lessons { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-top: 0.5rem; }
+.lesson {
+  background: rgba(255,255,255,0.03); border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.5rem 0.7rem; font-size: 0.73rem; color: var(--text); font-weight: 500;
+  display: flex; align-items: flex-start; gap: 0.4rem; cursor: pointer;
+  transition: all 0.15s; line-height: 1.35;
+}
+.lesson:hover { background: rgba(79,142,247,0.08); border-color: rgba(79,142,247,0.3); color: var(--white); transform: translateY(-1px); }
+.ldot { width: 5px; height: 5px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+.tip {
+  margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 10px;
+  font-size: 0.78rem; line-height: 1.5; font-style: italic;
+  background: rgba(79,142,247,0.08); border: 1px solid rgba(79,142,247,0.2); color: #93C5FD;
+}
+
+/* CERT CARD */
+.cert-card {
+  background: linear-gradient(135deg, rgba(79,142,247,0.15), rgba(124,58,237,0.15));
+  border: 1px solid rgba(79,142,247,0.3); border-radius: 20px;
+  padding: 2rem; text-align: center; margin-top: 2rem;
+}
+.cert-score { font-family: 'Fraunces', serif; font-size: 4rem; color: var(--green); line-height: 1; }
+.cert-name { font-size: 1.1rem; font-weight: 600; color: var(--white); margin: 0.5rem 0 0.3rem; }
+.cert-sub { font-size: 0.8rem; color: var(--muted); }
+
+/* MODAL */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.8); z-index: 300;
+  align-items: center; justify-content: center; padding: 1rem;
+  backdrop-filter: blur(8px);
+}
+.overlay.active { display: flex; }
+.modal {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 20px;
+  max-width: 480px; width: 100%; max-height: 85vh; overflow-y: auto;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  animation: pop 0.2s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes pop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-top {
+  padding: 1.4rem 1.5rem 1rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+  position: sticky; top: 0; background: var(--bg2); border-radius: 20px 20px 0 0;
+}
+.modal-tag { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; }
+.modal-title { font-family: 'Fraunces', serif; font-size: 1.3rem; color: var(--white); line-height: 1.2; }
+.modal-close {
+  background: var(--border); border: none; width: 28px; height: 28px;
+  border-radius: 50%; font-size: 0.8rem; cursor: pointer; color: var(--muted);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.modal-body { padding: 1.2rem 1.5rem 1.5rem; }
+.modal-desc { font-size: 0.88rem; line-height: 1.65; color: var(--text); margin-bottom: 1rem; }
+.modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.modal-list li { display: flex; gap: 0.6rem; font-size: 0.84rem; line-height: 1.5; color: var(--text); }
+.modal-list li::before { content: '→'; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.modal-tip { margin-top: 1.2rem; padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.78rem; line-height: 1.5; font-style: italic; background: rgba(79,142,247,0.08); border: 1px solid rgba(79,142,247,0.2); color: #93C5FD; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-pills">
+    <span class="pill pill-blue">Pendo</span>
+    <span class="pill pill-purple">Google Cloud</span>
+    <span class="pill pill-gold">Mind the Product</span>
+  </div>
+  <h1>AI for <span>Product Management</span></h1>
+  <p>Complete Interactive Guide · 7 Modules · 40 Lessons · Certified</p>
+  <div class="score-display">
+    <div class="score-num">100%</div>
+    <div class="score-label">Perfect Score<br>First Attempt ✓</div>
+  </div>
+</header>
+
+<div class="collab">
+  <div class="collab-item"><div class="collab-dot" style="background:#4F8EF7"></div>Pendo — Product Intelligence</div>
+  <div class="collab-item"><div class="collab-dot" style="background:#F59E0B"></div>Google Cloud — AI Infrastructure</div>
+  <div class="collab-item"><div class="collab-dot" style="background:#A78BFA"></div>Mind the Product — PM Expertise</div>
+</div>
+
+<main>
+
+<!-- AI IN PM: 2 ROLES -->
+<div class="divider">AI's Two Roles in Product Management</div>
+<div class="role-grid">
+  <div class="role-card" onclick="openModal('role_tool')">
+    <div class="role-icon">🛠️</div>
+    <div class="role-title">AI as a PM Tool</div>
+    <div class="role-sub">Use AI to work smarter, faster, and more data-driven as a product manager</div>
+  </div>
+  <div class="role-card" onclick="openModal('role_feature')">
+    <div class="role-icon">✨</div>
+    <div class="role-title">AI as a Product Feature</div>
+    <div class="role-sub">Build AI-powered features that deliver value directly to your end users</div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<div class="divider">7 Modules · 40 Lessons</div>
+
+<!-- Module 1 -->
+<div class="module" onclick="toggleMod(this)">
+  <div class="module-head">
+    <div class="mod-num" style="background:rgba(79,142,247,0.15);color:#4F8EF7">01</div>
+    <div class="mod-info">
+      <div class="mod-title">Welcome to the AI for PM Course</div>
+      <div class="mod-sub">Course overview · Learning objectives · AI landscape</div>
+    </div>
+    <div class="mod-chevron">›</div>
+  </div>
+  <div class="module-body">
+    <p class="mod-desc">Sets the stage for the entire course. Covers why AI is transforming product management, what PMs need to know about AI, and how this course will help you build a practical AI strategy for your product role.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('Why AI Matters for PMs','AI is reshaping every phase of product management — from discovery to launch. PMs who embrace AI will build better products faster than those who don\'t.');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>Why AI Matters for PMs</div>
+      <div class="lesson" onclick="openLesson('Course Structure & Goals','7 modules covering AI as a tool, AI as a feature, product strategy, PLG, and practical implementation. 100% free with a certificate.');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>Course Structure & Goals</div>
+      <div class="lesson" onclick="openLesson('The AI Landscape Today','Generative AI, machine learning, NLP, and computer vision are the major AI categories. Each has different PM implications.');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>The AI Landscape Today</div>
+      <div class="lesson" onclick="openLesson('AI Will Not Replace PMs','AI amplifies two core PM strengths: customer centricity and business acumen. These cannot be automated — they require human judgment.');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>AI Won\'t Replace PMs</div>
+      <div class="lesson" onclick="openLesson('How to Get the Most from This Course','Apply each concept to your own product. The goal is not just knowledge — it\'s building a practical AI strategy you can use on the job.');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>Getting the Most from Course</div>
+    </div>
+    <div class="tip">💡 Key insight: AI is a strategic tool for PMs, not a threat. Your customer empathy and business sense are what AI cannot replicate.</div>
+  </div>
+</div>
+
+<!-- Module 2 -->
+<div class="module" onclick="toggleMod(this)">
+  <div class="module-head">
+    <div class="mod-num" style="background:rgba(124,58,237,0.15);color:#A78BFA">02</div>
+    <div class="mod-info">
+      <div class="mod-title">Overview of AI & Product Management</div>
+      <div class="mod-sub">AI fundamentals · PM applications · Strategic framing</div>
+    </div>
+    <div class="mod-chevron">›</div>
+  </div>
+  <div class="module-body">
+    <p class="mod-desc">Provides a comprehensive overview of how AI intersects with product management. Covers the core AI concepts PMs need to know, how AI is being applied across the product lifecycle, and how to frame AI as a strategic priority.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('AI Fundamentals for PMs','PMs don\'t need to code AI — but they need to understand ML, NLP, and GenAI well enough to make product decisions and communicate with engineers.');event.stopPropagation()"><span class="ldot" style="background:#A78BFA"></span>AI Fundamentals for PMs</div>
+      <div class="lesson" onclick="openLesson('Machine Learning vs Generative AI','ML finds patterns in data. GenAI creates new content. Both have distinct product applications — knowing the difference is critical for PM decisions.');event.stopPropagation()"><span class="ldot" style="background:#A78BFA"></span>ML vs Generative AI</div>
+      <div class="lesson" onclick="openLesson('AI Across the Product Lifecycle','AI can enhance every phase: discovery (pattern analysis), validation (predictive modelling), build (code assistance), launch (personalisation), iterate (anomaly detection).');event.stopPropagation()"><span class="ldot" style="background:#A78BFA"></span>AI Across the Lifecycle</div>
+      <div class="lesson" onclick="openLesson('AI as a Competitive Advantage','Companies that embed AI into their products create compounding advantages — better data, smarter models, more personalised experiences over time.');event.stopPropagation()"><span class="ldot" style="background:#A78BFA"></span>AI as Competitive Advantage</div>
+      <div class="lesson" onclick="openLesson('Common AI Misconceptions for PMs','AI is not magic, not always accurate, and not always the right solution. PMs must apply critical thinking before defaulting to AI features.');event.stopPropagation()"><span class="ldot" style="background:#A78BFA"></span>AI Misconceptions</div>
+      <div class="lesson" onclick="openLesson('Framing AI as a Strategic Priority','Present AI to stakeholders as a business capability, not a tech upgrade. Frame it around outcomes: faster discovery, reduced churn, better personalisation.');event.stopPropagation()"><span class="ldot" style="background:#A78BFA"></span>AI as Strategic Priority</div>
+    </div>
+    <div class="tip">💡 Key insight: Your job as a PM is to identify WHERE AI creates real user value — not to add AI just because it's trending.</div>
+  </div>
+</div>
+
+<!-- Module 3 -->
+<div class="module" onclick="toggleMod(this)">
+  <div class="module-head">
+    <div class="mod-num" style="background:rgba(6,182,212,0.15);color:#06B6D4">03</div>
+    <div class="mod-info">
+      <div class="mod-title">Adapting Your Software Strategy in the AI Era</div>
+      <div class="mod-sub">AI strategy · Build vs buy · Responsible AI</div>
+    </div>
+    <div class="mod-chevron">›</div>
+  </div>
+  <div class="module-body">
+    <p class="mod-desc">Teaches PMs a methodology for building an AI software strategy. Covers how to evaluate AI opportunities, decide between building vs buying AI capabilities, and establish AI principles that guide responsible product development.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('Building Your AI Software Strategy','A 4-step methodology: (1) Identify AI opportunities, (2) Assess feasibility, (3) Define success metrics, (4) Build, buy, or partner.');event.stopPropagation()"><span class="ldot" style="background:#06B6D4"></span>AI Software Strategy Framework</div>
+      <div class="lesson" onclick="openLesson('Identifying AI Opportunities in Your Product','Look for repetitive tasks, large data sets, personalisation needs, and prediction requirements. These are natural AI candidates.');event.stopPropagation()"><span class="ldot" style="background:#06B6D4"></span>Identifying AI Opportunities</div>
+      <div class="lesson" onclick="openLesson('Build vs Buy vs Partner for AI','Building AI requires data, talent, and time. Buying (APIs, vendors) is faster. Partnering (Google Cloud, OpenAI) gives access to frontier models.');event.stopPropagation()"><span class="ldot" style="background:#06B6D4"></span>Build vs Buy vs Partner</div>
+      <div class="lesson" onclick="openLesson('Responsible AI Principles','PMs must consider fairness, transparency, privacy, and safety when building AI features. Responsible AI is both ethical and good business.');event.stopPropagation()"><span class="ldot" style="background:#06B6D4"></span>Responsible AI Principles</div>
+      <div class="lesson" onclick="openLesson('AI Data Strategy for PMs','AI is only as good as its data. PMs must understand data requirements, data quality, and data governance before committing to AI features.');event.stopPropagation()"><span class="ldot" style="background:#06B6D4"></span>AI Data Strategy</div>
+      <div class="lesson" onclick="openLesson('Communicating AI Strategy to Stakeholders','Frame AI initiatives around business outcomes. Avoid technical jargon. Focus on what AI will enable customers to do, not how it works.');event.stopPropagation()"><span class="ldot" style="background:#06B6D4"></span>Communicating AI Strategy</div>
+    </div>
+    <div class="tip">💡 Key insight: The best AI strategy starts with user problems, not technology. Ask "what problem does this solve?" before "how do we use AI?"</div>
+  </div>
+</div>
+
+<!-- Module 4 -->
+<div class="module" onclick="toggleMod(this)">
+  <div class="module-head">
+    <div class="mod-num" style="background:rgba(245,158,11,0.15);color:#F59E0B">04</div>
+    <div class="mod-info">
+      <div class="mod-title">AI and the Product-Led Organisation</div>
+      <div class="mod-sub">PLO + AI · Org transformation · AI-driven culture</div>
+    </div>
+    <div class="mod-chevron">›</div>
+  </div>
+  <div class="module-body">
+    <p class="mod-desc">Explores how AI accelerates the product-led organisation model. Covers how AI enables self-serve growth, reduces the need for human intervention in the customer journey, and creates scalable product experiences that drive retention and expansion.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('What is a Product-Led Organisation?','In a PLO, the product itself drives acquisition, retention, and expansion. AI supercharges this by making the product smarter and more personalised.');event.stopPropagation()"><span class="ldot" style="background:#F59E0B"></span>Product-Led Organisation</div>
+      <div class="lesson" onclick="openLesson('AI Enabling Self-Serve Growth','AI-powered onboarding, smart tooltips, and predictive guidance help users succeed without human intervention — scaling growth efficiently.');event.stopPropagation()"><span class="ldot" style="background:#F59E0B"></span>AI & Self-Serve Growth</div>
+      <div class="lesson" onclick="openLesson('AI for Customer Success at Scale','AI can predict churn, identify at-risk accounts, and trigger proactive interventions — allowing CS teams to focus on high-value relationships.');event.stopPropagation()"><span class="ldot" style="background:#F59E0B"></span>AI for Customer Success</div>
+      <div class="lesson" onclick="openLesson('Building an AI-Ready Team','AI literacy across the product team — PMs, designers, engineers — is essential. Everyone needs a baseline understanding of AI capabilities and limits.');event.stopPropagation()"><span class="ldot" style="background:#F59E0B"></span>Building AI-Ready Teams</div>
+      <div class="lesson" onclick="openLesson('AI & Organisational Change Management','Introducing AI requires managing fear and resistance. PMs play a key role in communicating AI\'s purpose and building confidence across the org.');event.stopPropagation()"><span class="ldot" style="background:#F59E0B"></span>AI Change Management</div>
+      <div class="lesson" onclick="openLesson('Measuring PLO Success with AI','Track time-to-value, product-qualified leads (PQLs), and feature adoption rates — AI helps you measure and optimise these automatically.');event.stopPropagation()"><span class="ldot" style="background:#F59E0B"></span>Measuring PLO + AI Success</div>
+    </div>
+    <div class="tip">💡 Key insight: AI doesn't replace your product-led strategy — it makes it smarter, faster, and more personalised at scale.</div>
+  </div>
+</div>
+
+<!-- Module 5 -->
+<div class="module" onclick="toggleMod(this)">
+  <div class="module-head">
+    <div class="mod-num" style="background:rgba(16,185,129,0.15);color:#10B981">05</div>
+    <div class="mod-info">
+      <div class="mod-title">Powering Product-Led Growth with AI</div>
+      <div class="mod-sub">PLG + AI · Personalisation · Activation & retention</div>
+    </div>
+    <div class="mod-chevron">›</div>
+  </div>
+  <div class="module-body">
+    <p class="mod-desc">Deep dive into how AI specifically powers PLG motions — acquisition, activation, retention, referral, and revenue. Covers AI-driven personalisation, predictive analytics, and automated growth experiments.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('AI in the PLG Funnel','AI optimises every stage of AARRR: Acquisition (smart targeting), Activation (personalised onboarding), Retention (churn prediction), Referral (timing), Revenue (upsell signals).');event.stopPropagation()"><span class="ldot" style="background:#10B981"></span>AI in the PLG Funnel</div>
+      <div class="lesson" onclick="openLesson('AI-Driven Personalisation','Serve each user a personalised experience based on their behaviour, segment, and goals. AI makes 1:1 personalisation scalable.');event.stopPropagation()"><span class="ldot" style="background:#10B981"></span>AI-Driven Personalisation</div>
+      <div class="lesson" onclick="openLesson('Predictive Analytics for Growth','Use ML models to predict which users are likely to convert, churn, or expand. Act on predictions before problems occur.');event.stopPropagation()"><span class="ldot" style="background:#10B981"></span>Predictive Analytics</div>
+      <div class="lesson" onclick="openLesson('AI for Feature Adoption','AI identifies which users haven\'t discovered high-value features and triggers personalised in-app guides at the right moment.');event.stopPropagation()"><span class="ldot" style="background:#10B981"></span>AI for Feature Adoption</div>
+      <div class="lesson" onclick="openLesson('Automated Growth Experiments','AI can design, run, and analyse growth experiments faster than manual A/B testing — accelerating the learning loop.');event.stopPropagation()"><span class="ldot" style="background:#10B981"></span>Automated Experiments</div>
+      <div class="lesson" onclick="openLesson('AI & Expansion Revenue','Identify upsell and cross-sell opportunities using usage data and predictive signals. AI surfaces the right offer to the right customer at the right time.');event.stopPropagation()"><span class="ldot" style="background:#10B981"></span>AI & Expansion Revenue</div>
+    </div>
+    <div class="tip">💡 Key insight: AI turns PLG from a strategy into a machine — continuously optimising acquisition, activation, and retention without manual effort.</div>
+  </div>
+</div>
+
+<!-- Module 6 -->
+<div class="module" onclick="toggleMod(this)">
+  <div class="module-head">
+    <div class="mod-num" style="background:rgba(239,68,68,0.15);color:#EF4444">06</div>
+    <div class="mod-info">
+      <div class="mod-title">Making Product Development Smarter with AI</div>
+      <div class="mod-sub">AI in build phase · Dev tools · AI-assisted PM</div>
+    </div>
+    <div class="mod-chevron">›</div>
+  </div>
+  <div class="module-body">
+    <p class="mod-desc">Covers practical ways PMs can use AI to make every phase of product development faster and smarter — from AI-assisted discovery and roadmapping to AI-powered engineering tools and quality assurance.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('AI-Assisted User Research','AI tools analyse thousands of user interviews, support tickets, and reviews in minutes — surfacing patterns that would take weeks manually.');event.stopPropagation()"><span class="ldot" style="background:#EF4444"></span>AI-Assisted Research</div>
+      <div class="lesson" onclick="openLesson('AI for Roadmap Prioritisation','AI can analyse usage data, feedback volume, and business impact to suggest roadmap priorities — giving PMs a data-backed starting point.');event.stopPropagation()"><span class="ldot" style="background:#EF4444"></span>AI for Roadmapping</div>
+      <div class="lesson" onclick="openLesson('AI Writing Tools for PMs','Use Claude, ChatGPT, and Gemini to draft PRDs, user stories, release notes, and stakeholder updates faster without sacrificing quality.');event.stopPropagation()"><span class="ldot" style="background:#EF4444"></span>AI Writing for PMs</div>
+      <div class="lesson" onclick="openLesson('AI-Powered Engineering Tools','GitHub Copilot, Cursor, and Claude Code accelerate engineering velocity. PMs need to understand these tools to set realistic sprint expectations.');event.stopPropagation()"><span class="ldot" style="background:#EF4444"></span>AI Engineering Tools</div>
+      <div class="lesson" onclick="openLesson('AI for QA & Testing','AI-powered test generation and regression testing reduces bugs before launch. PMs benefit from faster, more reliable releases.');event.stopPropagation()"><span class="ldot" style="background:#EF4444"></span>AI for QA & Testing</div>
+      <div class="lesson" onclick="openLesson('AI & the Future of Product Development','AI is compressing product cycles from months to weeks. PMs who master AI workflows will ship more, learn faster, and build better products.');event.stopPropagation()"><span class="ldot" style="background:#EF4444"></span>Future of Product Dev</div>
+    </div>
+    <div class="tip">💡 Key insight: AI doesn't replace PM judgment — it eliminates the busywork so you can spend more time on the high-value thinking only you can do.</div>
+  </div>
+</div>
+
+<!-- Module 7 -->
+<div class="module" onclick="toggleMod(this)">
+  <div class="module-head">
+    <div class="mod-num" style="background:rgba(79,142,247,0.15);color:#4F8EF7">07</div>
+    <div class="mod-info">
+      <div class="mod-title">Certification Exam</div>
+      <div class="mod-sub">Final assessment · 75% pass · Credly badge</div>
+    </div>
+    <div class="mod-chevron">›</div>
+  </div>
+  <div class="module-body">
+    <p class="mod-desc">The final certification exam tests knowledge across all 6 modules. Requires 75% to pass. On passing, earners receive a Credly digital badge co-issued by Pendo, Google Cloud, and Mind the Product.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('Exam Format','Multiple choice. Covers all 6 modules. 75% required to pass. Up to 5 attempts. Shubhasish scored 100% on first attempt! 🏆');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>Exam Format</div>
+      <div class="lesson" onclick="openLesson('Credly Badge','Verifiable digital badge co-issued by Pendo, Google Cloud & Mind the Product. Add to LinkedIn for maximum visibility with hiring managers.');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>Credly Badge</div>
+      <div class="lesson" onclick="openLesson('Certificate Value for PMs','This cert signals to hiring managers that you understand AI strategy, PLG, and modern PM practices — extremely relevant for 2026 PM roles.');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>Certificate Value</div>
+      <div class="lesson" onclick="openLesson('What\'s Next After This Cert','Apply AI concepts in your daily PM work. Combine with Anthropic, Google AI, and Amplitude certs for a comprehensive AI PM profile.');event.stopPropagation()"><span class="ldot" style="background:#4F8EF7"></span>What\'s Next</div>
+    </div>
+    <div class="tip">🏆 Shubhasish Dutta — 100% Perfect Score · First Attempt · Pendo × Google Cloud × Mind the Product · June 8, 2026</div>
+  </div>
+</div>
+
+<!-- CERT BANNER -->
+<div class="cert-card">
+  <div class="cert-score">100%</div>
+  <div class="cert-name">Shubhasish Dutta</div>
+  <div class="cert-sub">AI for Product Management Certified</div>
+  <div class="cert-sub" style="margin-top:0.3rem">Pendo × Google Cloud × Mind the Product · 8 June 2026 · Never Expires</div>
+</div>
+
+</main>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal">
+    <div class="modal-top">
+      <div>
+        <div class="modal-tag" id="modal-tag">Detail</div>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc" id="modal-desc"></p>
+      <ul class="modal-list" id="modal-list"></ul>
+      <div class="modal-tip" id="modal-tip"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const mdata = {
+  role_tool: {
+    tag:"AI Role in PM", title:"AI as a PM Tool",
+    desc:"AI empowers product managers to work smarter across every phase of the product lifecycle — from discovery to iteration.",
+    points:["Use AI to analyse customer feedback at scale in minutes","Generate first drafts of PRDs, user stories, and specs","Predict which features will drive the most retention","Automate competitive analysis and market research","Use tools like Claude, ChatGPT, Gemini, and Copilot daily","AI handles the busywork so you can focus on strategy"],
+    tip:"💡 For you Asish — you're already using Claude, ChatGPT, Gemini, and Copilot. You're ahead of most PMs on this dimension!"
+  },
+  role_feature: {
+    tag:"AI Role in PM", title:"AI as a Product Feature",
+    desc:"PMs also build AI-powered features into their products to deliver smarter, more personalised experiences to end users.",
+    points:["Smart recommendations that adapt to user behaviour","AI-powered search that understands intent, not just keywords","Predictive analytics that surface insights automatically","Automated onboarding that adjusts to user skill level","Natural language interfaces that replace complex UI","AI assistants built into the product workflow"],
+    tip:"💡 When building AI features, always start with the user problem — not the technology. AI for its own sake is not a product strategy."
+  }
+};
+
+function openModal(key) {
+  const d = mdata[key];
+  if (!d) return;
+  document.getElementById('modal-tag').textContent = d.tag;
+  document.getElementById('modal-title').textContent = d.title;
+  document.getElementById('modal-desc').textContent = d.desc;
+  const ul = document.getElementById('modal-list');
+  ul.innerHTML = '';
+  d.points.forEach(p => { const li = document.createElement('li'); li.textContent = p; ul.appendChild(li); });
+  document.getElementById('modal-tip').textContent = d.tip;
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function openLesson(title, desc) {
+  event.stopPropagation();
+  document.getElementById('modal-tag').textContent = 'Lesson Detail';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-desc').textContent = desc;
+  document.getElementById('modal-list').innerHTML = '';
+  document.getElementById('modal-tip').textContent = '';
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeOverlay(e) { if (e.target.id === 'overlay') closeModal(); }
+
+function toggleMod(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.module.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

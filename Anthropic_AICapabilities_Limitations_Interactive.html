@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Capabilities & Limitations — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F0F4FF;--card:#FFFFFF;--border:#D4DCFF;--navy:#0D1B4B;--blue:#1A56DB;--blue-l:#EEF2FF;--purple:#6B21A8;--purple-l:#F5F3FF;--teal:#0F766E;--teal-l:#F0FDFA;--orange:#C2410C;--orange-l:#FFF7ED;--green:#15803D;--green-l:#F0FDF4;--red:#BE123C;--red-l:#FFF1F2;--gray:#6B7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;}
+header{background:linear-gradient(135deg,#0D1B4B,#1A3A8F,#1A56DB);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05);}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.htag{font-size:.63rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.8rem,5vw,3rem);color:#fff;font-weight:800;line-height:1.1;margin-bottom:.5rem;}
+header h1 span{color:#BAC8FF;}
+header p{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:1.5rem;}
+.score-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;}
+.sc{font-size:.73rem;font-weight:500;padding:.3rem .9rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(245,158,11,.2);border-color:rgba(245,158,11,.4);color:#FCD34D;}
+main{max-width:700px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:2rem 0 1rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.props-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.5rem;}
+.prop-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1.1rem;cursor:pointer;transition:all .2s;}
+.prop-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,86,219,.15);}
+.pc-icon{font-size:1.6rem;margin-bottom:.4rem;}
+.pc-title{font-size:.88rem;font-weight:700;margin-bottom:.2rem;}
+.pc-sub{font-size:.72rem;color:var(--gray);line-height:1.4;}
+.spectrum-box{background:var(--navy);border-radius:16px;padding:1.5rem;margin:1rem 0;}
+.sb-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.5);text-align:center;margin-bottom:1rem;}
+.spectrum-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem;}
+.spec-label{font-size:.7rem;font-weight:600;color:rgba(255,255,255,.7);width:120px;flex-shrink:0;}
+.spec-bar{flex:1;height:8px;border-radius:50px;background:rgba(255,255,255,.1);position:relative;cursor:pointer;}
+.spec-fill{height:100%;border-radius:50px;transition:width .3s;}
+.spec-end{font-size:.65rem;color:rgba(255,255,255,.4);width:80px;text-align:right;flex-shrink:0;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:16px;margin-bottom:.75rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 6px 20px rgba(26,86,219,.1);}
+.mod.open{border-color:var(--blue);}
+.mod-head{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;}
+.mn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.15rem;}
+.ms{font-size:.72rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.85rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--blue);}
+.mod-body{display:none;padding:0 1.3rem 1.3rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.86rem;line-height:1.65;color:#444;padding:1rem 0 .8rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-top:.5rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font-size:.73rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.4rem;cursor:pointer;transition:all .15s;line-height:1.35;}
+.l:hover{background:var(--blue-l);border-color:var(--blue);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tip{margin-top:1rem;padding:.75rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--blue-l);border:1px solid rgba(26,86,219,.2);color:var(--blue);}
+.cert{background:linear-gradient(135deg,#0D1B4B,#1A3A8F,#1A56DB);border-radius:20px;padding:2rem;text-align:center;margin-top:2rem;}
+.cert-icon{font-size:2.5rem;margin-bottom:.5rem;}
+.cn{font-size:1.2rem;font-weight:800;color:#BAC8FF;margin-bottom:.3rem;}
+.cn2{font-size:.95rem;font-weight:600;color:#fff;margin-bottom:.3rem;}
+.csub{font-size:.75rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(13,27,75,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.3);animation:pop .22s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:20px 20px 0 0;}
+.modal-tag{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.3rem;}
+.modal-title{font-size:1.2rem;font-weight:800;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:28px;height:28px;border-radius:50%;font-size:.8rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1.2rem 1.5rem 1.5rem;}
+.modal-desc{font-size:.88rem;line-height:1.65;color:#444;margin-bottom:1rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.modal-list li{display:flex;gap:.6rem;font-size:.84rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1.2rem;padding:.8rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--blue-l);color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Anthropic Academy</span><span class="htag">13 Lectures</span><span class="htag">0.25 Hours</span><span class="htag">1 Quiz</span></div>
+  <h1>AI <span>Capabilities</span><br>& Limitations</h1>
+  <p>Complete Interactive Guide · 4 Properties · Diagnostic Framework</p>
+  <div class="score-row"><span class="sc gold">Certified ✓</span><span class="sc">Anthropic Academy</span><span class="sc">June 2026</span><span class="sc">Certificate #12</span></div>
+</header>
+
+<main>
+
+<div class="div">4 Core AI Properties — Tap to Explore</div>
+<div class="props-grid">
+  <div class="prop-card" onclick="openModal('p1')" style="border-color:rgba(107,33,168,.3)">
+    <div class="pc-icon">🔮</div>
+    <div class="pc-title" style="color:#6B21A8">Next Token Prediction</div>
+    <div class="pc-sub">Where AI answers come from — and why it can sound right but be wrong</div>
+  </div>
+  <div class="prop-card" onclick="openModal('p2')" style="border-color:rgba(26,86,219,.3)">
+    <div class="pc-icon">📚</div>
+    <div class="pc-title" style="color:#1A56DB">Knowledge</div>
+    <div class="pc-sub">What AI knows, how it knows it, and why it can be confidently wrong</div>
+  </div>
+  <div class="prop-card" onclick="openModal('p3')" style="border-color:rgba(15,118,110,.3)">
+    <div class="pc-icon">🧠</div>
+    <div class="pc-title" style="color:#0F766E">Working Memory</div>
+    <div class="pc-sub">The context window — what AI pays attention to and what falls off the edge</div>
+  </div>
+  <div class="prop-card" onclick="openModal('p4')" style="border-color:rgba(194,65,12,.3)">
+    <div class="pc-icon">🎯</div>
+    <div class="pc-title" style="color:#C2410C">Steerability</div>
+    <div class="pc-sub">How much control your instructions give you — and where steering slips</div>
+  </div>
+</div>
+
+<div class="div">Capability–Limitation Spectrum</div>
+<div class="spectrum-box">
+  <div class="sb-title">Where each property sits on the capability spectrum</div>
+  <div class="spectrum-row" onclick="openModal('s1')" style="cursor:pointer">
+    <div class="spec-label">Summarisation</div>
+    <div class="spec-bar"><div class="spec-fill" style="width:92%;background:#10B981"></div></div>
+    <div class="spec-end">Very Strong</div>
+  </div>
+  <div class="spectrum-row" onclick="openModal('s2')" style="cursor:pointer">
+    <div class="spec-label">Drafting & Writing</div>
+    <div class="spec-bar"><div class="spec-fill" style="width:88%;background:#10B981"></div></div>
+    <div class="spec-end">Very Strong</div>
+  </div>
+  <div class="spectrum-row" onclick="openModal('s3')" style="cursor:pointer">
+    <div class="spec-label">Mainstream Knowledge</div>
+    <div class="spec-bar"><div class="spec-fill" style="width:80%;background:#3B82F6"></div></div>
+    <div class="spec-end">Strong</div>
+  </div>
+  <div class="spectrum-row" onclick="openModal('s4')" style="cursor:pointer">
+    <div class="spec-label">Reasoning & Logic</div>
+    <div class="spec-bar"><div class="spec-fill" style="width:70%;background:#3B82F6"></div></div>
+    <div class="spec-end">Good</div>
+  </div>
+  <div class="spectrum-row" onclick="openModal('s5')" style="cursor:pointer">
+    <div class="spec-label">Niche Knowledge</div>
+    <div class="spec-bar"><div class="spec-fill" style="width:45%;background:#F59E0B"></div></div>
+    <div class="spec-end">Variable</div>
+  </div>
+  <div class="spectrum-row" onclick="openModal('s6')" style="cursor:pointer">
+    <div class="spec-label">Real-time Information</div>
+    <div class="spec-bar"><div class="spec-fill" style="width:20%;background:#EF4444"></div></div>
+    <div class="spec-end">Weak</div>
+  </div>
+  <div class="spectrum-row" onclick="openModal('s7')" style="cursor:pointer">
+    <div class="spec-label">Factual Accuracy</div>
+    <div class="spec-bar"><div class="spec-fill" style="width:60%;background:#F59E0B"></div></div>
+    <div class="spec-end">Variable</div>
+  </div>
+</div>
+
+<div class="div">6 Modules · 13 Lectures</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F5F3FF;color:#6B21A8">01</div><div class="mi"><div class="mt">Getting Started — The 4 Property Framework</div><div class="ms">LLMs · Pretraining · Fine-tuning · Course overview</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Narrows down what "AI" means in the context of this course — large language models (LLMs) — and explains how two training stages (pretraining and fine-tuning) turn a raw text predictor into a helpful assistant. Introduces the 4-property framework that organises the whole course.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What Kind of AI Are We Talking About?','This course focuses on Large Language Models (LLMs) — AI systems trained on vast amounts of text to understand and generate language. Claude, Gemini, ChatGPT are all LLMs.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>What Kind of AI?</div>
+    <div class="l" onclick="openLesson('Pretraining: Where AI Knowledge Comes From','During pretraining, LLMs process enormous amounts of text from the internet, books, and code — learning patterns, facts, and language structure. This is where their knowledge base is built.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>Pretraining Explained</div>
+    <div class="l" onclick="openLesson('Fine-tuning: Making AI Helpful','Fine-tuning takes a pretrained model and shapes it into a helpful assistant through additional training on human feedback. This is what makes Claude helpful, harmless, and honest.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>Fine-tuning Explained</div>
+    <div class="l" onclick="openLesson('The 4 Properties Framework','Next Token Prediction (how answers are generated), Knowledge (what AI knows), Working Memory (what AI attends to), Steerability (how well instructions work). These 4 explain all AI behaviour.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>The 4 Properties</div>
+  </div>
+  <div class="tip">💡 Key insight: Understanding what TYPE of AI you're using makes you a better user. LLMs are language prediction engines — powerful but different from human intelligence in fundamental ways.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EEF2FF;color:#1A56DB">02</div><div class="mi"><div class="mt">Next Token Prediction</div><div class="ms">How answers are built · Hallucinations · Well-worn paths</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Every AI answer is built one token at a time by predicting what word should come next. This section explains why AI excels at well-worn paths like summarising and reformatting, but can produce things that sound true but aren't.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is a Token?','Tokens are chunks of text — roughly 3-4 characters or 0.75 words. AI generates text by predicting the next token based on all previous tokens in the conversation.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>What is a Token?</div>
+    <div class="l" onclick="openLesson('Why AI Excels at Well-Worn Paths','Summarising, reformatting, translating, and drafting common documents are all "well-worn paths" — AI has seen millions of examples and can navigate them reliably.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>Well-Worn Paths</div>
+    <div class="l" onclick="openLesson('Why AI Halluccinates','When AI ventures off well-worn paths into niche or recent territory, it continues predicting tokens — but without reliable patterns to follow. The result sounds plausible but may be invented.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>Why Hallucinations Happen</div>
+    <div class="l" onclick="openLesson('Recognising Off-Path Requests','Signs you\'re pushing AI off its well-worn path: very specific facts, recent events, niche topics, precise calculations, or anything that requires real-world verification. Always check these.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>Off-Path Warning Signs</div>
+  </div>
+  <div class="tip">💡 Key insight: AI doesn't "know" things the way humans do — it predicts plausible text. This is why it can confidently state something false. Always verify specific facts.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDFA;color:#0F766E">03</div><div class="mi"><div class="mt">Knowledge</div><div class="ms">Training data · Knowledge cutoff · Strength & weakness zones</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">A model knows what was in its training data — frequently, recently, and consistently. Covers what AI is strong on (mainstream, popular topics) vs weak on (rare, recent, niche, contested), and how to judge where a question sits on that spectrum.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What AI Actually Knows','AI knows: mainstream topics, popular languages, well-documented subjects, widely published information. It knows MORE about things that appeared MORE frequently in training data.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>What AI Actually Knows</div>
+    <div class="l" onclick="openLesson('AI Knowledge Cutoff','AI training data has a cutoff date — after that, AI has no knowledge of events, products, or developments. Always verify time-sensitive information independently.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Knowledge Cutoff</div>
+    <div class="l" onclick="openLesson('AI Knowledge Strength Zones','Strong: mainstream topics, popular programming languages, major historical events, widely studied subjects. Weak: niche industries, local information, contested topics, very recent events.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Knowledge Strength Zones</div>
+    <div class="l" onclick="openLesson('Judging Where Your Question Sits','Before trusting an AI answer, ask: Is this mainstream or niche? Is this recent or historical? Is this widely documented or obscure? The more niche/recent/obscure, the more you verify.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Judging Your Question</div>
+    <div class="l" onclick="openLesson('Bringing Your Own Sources','For niche, recent, or high-stakes questions — paste your own sources into the prompt and ask AI to work with that content. This bypasses knowledge limitations entirely.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Bringing Your Own Sources</div>
+  </div>
+  <div class="tip">💡 Key insight: AI is like a very well-read expert who hasn't read anything published recently and knows far less about niche topics than mainstream ones. Calibrate your trust accordingly.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF7ED;color:#C2410C">04</div><div class="mi"><div class="mt">Working Memory — The Context Window</div><div class="ms">Context window · Attention limits · Session memory</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The context window is AI's working memory — everything it can pay attention to right now. Covers what fits, what quietly falls off the edge, why attention isn't uniform across long documents, and why a fresh session remembers nothing.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is the Context Window?','The context window is everything AI can "see" in the current conversation — your messages, AI responses, and any documents you\'ve pasted. Outside the window, AI has no access.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>What is Context Window?</div>
+    <div class="l" onclick="openLesson('Context Window Size','Modern LLMs have context windows of 100K-200K tokens — roughly 75,000-150,000 words. However, attention quality decreases for content in the middle of very long contexts.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Context Window Size</div>
+    <div class="l" onclick="openLesson('What Falls Off the Edge','When a conversation exceeds the context window, earlier content is dropped. AI won\'t warn you — it will simply lose access to earlier instructions or information.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>What Falls Off the Edge</div>
+    <div class="l" onclick="openLesson('No Memory Between Sessions','Each new conversation starts completely fresh. AI has no memory of previous chats unless you paste that context in yourself. This is why Claude\'s memory feature is so valuable.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>No Memory Between Sessions</div>
+    <div class="l" onclick="openLesson('Sizing Tasks Against the Window','Before starting: estimate how much content you need to share. If it exceeds the window, break the task into smaller chunks rather than trying to fit everything in at once.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Sizing Tasks vs Window</div>
+  </div>
+  <div class="tip">💡 Key insight: Think of the context window as a whiteboard — AI can only work with what\'s written on it. When the board fills up, earlier content gets erased to make room.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDF4;color:#15803D">05</div><div class="mi"><div class="mt">Steerability</div><div class="ms">Instruction following · What works · Where it slips</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Your instructions are how you steer AI — but not all instructions land equally. Covers what types of instructions AI follows reliably (short, concrete, verifiable) vs where steering starts to slip (abstract, complex reasoning chains).</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What Makes Instructions Stick','Short, concrete, verifiable instructions work reliably: "respond as a table", "under 100 words", "use bullet points", "write in formal English". These are unambiguous and easy to follow.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Instructions That Stick</div>
+    <div class="l" onclick="openLesson('Where Steering Slips','Complex reasoning chains, abstract requests ("be more creative"), demands for perfect precision, and long lists of instructions all degrade AI\'s ability to follow your directions reliably.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Where Steering Slips</div>
+    <div class="l" onclick="openLesson('Rewriting Wobbly Instructions','Abstract: "make it better" → Specific: "make it shorter, remove jargon, and use active voice". Always replace abstract instructions with concrete, measurable ones.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Rewriting Instructions</div>
+    <div class="l" onclick="openLesson('Steerability vs Next Token Prediction','Sometimes AI steers toward what sounds plausible (next token prediction) rather than what you asked for (steerability). When this happens, be more specific, not just more insistent.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Steerability vs Prediction</div>
+  </div>
+  <div class="tip">💡 Key insight: If AI keeps ignoring your instruction, the problem is usually the instruction — not AI. Make it shorter, more concrete, and more specific.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EEF2FF;color:#1A56DB">06</div><div class="mi"><div class="mt">When Properties Collide — The Diagnostic</div><div class="ms">Real tasks · Property interactions · Fix framework</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">In real use, all 4 properties interact simultaneously. A long document review strains working memory while reaching past knowledge boundaries. This module gives you a practical diagnostic for any unexpected AI output.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Why Properties Collide in Real Tasks','A contract review: strains working memory (long doc) + knowledge gaps (specific legal terms) + steerability (abstract "review this") + hallucination risk. All 4 at once.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>Why Properties Collide</div>
+    <div class="l" onclick="openLesson('The Diagnostic Framework','When you get an unexpected output: 1. Which property is most likely in play? 2. Where on the capability-limitation spectrum does this task fall? 3. Apply a targeted fix.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>The Diagnostic Framework</div>
+    <div class="l" onclick="openLesson('Targeted Fixes for Each Property','Next Token: verify facts. Knowledge: bring your own sources. Working Memory: break into smaller chunks. Steerability: make instruction more concrete. One fix at a time.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>Targeted Fixes</div>
+    <div class="l" onclick="openLesson('Generic Retry vs Targeted Fix','Just pressing retry rarely helps — you get the same output from the same input. A targeted fix addresses the specific property that failed. This is what makes you an expert user.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>Targeted vs Generic Retry</div>
+    <div class="l" onclick="openLesson('Building Your AI Mental Model','After this course: you have a mental model for every AI interaction. You know what\'s happening, why it happened, and exactly how to fix it. That\'s AI fluency in practice.');event.stopPropagation()"><span class="ld" style="background:#1A56DB"></span>Your AI Mental Model</div>
+  </div>
+  <div class="tip">💡 Key insight: Experts don\'t just retry — they diagnose. Knowing WHICH property failed tells you exactly HOW to fix the prompt. This is the skill that separates advanced AI users from beginners.</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🧠</div>
+  <div class="cn">AI Capabilities & Limitations</div>
+  <div class="cn2">Shubhasish Dutta — Anthropic Academy</div>
+  <div class="csub">13 Lectures · 0.25 Hours · 1 Quiz · Certificate #12 · June 2026</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  p1:{tag:"AI Property",title:"Next Token Prediction",desc:"The fundamental mechanism behind how AI generates text — predicting one token at a time based on patterns learned during training.",points:["Every AI response is built token by token — not retrieved from a database","AI predicts what word should come next based on all preceding context","This makes AI excellent at pattern-heavy tasks: summarising, reformatting, translating","It also means AI can produce fluent-sounding text that is factually wrong","Well-worn paths (common tasks) work reliably; off-path tasks carry hallucination risk","Understanding this mechanism helps you predict when AI will and won't be reliable"],tip:"💡 Next token prediction is why AI never truly 'thinks' — it generates. This is both its superpower and its Achilles heel."},
+  p2:{tag:"AI Property",title:"Knowledge",desc:"What AI knows is determined by its training data — and each piece of knowledge has varying reliability depending on how frequently and recently it appeared in that data.",points:["AI knows what was in its training data — frequent, recent, consistent topics are stronger","Mainstream topics: very reliable. Niche topics: use with caution and verify","Knowledge cutoff means AI has no access to events after training ended","AI can be confidently wrong on contested, rare, or very recent topics","Bring your own sources for niche or time-sensitive questions","The more specific and obscure the fact, the more important it is to verify"],tip:"💡 Treat AI knowledge like a brilliant colleague who read everything published before a certain date — and far more mainstream content than niche content."},
+  p3:{tag:"AI Property",title:"Working Memory",desc:"The context window is AI's working memory — everything it can access in the current conversation. Outside the window, AI has no knowledge, no instructions, no memory.",points:["Modern LLMs have context windows of 100K-200K tokens","Everything in the conversation is in working memory — your prompts, AI responses, pasted docs","Attention quality degrades for content in the middle of very long contexts","Each new session starts fresh — no memory of previous conversations by default","Content that exceeds the window is silently dropped — AI won't warn you","Break large tasks into smaller chunks to stay within reliable attention range"],tip:"💡 The context window is a whiteboard. Fill it too full and earlier content gets erased. Always be strategic about what you put in and when."},
+  p4:{tag:"AI Property",title:"Steerability",desc:"How effectively your instructions guide AI behaviour — and where steering becomes unreliable.",points:["Short, concrete, verifiable instructions work reliably every time","Abstract instructions ('be creative', 'make it better') degrade reliability","Long instruction lists compete with each other — keep it focused","When steering slips, make the instruction MORE specific, not just repeated louder","Role prompting ('act as a PM') improves steerability for specialised tasks","Steerability interacts with next token prediction — sometimes plausibility wins over instruction"],tip:"💡 Steerability is a skill, not luck. The more specific your instruction, the more reliably AI follows it. Vagueness is your enemy."},
+  s1:{tag:"Capability Spectrum",title:"Summarisation — Very Strong",desc:"One of AI's most reliable capabilities. Summarising text is a well-worn path — AI has processed millions of summaries and can do this consistently and accurately.",points:["Summarise documents, reports, emails, and long articles accurately","Works across any length from paragraphs to book-length documents","Can target specific audiences: 'summarise for a non-technical executive'","Maintains key points while reducing length dramatically","Very low hallucination risk — AI is working with provided content","One of the safest tasks to delegate to AI with minimal verification needed"],tip:"💡 Summarisation is the #1 productivity use case for AI. Use it daily for research, meeting notes, and long documents."},
+  s2:{tag:"Capability Spectrum",title:"Drafting & Writing — Very Strong",desc:"AI is an exceptional first-drafter across almost all writing formats — emails, reports, PRDs, proposals, social posts, and more.",points:["Drafts any format: emails, reports, proposals, PRDs, social posts","Adapts tone reliably: formal, casual, persuasive, empathetic","Strong at structure and flow — creates logical, readable documents","Always treat AI drafts as a starting point — personalise before sending","Lower your perfectionism threshold: edit AI drafts, don\'t write from scratch","The more context you provide, the better the first draft"],tip:"💡 Never write from a blank page again. AI gives you a strong first draft in seconds — you add the expertise, judgment, and personal touch."},
+  s3:{tag:"Capability Spectrum",title:"Mainstream Knowledge — Strong",desc:"AI has extensive, reliable knowledge of mainstream, widely documented topics — science, history, business, technology, and more.",points:["Reliable on: major world events, popular science, business concepts, mainstream technology","Strong on: widely taught subjects, popular programming languages, major industries","Explains complex concepts clearly at any level of technicality","Useful for background research on well-established topics","Always weaker on very recent developments even in mainstream topics","Cross-reference with authoritative sources for high-stakes decisions"],tip:"💡 For mainstream knowledge questions, AI is genuinely reliable — like having a well-read generalist on call 24/7."},
+  s4:{tag:"Capability Spectrum",title:"Reasoning & Logic — Good",desc:"AI handles structured reasoning well but can make logical errors, especially in multi-step chains or mathematical reasoning.",points:["Chain-of-thought prompting dramatically improves reasoning quality","Good at: structured analysis, pros/cons, framework application","Weaker at: complex multi-step math, formal logical proofs, precise calculations","Always verify numerical outputs independently","Breaking reasoning into steps helps AI perform more reliably","AI reasoning reflects patterns in training data — not true logical deduction"],tip:"💡 Ask AI to 'think step by step' for any reasoning task. It dramatically reduces errors and makes the logic checkable."},
+  s5:{tag:"Capability Spectrum",title:"Niche Knowledge — Variable",desc:"AI's reliability drops significantly for niche, specialised, or rarely documented topics — use with extra caution and always verify.",points:["Niche industries, local information, obscure topics — highly variable reliability","Specialised technical fields may have outdated or incomplete coverage","Regional or local knowledge is often weak — especially outside major cities","Domain-specific jargon may be misused or misunderstood","Always verify niche claims with domain experts or primary sources","Bring your own documents for niche topics — don\'t rely on AI knowledge alone"],tip:"💡 For anything niche, paste your own authoritative sources into the prompt. Then ask AI to work with YOUR content rather than its training data."},
+  s6:{tag:"Capability Spectrum",title:"Real-time Information — Weak",desc:"AI has no access to current events, live data, or anything published after its training cutoff — this is one of its most important limitations.",points:["AI cannot access the internet or real-time data during a conversation","No knowledge of: current news, live prices, recent product releases, today's date","Knowledge cutoff means months or years of missing information","For any time-sensitive question, always verify with current sources","Some AI tools have web search integration — check if yours does","Never rely on AI for current market prices, recent events, or live data"],tip:"💡 AI without web search is like a brilliant expert who\'s been on sabbatical for 1-2 years. Great for timeless knowledge, unreliable for recent events."},
+  s7:{tag:"Capability Spectrum",title:"Factual Accuracy — Variable",desc:"AI's factual accuracy varies dramatically by topic and specificity — very reliable for well-documented mainstream facts, unreliable for specific details, citations, and niche claims.",points:["High accuracy: widely documented mainstream facts in training data","Variable accuracy: specific statistics, citations, dates, names, and numbers","Hallucination risk increases with: specificity, niche topics, recent events","Always verify: statistics, citations, specific claims before publishing","AI can fabricate plausible-sounding but entirely false citations","The more specific a fact, the more important it is to independently verify"],tip:"💡 Trust AI for concepts and frameworks. Verify AI for specific facts, numbers, and citations. This rule alone prevents most AI-related professional embarrassments."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Discovery — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F0EDE8;
+  --bg2: #E8E3DC;
+  --card: #FFFFFF;
+  --border: #D8D2C8;
+  --navy: #1A1A2E;
+  --teal: #0D7377;
+  --teal-l: #E0F5F4;
+  --orange: #E85D04;
+  --orange-l: #FFF0E6;
+  --purple: #6B3FA0;
+  --purple-l: #F0EAFA;
+  --blue: #1B4FD8;
+  --blue-l: #EEF3FE;
+  --green: #1B7D4F;
+  --green-l: #E6F5EE;
+  --red: #C0392B;
+  --red-l: #FDECEA;
+  --gold: #B8860B;
+  --gold-l: #FEF9E7;
+  --gray: #6B7280;
+  --white: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--navy); min-height: 100vh; }
+
+/* HEADER */
+header {
+  background: var(--navy);
+  padding: 3rem 2rem 2.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 250px; height: 250px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(13,115,119,0.3), transparent 70%);
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,93,4,0.2), transparent 70%);
+}
+.htag {
+  display: inline-flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; justify-content: center;
+}
+.htag span {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 0.25rem 0.8rem; border-radius: 50px;
+}
+.t1 { background: rgba(13,115,119,0.25); color: #4DD9D9; border: 1px solid rgba(13,115,119,0.4); }
+.t2 { background: rgba(232,93,4,0.2); color: #FFAA70; border: 1px solid rgba(232,93,4,0.3); }
+header h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem,5vw,3rem); color: #fff; line-height: 1.1; margin-bottom: 0.5rem; }
+header h1 em { color: #4DD9D9; font-style: normal; }
+header p { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 1.5rem; }
+.score-row { display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; }
+.schip {
+  font-size: 0.75rem; font-weight: 500;
+  padding: 0.3rem 0.9rem; border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7);
+  background: rgba(255,255,255,0.07);
+}
+.schip.gold { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.3); color: #FCD34D; }
+
+/* DISCOVERY FLOW */
+.flow-section {
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 2rem 1.5rem; text-align: center;
+}
+.flow-section h2 { font-family: 'Syne', sans-serif; font-size: 1rem; color: var(--navy); margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+.flow-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0; max-width: 660px; margin: 0 auto; }
+.fstep {
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  cursor: pointer; transition: transform 0.2s;
+}
+.fstep:hover { transform: translateY(-3px); }
+.fcircle {
+  width: 58px; height: 58px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; border: 2px solid;
+  transition: box-shadow 0.2s;
+}
+.fstep:hover .fcircle { box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.flabel { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+.farrow { font-size: 1.1rem; color: #ccc; margin: 0 0.2rem; padding-bottom: 1.4rem; }
+
+/* MAIN */
+main { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 5rem; }
+
+.divider {
+  display: flex; align-items: center; gap: 1rem;
+  font-size: 0.63rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gray); margin: 2rem 0 1rem;
+}
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* FRAMEWORK CARDS */
+.fw-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin-bottom: 0.5rem; }
+.fw-card {
+  background: var(--white); border: 1.5px solid var(--border); border-radius: 14px;
+  padding: 1.1rem; cursor: pointer; transition: all 0.2s;
+}
+.fw-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+.fw-icon { font-size: 1.6rem; margin-bottom: 0.4rem; }
+.fw-title { font-size: 0.85rem; font-weight: 600; color: var(--navy); margin-bottom: 0.15rem; }
+.fw-sub { font-size: 0.73rem; color: var(--gray); line-height: 1.4; }
+
+/* MODULE CARDS */
+.mod {
+  background: var(--white); border: 1.5px solid var(--border); border-radius: 16px;
+  margin-bottom: 0.75rem; overflow: hidden; cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.mod:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.mod.open { border-color: var(--teal); }
+.mod-head { display: flex; align-items: center; gap: 1rem; padding: 1.1rem 1.3rem; }
+.mnum {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+}
+.minfo { flex: 1; }
+.mtitle { font-size: 0.92rem; font-weight: 600; color: var(--navy); margin-bottom: 0.15rem; }
+.msub { font-size: 0.73rem; color: var(--gray); }
+.mchev { color: var(--gray); font-size: 0.85rem; transition: transform 0.2s; }
+.mod.open .mchev { transform: rotate(90deg); color: var(--teal); }
+.mod-body { display: none; padding: 0 1.3rem 1.3rem; border-top: 1px solid var(--border); }
+.mod.open .mod-body { display: block; }
+.mdesc { font-size: 0.86rem; line-height: 1.65; color: #444; padding: 1rem 0 0.8rem; }
+.lessons { display: grid; grid-template-columns: 1fr 1fr; gap: 0.45rem; margin-top: 0.5rem; }
+.lesson {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+  padding: 0.5rem 0.7rem; font-size: 0.73rem; color: var(--navy); font-weight: 500;
+  display: flex; align-items: flex-start; gap: 0.4rem; cursor: pointer;
+  transition: all 0.15s; line-height: 1.35;
+}
+.lesson:hover { background: var(--teal-l); border-color: var(--teal); transform: translateY(-1px); }
+.ldot { width: 5px; height: 5px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+.tip {
+  margin-top: 1rem; padding: 0.75rem 1rem; border-radius: 10px;
+  font-size: 0.78rem; line-height: 1.5; font-style: italic;
+  background: var(--teal-l); border: 1px solid rgba(13,115,119,0.2); color: var(--teal);
+}
+
+/* AI STRIP */
+.ai-strip {
+  background: linear-gradient(135deg, var(--navy), #1A2E4A);
+  border-radius: 16px; padding: 1.5rem; margin: 1rem 0;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem;
+}
+.ai-item {
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; padding: 0.8rem; cursor: pointer; transition: all 0.2s;
+}
+.ai-item:hover { background: rgba(77,217,217,0.1); border-color: rgba(77,217,217,0.3); transform: translateY(-2px); }
+.ai-title { font-size: 0.8rem; font-weight: 600; color: #fff; margin-bottom: 0.2rem; }
+.ai-sub { font-size: 0.7rem; color: rgba(255,255,255,0.5); line-height: 1.35; }
+
+/* CERT BANNER */
+.cert { background: var(--teal); border-radius: 20px; padding: 2rem; text-align: center; margin-top: 2rem; }
+.cert-score { font-family: 'Syne', sans-serif; font-size: 4rem; color: white; line-height: 1; }
+.cert-name { font-size: 1.1rem; font-weight: 600; color: white; margin: 0.4rem 0 0.3rem; }
+.cert-sub { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
+
+/* MODAL */
+.overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(26,26,46,0.75); z-index: 300;
+  align-items: center; justify-content: center;
+  padding: 1rem; backdrop-filter: blur(8px);
+}
+.overlay.active { display: flex; }
+.modal {
+  background: var(--white); border-radius: 20px;
+  max-width: 480px; width: 100%; max-height: 85vh; overflow-y: auto;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.3);
+  animation: pop 0.22s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes pop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.modal-top {
+  padding: 1.4rem 1.5rem 1rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+  position: sticky; top: 0; background: var(--white); border-radius: 20px 20px 0 0;
+}
+.modal-tag { font-size: 0.63rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.3rem; }
+.modal-title { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: var(--navy); line-height: 1.2; }
+.modal-close {
+  background: var(--bg); border: none; width: 28px; height: 28px;
+  border-radius: 50%; font-size: 0.8rem; cursor: pointer; color: var(--gray);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.modal-body { padding: 1.2rem 1.5rem 1.5rem; }
+.modal-desc { font-size: 0.88rem; line-height: 1.65; color: #444; margin-bottom: 1rem; }
+.modal-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+.modal-list li { display: flex; gap: 0.6rem; font-size: 0.84rem; line-height: 1.5; color: #333; }
+.modal-list li::before { content: '→'; font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.modal-tip { margin-top: 1.2rem; padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.78rem; line-height: 1.5; font-style: italic; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="htag">
+    <span class="t1">Pendo</span>
+    <span class="t2">Mind the Product</span>
+  </div>
+  <h1>Product <em>Discovery</em><br>Certification</h1>
+  <p>Complete Interactive Guide · 6 Modules · 31 Lessons · AI-Powered Discovery</p>
+  <div class="score-row">
+    <span class="schip gold">97.5% · Passed ✓</span>
+    <span class="schip">Issued 8 June 2026</span>
+    <span class="schip">Never Expires</span>
+    <span class="schip">Credly Badge</span>
+  </div>
+</header>
+
+<!-- DISCOVERY FLOW -->
+<div class="flow-section">
+  <h2>The Product Discovery Framework</h2>
+  <div class="flow-row">
+    <div class="fstep" onclick="openModal('fd_understand')">
+      <div class="fcircle" style="background:#F0EAFA;border-color:#6B3FA0">🎯</div>
+      <span class="flabel" style="color:#6B3FA0">Understand</span>
+    </div>
+    <div class="farrow">→</div>
+    <div class="fstep" onclick="openModal('fd_define')">
+      <div class="fcircle" style="background:#EEF3FE;border-color:#1B4FD8">📋</div>
+      <span class="flabel" style="color:#1B4FD8">Define</span>
+    </div>
+    <div class="farrow">→</div>
+    <div class="fstep" onclick="openModal('fd_explore')">
+      <div class="fcircle" style="background:#FFF0E6;border-color:#E85D04">💡</div>
+      <span class="flabel" style="color:#E85D04">Explore</span>
+    </div>
+    <div class="farrow">→</div>
+    <div class="fstep" onclick="openModal('fd_test')">
+      <div class="fcircle" style="background:#E0F5F4;border-color:#0D7377">🔬</div>
+      <span class="flabel" style="color:#0D7377">Test</span>
+    </div>
+    <div class="farrow">→</div>
+    <div class="fstep" onclick="openModal('fd_scale')">
+      <div class="fcircle" style="background:#E6F5EE;border-color:#1B7D4F">📈</div>
+      <span class="flabel" style="color:#1B7D4F">Scale</span>
+    </div>
+  </div>
+  <p style="font-size:0.72rem;color:#aaa;margin-top:1rem">Tap any phase to explore</p>
+</div>
+
+<main>
+
+<!-- DISCOVERY METHODS -->
+<div class="divider">Key Discovery Frameworks</div>
+<div class="fw-grid">
+  <div class="fw-card" onclick="openModal('fw_continuous')" style="border-color:rgba(107,63,160,0.3)">
+    <div class="fw-icon">🔄</div>
+    <div class="fw-title" style="color:#6B3FA0">Continuous Discovery</div>
+    <div class="fw-sub">Weekly touchpoints with customers to stay aligned with real needs</div>
+  </div>
+  <div class="fw-card" onclick="openModal('fw_opportunity')" style="border-color:rgba(27,79,216,0.3)">
+    <div class="fw-icon">🌳</div>
+    <div class="fw-title" style="color:#1B4FD8">Opportunity Tree</div>
+    <div class="fw-sub">Map outcomes to opportunities to solutions to experiments</div>
+  </div>
+  <div class="fw-card" onclick="openModal('fw_jobs')" style="border-color:rgba(232,93,4,0.3)">
+    <div class="fw-icon">⚙️</div>
+    <div class="fw-title" style="color:#E85D04">Jobs-to-be-Done</div>
+    <div class="fw-sub">Understand the job customers are hiring your product to do</div>
+  </div>
+  <div class="fw-card" onclick="openModal('fw_assumption')" style="border-color:rgba(13,115,119,0.3)">
+    <div class="fw-icon">🧪</div>
+    <div class="fw-title" style="color:#0D7377">Assumption Testing</div>
+    <div class="fw-sub">Identify and test riskiest assumptions before building anything</div>
+  </div>
+</div>
+
+<!-- AI IN DISCOVERY -->
+<div class="divider">AI-Powered Discovery</div>
+<div class="ai-strip">
+  <div class="ai-item" onclick="openModal('ai_synthesis')">
+    <div class="ai-title">🤖 AI Synthesis</div>
+    <div class="ai-sub">Analyse thousands of feedback items in minutes</div>
+  </div>
+  <div class="ai-item" onclick="openModal('ai_patterns')">
+    <div class="ai-title">📊 Pattern Detection</div>
+    <div class="ai-sub">Surface hidden patterns across user behaviour data</div>
+  </div>
+  <div class="ai-item" onclick="openModal('ai_interviews')">
+    <div class="ai-title">🎙️ Interview Analysis</div>
+    <div class="ai-sub">AI transcribes and themes user interviews automatically</div>
+  </div>
+  <div class="ai-item" onclick="openModal('ai_predict')">
+    <div class="ai-title">🔮 Predictive Discovery</div>
+    <div class="ai-sub">Predict what users will need before they ask</div>
+  </div>
+</div>
+
+<!-- MODULES -->
+<div class="divider">6 Modules · 31 Lessons</div>
+
+<!-- Module 1 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mnum" style="background:#F0EAFA;color:#6B3FA0">01</div>
+    <div class="minfo">
+      <div class="mtitle">Foundations of Product Discovery</div>
+      <div class="msub">What is discovery · Why it matters · Common pitfalls</div>
+    </div>
+    <div class="mchev">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="mdesc">Establishes why product discovery is the most critical PM skill. Covers the difference between output-driven and outcome-driven discovery, common discovery failures, and the mindset shift needed to do discovery well consistently.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('What is Product Discovery?','Product discovery is the process of determining what to build and why — before committing engineering resources. It\'s about reducing risk by learning fast.');event.stopPropagation()"><span class="ldot" style="background:#6B3FA0"></span>What is Product Discovery?</div>
+      <div class="lesson" onclick="openLesson('Output vs Outcome-Driven Discovery','Output: shipping features. Outcome: changing user behaviour. Discovery that focuses on outcomes leads to products that actually succeed.');event.stopPropagation()"><span class="ldot" style="background:#6B3FA0"></span>Output vs Outcome Discovery</div>
+      <div class="lesson" onclick="openLesson('Why Discovery Fails','Most discovery fails because teams skip it, do it too late, or use it to validate pre-decided solutions rather than genuinely learn.');event.stopPropagation()"><span class="ldot" style="background:#6B3FA0"></span>Why Discovery Fails</div>
+      <div class="lesson" onclick="openLesson('The Discovery Mindset','Great discovery requires curiosity, humility, and patience. PMs must be willing to be wrong and let data challenge their assumptions.');event.stopPropagation()"><span class="ldot" style="background:#6B3FA0"></span>The Discovery Mindset</div>
+      <div class="lesson" onclick="openLesson('Discovery vs Delivery','Discovery and delivery run in parallel — not sequentially. While the team builds today\'s decisions, PMs are discovering tomorrow\'s.');event.stopPropagation()"><span class="ldot" style="background:#6B3FA0"></span>Discovery vs Delivery</div>
+      <div class="lesson" onclick="openLesson('Introduction to Pendo for Discovery','Pendo\'s analytics, session replays, and feedback tools give PMs a powerful discovery toolkit without leaving the product.');event.stopPropagation()"><span class="ldot" style="background:#6B3FA0"></span>Pendo for Discovery Intro</div>
+    </div>
+    <div class="tip">💡 Discovery insight: The goal of discovery is not to confirm what you already believe — it\'s to find out what you don\'t know you don\'t know.</div>
+  </div>
+</div>
+
+<!-- Module 2 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mnum" style="background:#EEF3FE;color:#1B4FD8">02</div>
+    <div class="minfo">
+      <div class="mtitle">Understanding Your Customers</div>
+      <div class="msub">User research · Interviews · Behaviour analysis</div>
+    </div>
+    <div class="mchev">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="mdesc">Deep dive into how to build genuine customer understanding. Covers qualitative and quantitative research methods, how to conduct effective user interviews, and how to use Pendo analytics to understand real user behaviour at scale.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('Continuous Discovery Habits','Teresa Torres\'s framework: interview at least one customer weekly to maintain a continuous stream of fresh customer insights.');event.stopPropagation()"><span class="ldot" style="background:#1B4FD8"></span>Continuous Discovery Habits</div>
+      <div class="lesson" onclick="openLesson('User Interview Techniques','Ask open-ended questions. Focus on past behaviour, not hypothetical futures. "Tell me about the last time you..." is more valuable than "Would you use..."');event.stopPropagation()"><span class="ldot" style="background:#1B4FD8"></span>User Interview Techniques</div>
+      <div class="lesson" onclick="openLesson('Behavioural Analytics for Discovery','Use Pendo paths, funnels, and session replays to see exactly what users do — not what they say they do. Behaviour is the truth.');event.stopPropagation()"><span class="ldot" style="background:#1B4FD8"></span>Behavioural Analytics</div>
+      <div class="lesson" onclick="openLesson('Customer Segmentation for Discovery','Different user segments have different problems. Segment by role, usage pattern, and customer lifecycle stage for targeted insights.');event.stopPropagation()"><span class="ldot" style="background:#1B4FD8"></span>Customer Segmentation</div>
+      <div class="lesson" onclick="openLesson('Synthesising Customer Insights','Pattern-match across multiple interviews and data sources. Don\'t act on single data points — look for convergence across sources.');event.stopPropagation()"><span class="ldot" style="background:#1B4FD8"></span>Synthesising Insights</div>
+    </div>
+    <div class="tip">💡 Discovery insight: Watch what users do, not what they say. Behaviour never lies — words sometimes do.</div>
+  </div>
+</div>
+
+<!-- Module 3 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mnum" style="background:#FFF0E6;color:#E85D04">03</div>
+    <div class="minfo">
+      <div class="mtitle">Identifying & Framing Opportunities</div>
+      <div class="msub">Opportunity mapping · Problem framing · Prioritisation</div>
+    </div>
+    <div class="mchev">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="mdesc">Covers how to translate raw customer insights into well-framed product opportunities. Teaches the Opportunity Solution Tree, Jobs-to-be-Done framework, and how to prioritise which opportunities deserve investment.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('The Opportunity Solution Tree','Map your desired outcome → opportunities → potential solutions → experiments. This visual framework keeps discovery structured and outcome-focused.');event.stopPropagation()"><span class="ldot" style="background:#E85D04"></span>Opportunity Solution Tree</div>
+      <div class="lesson" onclick="openLesson('Jobs-to-be-Done Framework','Users don\'t buy products — they hire them to do a job. Understanding the job creates better solutions than understanding demographics alone.');event.stopPropagation()"><span class="ldot" style="background:#E85D04"></span>Jobs-to-be-Done</div>
+      <div class="lesson" onclick="openLesson('How to Write a Problem Statement','A great problem statement is specific, user-centred, and outcome-focused. Avoid solution language. "Users can\'t easily find X" not "We need to build Y".');event.stopPropagation()"><span class="ldot" style="background:#E85D04"></span>Writing Problem Statements</div>
+      <div class="lesson" onclick="openLesson('Prioritising Opportunities','Use impact (frequency + severity) and strategic alignment to prioritise which opportunities to pursue. Not all problems deserve solving.');event.stopPropagation()"><span class="ldot" style="background:#E85D04"></span>Prioritising Opportunities</div>
+      <div class="lesson" onclick="openLesson('Using Pendo Feedback for Opportunity Mapping','Pendo\'s feedback module aggregates user requests and pain points. Use it to identify high-frequency opportunities quickly.');event.stopPropagation()"><span class="ldot" style="background:#E85D04"></span>Pendo Feedback Tool</div>
+    </div>
+    <div class="tip">💡 Discovery insight: The best PMs find opportunities others miss — not by being smarter, but by talking to customers more consistently.</div>
+  </div>
+</div>
+
+<!-- Module 4 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mnum" style="background:#E0F5F4;color:#0D7377">04</div>
+    <div class="minfo">
+      <div class="mtitle">Data-Driven Discovery Strategies</div>
+      <div class="msub">Analytics · Funnels · Retention analysis · AI tools</div>
+    </div>
+    <div class="mchev">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="mdesc">The most comprehensive module — covers how to use product analytics, AI tools, and data to run faster, more accurate discovery. Teaches specific Pendo analytics techniques alongside broader data-driven discovery practices.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('Funnel Analysis for Discovery','Funnels show where users drop off. Each drop-off point is a discovery opportunity — investigate the WHY behind the data.');event.stopPropagation()"><span class="ldot" style="background:#0D7377"></span>Funnel Analysis</div>
+      <div class="lesson" onclick="openLesson('Retention Cohort Analysis','Retention analysis shows which user segments stick around and which churn. Discovery should focus on understanding the difference.');event.stopPropagation()"><span class="ldot" style="background:#0D7377"></span>Retention Analysis</div>
+      <div class="lesson" onclick="openLesson('Session Replays for Discovery','Watch real user sessions to see exactly where users struggle, rage-click, or get confused. Nothing beats watching the product being used.');event.stopPropagation()"><span class="ldot" style="background:#0D7377"></span>Session Replays</div>
+      <div class="lesson" onclick="openLesson('Using AI for Discovery Synthesis','AI tools like Claude can analyse hundreds of support tickets, reviews, and interview transcripts to surface patterns in minutes.');event.stopPropagation()"><span class="ldot" style="background:#0D7377"></span>AI for Discovery Synthesis</div>
+      <div class="lesson" onclick="openLesson('In-App Feedback for Discovery','Contextual in-app surveys capture feedback at the exact moment users experience a problem — far more accurate than retrospective surveys.');event.stopPropagation()"><span class="ldot" style="background:#0D7377"></span>In-App Feedback</div>
+      <div class="lesson" onclick="openLesson('NPS as a Discovery Signal','A low NPS is a discovery trigger. Segment detractors and dig into their feedback to find high-impact opportunities.');event.stopPropagation()"><span class="ldot" style="background:#0D7377"></span>NPS as Discovery Signal</div>
+    </div>
+    <div class="tip">💡 Discovery insight: Data tells you WHAT is happening. Interviews tell you WHY. Great discovery uses both — never just one.</div>
+  </div>
+</div>
+
+<!-- Module 5 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mnum" style="background:#E6F5EE;color:#1B7D4F">05</div>
+    <div class="minfo">
+      <div class="mtitle">Testing & Validating Solutions</div>
+      <div class="msub">Prototyping · Experiments · Assumption testing</div>
+    </div>
+    <div class="mchev">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="mdesc">Discovery doesn't end when you find an opportunity — it continues through solution testing. Covers prototyping methods, assumption mapping, and how to run fast, cheap experiments to validate solutions before building them.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('Assumption Mapping','List all assumptions behind your solution. Rank by risk (wrong = bad) and uncertainty (how confident are you?). Test the riskiest first.');event.stopPropagation()"><span class="ldot" style="background:#1B7D4F"></span>Assumption Mapping</div>
+      <div class="lesson" onclick="openLesson('Prototyping for Discovery','Prototypes range from paper sketches to clickable mockups. Use the lowest fidelity that tests your specific assumption.');event.stopPropagation()"><span class="ldot" style="background:#1B7D4F"></span>Prototyping Methods</div>
+      <div class="lesson" onclick="openLesson('Fake Door & Concierge Tests','Fake door: measure demand before building. Concierge: manually deliver the solution to test viability before automating it.');event.stopPropagation()"><span class="ldot" style="background:#1B7D4F"></span>Fake Door Tests</div>
+      <div class="lesson" onclick="openLesson('Running Discovery Experiments','Design experiments with a clear hypothesis, success metric, and time limit. Kill experiments that don\'t show signal quickly.');event.stopPropagation()"><span class="ldot" style="background:#1B7D4F"></span>Discovery Experiments</div>
+      <div class="lesson" onclick="openLesson('Using Pendo Validate for Testing','Pendo Validate collects structured user input on proposed solutions directly inside the product — fast, contextual, and quantifiable.');event.stopPropagation()"><span class="ldot" style="background:#1B7D4F"></span>Pendo Validate Tool</div>
+    </div>
+    <div class="tip">💡 Discovery insight: The goal of an experiment is to LEARN, not to prove you\'re right. Celebrate failed experiments — they saved you from building the wrong thing.</div>
+  </div>
+</div>
+
+<!-- Module 6 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mnum" style="background:#FDECEA;color:#C0392B">06</div>
+    <div class="minfo">
+      <div class="mtitle">Scaling Product Discovery</div>
+      <div class="msub">Team discovery · Discovery culture · Continuous improvement</div>
+    </div>
+    <div class="mchev">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="mdesc">The final module covers how to scale discovery beyond the individual PM — building discovery into the team's rhythm, creating a discovery culture across the organisation, and using AI to make discovery faster and more consistent at scale.</p>
+    <div class="lessons">
+      <div class="lesson" onclick="openLesson('Building a Discovery Cadence','Discovery must be a habit, not an event. Weekly customer interviews, monthly synthesis sessions, and quarterly opportunity reviews create a discovery cadence.');event.stopPropagation()"><span class="ldot" style="background:#C0392B"></span>Discovery Cadence</div>
+      <div class="lesson" onclick="openLesson('Involving the Whole Team in Discovery','Engineers and designers who participate in discovery build better products. Bring them to customer interviews — they hear things PMs miss.');event.stopPropagation()"><span class="ldot" style="background:#C0392B"></span>Team Discovery</div>
+      <div class="lesson" onclick="openLesson('Creating a Discovery Culture','Discovery culture means psychological safety to challenge assumptions, celebrate learning, and kill bad ideas early without blame.');event.stopPropagation()"><span class="ldot" style="background:#C0392B"></span>Discovery Culture</div>
+      <div class="lesson" onclick="openLesson('AI Tools for Scaling Discovery','AI makes it possible to process customer feedback at scale — analysing thousands of data points that would take weeks manually.');event.stopPropagation()"><span class="ldot" style="background:#C0392B"></span>AI for Scaling Discovery</div>
+      <div class="lesson" onclick="openLesson('Measuring Discovery Quality','Track: number of customer interviews per week, hypothesis-to-experiment ratio, and time from insight to validated opportunity.');event.stopPropagation()"><span class="ldot" style="background:#C0392B"></span>Measuring Discovery Quality</div>
+      <div class="lesson" onclick="openLesson('Certification Exam — Product Discovery','20 questions. 75% to pass. Tests conceptual understanding and practical application across all 6 modules. Shubhasish scored 97.5%! 🏆');event.stopPropagation()"><span class="ldot" style="background:#C0392B"></span>Certification Exam</div>
+    </div>
+    <div class="tip">💡 Discovery insight: Discovery is not a phase — it\'s a permanent state of curiosity. The best product teams never stop learning about their customers.</div>
+  </div>
+</div>
+
+<!-- CERT BANNER -->
+<div class="cert">
+  <div class="cert-score">97.5%</div>
+  <div class="cert-name">Shubhasish Dutta</div>
+  <div class="cert-sub">Product Discovery Certified · Pendo × Mind the Product</div>
+  <div class="cert-sub" style="margin-top:0.3rem">8 June 2026 · Never Expires · Verified via Credly</div>
+</div>
+
+</main>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal">
+    <div class="modal-top">
+      <div>
+        <div class="modal-tag" id="modal-tag"></div>
+        <div class="modal-title" id="modal-title"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc" id="modal-desc"></p>
+      <ul class="modal-list" id="modal-list"></ul>
+      <div class="modal-tip" id="modal-tip"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const mdata = {
+  fd_understand:{ tag:"Discovery Phase", color:"#6B3FA0", title:"Understand", desc:"The Understand phase is about deeply knowing your customers — their goals, frustrations, workflows, and unmet needs. This is the foundation of all great discovery.", points:["Conduct regular user interviews — at least weekly","Use Pendo analytics to see real in-app behaviour","Map customer journeys to find friction points","Segment users to understand different needs","Use NPS detractor feedback as a discovery trigger","Resist forming opinions before gathering data"], tip:"💡 You cannot understand customers from behind your desk. Get out there — virtually or in person." },
+  fd_define:{ tag:"Discovery Phase", color:"#1B4FD8", title:"Define", desc:"The Define phase translates understanding into clear, actionable problem statements and opportunity maps that guide the rest of discovery.", points:["Write clear, specific problem statements without solution language","Use the Opportunity Solution Tree to structure your thinking","Prioritise opportunities by impact and strategic alignment","Align the team on which problem to solve next","Document assumptions that need testing","Share problem framing with stakeholders for early alignment"], tip:"💡 A well-defined problem is half solved. Invest time here to save 10x time later." },
+  fd_explore:{ tag:"Discovery Phase", color:"#E85D04", title:"Explore", desc:"The Explore phase is where creativity meets structure — generating multiple solution options and testing assumptions before committing to any single approach.", points:["Generate at least 3-5 possible solutions before evaluating any","Use Jobs-to-be-Done to reframe how you think about solutions","Challenge every assumption behind each solution","Involve engineers and designers in solution exploration","Use prototyping to make ideas tangible quickly","Kill weak solutions early — don't get attached"], tip:"💡 The first solution is rarely the best one. Explore broadly before converging." },
+  fd_test:{ tag:"Discovery Phase", color:"#0D7377", title:"Test", desc:"The Test phase validates assumptions through structured experiments — from fake door tests to usability studies — before investing in full development.", points:["Map and rank assumptions by risk and uncertainty","Choose the simplest experiment that tests the riskiest assumption","Define success criteria before running the experiment","Run experiments in days or weeks, not months","Share learnings openly — failed tests are valuable data","Use Pendo Validate for in-product testing with real users"], tip:"💡 Every experiment is a win — either you confirm an assumption or you avoid building the wrong thing." },
+  fd_scale:{ tag:"Discovery Phase", color:"#1B7D4F", title:"Scale", desc:"The Scale phase embeds discovery as a continuous organisational capability — not just a PM activity but a team-wide habit that compounds over time.", points:["Build a weekly discovery cadence into team rituals","Bring engineers and designers to customer interviews","Create shared discovery repositories for the whole team","Use AI to scale synthesis across large feedback volumes","Measure discovery quality with specific metrics","Feed learnings back into the opportunity tree regularly"], tip:"💡 When the whole team does discovery, the whole product gets better. Don't keep discovery locked in the PM role." },
+  fw_continuous:{ tag:"Discovery Framework", color:"#6B3FA0", title:"Continuous Discovery", desc:"Continuous Discovery, popularised by Teresa Torres, is the practice of making customer contact a weekly habit rather than a periodic project.", points:["Interview at least one customer every week, consistently","Keep interviews short (30 mins) and focused on one theme","Look for patterns across many interviews, not conclusions from one","Maintain a living opportunity map that updates with each interview","Involve engineers and designers — not just PMs","Continuous discovery prevents building based on stale assumptions"], tip:"💡 Consistency beats intensity. 52 brief interviews a year beats one big research project." },
+  fw_opportunity:{ tag:"Discovery Framework", color:"#1B4FD8", title:"Opportunity Solution Tree", desc:"The Opportunity Solution Tree (OST) by Teresa Torres is a visual framework that connects your desired outcome to customer opportunities to potential solutions to experiments.", points:["Start with a clear desired outcome (business + user)","Branch into customer opportunities from research","Generate multiple solutions under each opportunity","Design experiments to test riskiest solution assumptions","Never jump from opportunity directly to build","The tree keeps discovery structured and outcome-focused"], tip:"💡 The OST prevents the most common PM trap: jumping from problem to solution without exploring the full space." },
+  fw_jobs:{ tag:"Discovery Framework", color:"#E85D04", title:"Jobs-to-be-Done", desc:"Jobs-to-be-Done (JTBD) reframes product thinking around the 'job' a user is hiring your product to accomplish — functional, emotional, and social.", points:["Functional job: the practical task to complete","Emotional job: how the user wants to feel","Social job: how the user wants to be perceived","Understanding all three creates more complete solutions","Ask: 'What were you doing before you found our product?'","JTBD explains switching behaviour better than personas"], tip:"💡 People don't buy a drill, they buy a hole. Understand the hole to build a better drill." },
+  fw_assumption:{ tag:"Discovery Framework", color:"#0D7377", title:"Assumption Testing", desc:"Assumption testing is the discipline of identifying, ranking, and systematically testing the beliefs behind your product decisions before committing to build.", points:["List all assumptions behind a proposed solution","Rate each: high/low desirability, viability, feasibility risk","Test the highest risk assumption first","Use the cheapest experiment possible","A disproven assumption is valuable data, not a failure","Document all tested assumptions for future reference"], tip:"💡 Most product failures aren't execution failures — they're assumption failures. Test yours before you build." },
+  ai_synthesis:{ tag:"AI in Discovery", color:"#0D7377", title:"AI Synthesis", desc:"AI tools like Claude and ChatGPT can process thousands of customer feedback items, reviews, and support tickets to surface themes and patterns in minutes.", points:["Upload NPS comments, reviews, or support tickets to Claude","Ask AI to cluster feedback into themes and opportunities","Use AI to generate draft problem statements from raw feedback","Validate AI-synthesised themes with qualitative interviews","AI synthesis doesn't replace judgment — it accelerates it","Combine AI synthesis with human interpretation for best results"], tip:"💡 You're already doing this Asish! Using Claude to synthesise and analyse is a competitive PM advantage." },
+  ai_patterns:{ tag:"AI in Discovery", color:"#0D7377", title:"Pattern Detection", desc:"AI analyses large volumes of behavioural data to surface patterns that would take weeks to find manually — giving PMs discovery insights at scale.", points:["AI detects feature usage anomalies automatically","Identifies correlation between feature usage and retention","Surfaces user segments with distinct behaviour patterns","Flags sudden changes in engagement before they become crises","Pendo's AI layer surfaces insights without custom analysis","Pattern detection accelerates the insight-to-action cycle"], tip:"💡 AI pattern detection turns your analytics from reactive to proactive — you see problems before users report them." },
+  ai_interviews:{ tag:"AI in Discovery", color:"#0D7377", title:"AI Interview Analysis", desc:"AI tools can transcribe, theme, and analyse user interview recordings automatically — dramatically scaling the value extracted from qualitative research.", points:["Tools like Otter.ai, Dovetail, and Notion AI transcribe interviews","AI themes interviews across common patterns automatically","Identify quotes that support or challenge current assumptions","Track theme frequency across multiple interviews","AI tagging makes interview archives searchable and reusable","Spend more time interviewing, less time analysing"], tip:"💡 Record every customer interview (with permission). AI turns that archive into a searchable discovery goldmine." },
+  ai_predict:{ tag:"AI in Discovery", color:"#0D7377", title:"Predictive Discovery", desc:"The frontier of AI in discovery — using predictive models to anticipate user needs before they explicitly surface as requests or complaints.", points:["Predict which users are at risk of churning before they do","Forecast which features will drive adoption in specific segments","Identify the next most valuable action for each user type","Surface expansion opportunities based on usage signatures","Pendo's AI roadmap feature uses usage data to predict priorities","Predictive discovery shifts PMs from reactive to proactive"], tip:"💡 Predictive discovery is where AI's biggest PM value lies — knowing what users will need next week, not just what they needed last week." }
+};
+
+function openModal(key) {
+  const d = mdata[key]; if (!d) return;
+  document.getElementById('modal-tag').textContent = d.tag;
+  document.getElementById('modal-tag').style.color = d.color;
+  document.getElementById('modal-title').textContent = d.title;
+  document.getElementById('modal-title').style.color = d.color;
+  document.getElementById('modal-desc').textContent = d.desc;
+  const ul = document.getElementById('modal-list'); ul.innerHTML = '';
+  d.points.forEach(p => { const li = document.createElement('li'); li.textContent = p; ul.appendChild(li); });
+  const tip = document.getElementById('modal-tip');
+  tip.textContent = d.tip;
+  tip.style.background = d.color + '12';
+  tip.style.color = d.color;
+  tip.style.border = `1px solid ${d.color}30`;
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function openLesson(title, desc) {
+  event.stopPropagation();
+  document.getElementById('modal-tag').textContent = 'Lesson Detail';
+  document.getElementById('modal-tag').style.color = '#0D7377';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-title').style.color = '#1A1A2E';
+  document.getElementById('modal-desc').textContent = desc;
+  document.getElementById('modal-list').innerHTML = '';
+  document.getElementById('modal-tip').textContent = '';
+  document.getElementById('overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function closeOverlay(e) { if (e.target.id === 'overlay') closeModal(); }
+
+function toggleMod(card) {
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.mod.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>

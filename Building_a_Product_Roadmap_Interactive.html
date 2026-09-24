@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building a Product Roadmap — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F0F7FF;--card:#FFF;--border:#D6E7FB;--navy:#0A1F3C;--blue:#2563EB;--blue-l:#EFF6FF;--teal:#0D9488;--teal-l:#F0FDFA;--amber:#D97706;--amber-l:#FFFBEB;--indigo:#4F46E5;--indigo-l:#EEF2FF;--gray:#6B7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);}
+header{background:linear-gradient(135deg,#0A1F3C,#1E3A6E,#2563EB);padding:2.5rem 2rem 2rem;text-align:center;}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.htag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:800;line-height:1.1;margin-bottom:.4rem;}
+header h1 span{color:#93C5FD;}
+header p{color:rgba(255,255,255,.65);font-size:.8rem;margin-bottom:1.2rem;}
+.score-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.sc{font-size:.7rem;font-weight:500;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(255,193,7,.2);border-color:rgba(255,193,7,.4);color:#FFD54F;}
+.skills-bar{background:#fff;border-bottom:1px solid var(--border);padding:1.2rem 1.5rem;}
+.sb-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);text-align:center;margin-bottom:.9rem;}
+.skills-row{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;}
+.skill-chip{padding:.35rem .85rem;border-radius:50px;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .2s;border:1.5px solid;}
+.skill-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12);}
+main{max-width:700px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:1.8rem 0 .8rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .2s;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(37,99,235,.12);}
+.card-icon{font-size:1.4rem;margin-bottom:.3rem;}
+.card-title{font-size:.82rem;font-weight:700;margin-bottom:.1rem;}
+.card-sub{font-size:.68rem;color:var(--gray);line-height:1.35;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:14px;margin-bottom:.65rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 4px 16px rgba(37,99,235,.1);}
+.mod.open{border-color:var(--blue);}
+.mod-head{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;}
+.mn{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.12rem;}
+.ms{font-size:.7rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.82rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--blue);}
+.mod-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.83rem;line-height:1.6;color:#444;padding:.9rem 0 .7rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.45rem .65rem;font-size:.7rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.35rem;cursor:pointer;transition:all .15s;line-height:1.3;}
+.l:hover{background:var(--blue-l);border-color:var(--blue);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.l.done{opacity:.55;}
+.chk{font-size:.62rem;margin-left:auto;flex-shrink:0;}
+.tip{margin-top:.9rem;padding:.7rem .9rem;border-radius:8px;font-size:.75rem;line-height:1.5;font-style:italic;background:var(--blue-l);border:1px solid rgba(37,99,235,.2);color:var(--blue);}
+.cert{background:linear-gradient(135deg,#0A1F3C,#2563EB,#0D9488);border-radius:16px;padding:1.8rem;text-align:center;margin-top:1.8rem;}
+.cert-icon{font-size:2rem;margin-bottom:.4rem;}
+.cn{font-size:1.1rem;font-weight:800;color:#93C5FD;margin-bottom:.2rem;}
+.cn2{font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.2rem;}
+.csub{font-size:.7rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(10,31,60,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:16px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.25);animation:pop .2s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.2rem 1.3rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:16px 16px 0 0;}
+.modal-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:26px;height:26px;border-radius:50%;font-size:.78rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1rem 1.3rem 1.3rem;}
+.modal-desc{font-size:.85rem;line-height:1.6;color:#444;margin-bottom:.9rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.modal-list li{display:flex;gap:.55rem;font-size:.82rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1rem;padding:.75rem .9rem;border-radius:8px;font-size:.76rem;line-height:1.5;font-style:italic;background:var(--blue-l);color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Product School</span><span class="htag">Roadmapping</span><span class="htag">4 Chapters</span></div>
+  <h1>Building a Product <span>Roadmap</span></h1>
+  <p>Complete Interactive Guide · Strategy · Stakeholders · Prioritisation · Alignment</p>
+  <div class="score-row"><span class="sc gold">Course completed ✓</span><span class="sc">Shubhasish Dutta</span></div>
+</header>
+
+<div class="skills-bar">
+  <div class="sb-title">4 Skills Covered — Tap to Explore</div>
+  <div class="skills-row">
+    <div class="skill-chip" style="background:#EFF6FF;color:#2563EB;border-color:#2563EB" onclick="openModal('s1')">🧭 Roadmap Strategy</div>
+    <div class="skill-chip" style="background:#EEF2FF;color:#4F46E5;border-color:#4F46E5" onclick="openModal('s2')">🤝 Stakeholder Alignment</div>
+    <div class="skill-chip" style="background:#F0FDFA;color:#0D9488;border-color:#0D9488" onclick="openModal('s3')">📊 Prioritisation</div>
+    <div class="skill-chip" style="background:#FFFBEB;color:#D97706;border-color:#D97706" onclick="openModal('s4')">📣 Roadmap Communication</div>
+  </div>
+</div>
+
+<main>
+
+<div class="div">Core Concepts</div>
+<div class="grid2">
+  <div class="card" onclick="openModal('c1')"><div class="card-icon">🎯</div><div class="card-title" style="color:#2563EB">Product Strategy</div><div class="card-sub">The strategic foundation every roadmap builds on</div></div>
+  <div class="card" onclick="openModal('c2')"><div class="card-icon">🔍</div><div class="card-title" style="color:#4F46E5">Customer Research</div><div class="card-sub">Evidence that shapes what makes it onto the roadmap</div></div>
+  <div class="card" onclick="openModal('c3')"><div class="card-icon">🚩</div><div class="card-title" style="color:#0D9488">Milestones & Effort</div><div class="card-sub">Turning strategy into a sequenced, estimated plan</div></div>
+  <div class="card" onclick="openModal('c4')"><div class="card-icon">🛡️</div><div class="card-title" style="color:#D97706">Maintaining the Roadmap</div><div class="card-sub">Keeping it alive, evangelised, and up to date</div></div>
+</div>
+
+<div class="div">Course Chapters</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F1F5F9;color:#475569">00</div><div class="mi"><div class="mt">Introduction</div><div class="ms">Course overview and orientation</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The opening orientation chapter — its individual lesson list wasn't visible in your screenshots, so it's shown here as a single overview section rather than broken into lessons.</p>
+  <div class="tip">💡 Let me know if you want this expanded once you can see its lesson list.</div></div>
+</div>
+
+<div class="mod open" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EFF6FF;color:#2563EB">01</div><div class="mi"><div class="mt">Product Roadmap Foundations</div><div class="ms">What a roadmap is · Why it matters · Setting the scope</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Introduces the roadmap as a strategic communication tool, not a project plan — setting up why the rest of the course treats it as a living artefact rather than a fixed schedule.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What a roadmap actually is','A product roadmap communicates strategic direction and priorities over time — it is not a Gantt chart or a delivery guarantee. Its job is to align teams around the why and what before the how.');event.stopPropagation()"><span class="ld" style="background:#2563EB"></span>Defining the roadmap</div>
+    <div class="l" onclick="openLesson('Why foundations matter','Skipping the foundational thinking — strategy, stakeholders, research — is the most common reason roadmaps fail later. Getting the groundwork right first makes every later step easier.');event.stopPropagation()"><span class="ld" style="background:#2563EB"></span>Why start here</div>
+  </div>
+  <div class="tip">💡 A roadmap is a communication tool first, a plan second. If it only makes sense to the PM who built it, it has not done its job.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EEF2FF;color:#4F46E5">02</div><div class="mi"><div class="mt">Laying the Groundwork</div><div class="ms">Process · Stakeholders · Customer research · Strategy</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers the groundwork that has to happen before a single roadmap item gets written down: the right process, the right stakeholders in the room, and evidence from customer research grounded in strategy.</p>
+  <div class="ls">
+    <div class="l done" onclick="openLesson('The importance of process','A repeatable process for building a roadmap prevents it from becoming a wish list. It defines how items get proposed, evaluated, and sequenced consistently.');event.stopPropagation()"><span class="ld" style="background:#2563EB"></span>Importance of process <span style="opacity:.55;font-weight:500">· 2:48</span><span class="chk">✓</span></div>
+    <div class="l done" onclick="openLesson('Why product roadmaps fail','Common failure modes: no clear strategy behind it, built without stakeholder input, treated as a fixed delivery date, or never revisited once published.');event.stopPropagation()"><span class="ld" style="background:#2563EB"></span>Why roadmaps fail <span style="opacity:.55;font-weight:500">· 2:59</span><span class="chk">✓</span></div>
+    <div class="l done" onclick="openLesson('Selecting your stakeholders','Identify who needs input (sales, support, engineering, leadership, customers) versus who needs to be informed. Over-including slows the process down; under-including causes rework later.');event.stopPropagation()"><span class="ld" style="background:#2563EB"></span>Select your stakeholders <span style="opacity:.55;font-weight:500">· 2:48</span><span class="chk">✓</span></div>
+    <div class="l done" onclick="openLesson('Customer research to inform the roadmap','Roadmap items backed by direct customer evidence — interviews, support themes, usage data — are far easier to defend and prioritise than internally-generated ideas.');event.stopPropagation()"><span class="ld" style="background:#2563EB"></span>Customer research <span style="opacity:.55;font-weight:500">· 3:06</span><span class="chk">✓</span></div>
+    <div class="l done" onclick="openLesson('Start with product strategy','The roadmap should be a direct expression of the product strategy. If an item does not trace back to a strategic goal, question whether it belongs.');event.stopPropagation()"><span class="ld" style="background:#2563EB"></span>Start with strategy <span style="opacity:.55;font-weight:500">· 3:17</span><span class="chk">✓</span></div>
+    <div class="l done" onclick="openLesson('Identify key milestones','High-impact roadmaps are organised around a handful of meaningful milestones rather than a long flat list of features — milestones give the roadmap a narrative.');event.stopPropagation()"><span class="ld" style="background:#2563EB"></span>Identify key milestones <span style="opacity:.55;font-weight:500">· 3:32</span><span class="chk">✓</span></div>
+  </div>
+  <div class="tip">💡 Most roadmap failures trace back to skipped groundwork — no process, no stakeholder buy-in, or no evidence — not to bad prioritisation later.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDFA;color:#0D9488">03</div><div class="mi"><div class="mt">Building Your Roadmap</div><div class="ms">Estimating effort · First draft · Getting alignment</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Turns the groundwork into an actual roadmap draft — estimating effort honestly, producing a first version, and running the meeting that gets input and buy-in before it goes public.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Estimate levels of effort','Rough, directional effort sizing (not detailed estimates) is enough at roadmap stage — it is there to help sequence and set expectations, not to commit engineering to a number.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>Estimate effort <span style="opacity:.55;font-weight:500">· 2:46</span></div>
+    <div class="l" onclick="openLesson('The first draft of your roadmap','Draft the roadmap as a starting point for discussion, not a finished artefact. Expect it to change once stakeholders react to it — that reaction is the point.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>The first draft <span style="opacity:.55;font-weight:500">· 3:34</span></div>
+    <div class="l" onclick="openLesson('The roadmap meeting','A dedicated meeting to walk stakeholders through the draft, surface disagreement early, and reach real alignment — rather than emailing a document and hoping for silence.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>Getting input & alignment <span style="opacity:.55;font-weight:500">· 3:31</span></div>
+    <div class="l" onclick="openLesson('Chapter quiz','Four questions checking understanding of effort estimation, drafting, and running an effective roadmap alignment meeting.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>Chapter quiz <span style="opacity:.55;font-weight:500">· 4 Q</span></div>
+  </div>
+  <div class="tip">💡 Treat the first draft as a conversation starter, not a commitment — the roadmap meeting is where it actually gets built.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFFBEB;color:#D97706">04</div><div class="mi"><div class="mt">Common Challenges in a Product Roadmap</div><div class="ms">Evangelising · Maintaining · Keeping it alive</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">A roadmap's real work starts after publication: keeping it visible across the organisation and keeping it current as strategy, evidence, and priorities shift.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Evangelize the product roadmap','A published roadmap that nobody references is dead weight. Regularly reintroduce it in team updates, sales conversations, and leadership reviews so it stays the shared reference point.');event.stopPropagation()"><span class="ld" style="background:#D97706"></span>Evangelize the roadmap <span style="opacity:.55;font-weight:500">· 3:16</span></div>
+    <div class="l" onclick="openLesson('Maintain the product roadmap','Revisit the roadmap on a regular cadence — new evidence, shifted priorities, or missed milestones should update it, not sit ignored until it becomes untrustworthy.');event.stopPropagation()"><span class="ld" style="background:#D97706"></span>Maintain the roadmap <span style="opacity:.55;font-weight:500">· 2:13</span></div>
+    <div class="l" onclick="openLesson('Chapter quiz','Two questions checking understanding of how to keep a roadmap visible and current after it ships.');event.stopPropagation()"><span class="ld" style="background:#D97706"></span>Chapter quiz <span style="opacity:.55;font-weight:500">· 2 Q</span></div>
+  </div>
+  <div class="tip">💡 A roadmap loses value the moment it stops being updated — maintenance is not optional overhead, it is the job.</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🏆</div>
+  <div class="cn">Building a Product Roadmap</div>
+  <div class="cn2">Shubhasish Dutta — Product School</div>
+  <div class="csub">Course completed · 4 chapters · Roadmapping certificate</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  s1:{tag:"Skill",title:"Roadmap Strategy",desc:"Grounding every roadmap item in a clear product strategy so the roadmap reads as a coherent narrative, not a feature list.",points:["Start from strategic goals, not a backlog of feature requests","Every roadmap item should trace back to a stated strategic objective","Organise around milestones that tell a story, not isolated features","Question items that don't connect to any strategic goal"],tip:"💡 If you can't explain why an item is on the roadmap in one sentence tied to strategy, it probably shouldn't be there yet."},
+  s2:{tag:"Skill",title:"Stakeholder Alignment",desc:"Identifying the right people to involve in building the roadmap, and running a process that gets genuine buy-in rather than silent disagreement.",points:["Separate stakeholders who need input from those who need to be informed","Involve sales, support, engineering, and leadership at the right points","Run a dedicated roadmap meeting to surface disagreement early","Treat pushback in the meeting as useful signal, not a delay"],tip:"💡 Alignment happens in the room during the roadmap meeting — not in the silence after an email goes unanswered."},
+  s3:{tag:"Skill",title:"Prioritisation",desc:"Using customer research, effort estimates, and milestones to decide what goes on the roadmap and in what order.",points:["Back roadmap items with direct customer evidence where possible","Use rough effort sizing to sequence realistically, not to lock in dates","Group items into milestones rather than a flat feature list","Revisit priorities as new evidence or strategic shifts arrive"],tip:"💡 Prioritisation on a roadmap is directional sequencing, not a delivery promise — precision comes later, at the sprint level."},
+  s4:{tag:"Skill",title:"Roadmap Communication",desc:"Keeping the roadmap visible and trusted across the organisation long after it's first published.",points:["Evangelise the roadmap regularly in team and leadership updates","Reference it in sales and customer conversations to keep it grounded","Update it on a set cadence rather than letting it go stale","Treat maintenance as core roadmap work, not an afterthought"],tip:"💡 An unmaintained roadmap loses trust fast — a stale roadmap is often worse than no roadmap at all."},
+  c1:{tag:"Core Concept",title:"Product Strategy",desc:"The strategic thinking that every roadmap item should be traceable back to.",points:["Roadmaps are an expression of strategy, not a substitute for it","Strategy answers 'why this, why now' before the roadmap answers 'what, when'","Use strategy to say no to items that don't fit, however popular"],tip:"💡 Build the strategy conversation before the roadmap conversation — skipping it shows up later as constant re-litigating of priorities."},
+  c2:{tag:"Core Concept",title:"Customer Research",desc:"The evidence base that makes roadmap decisions defensible rather than opinion-driven.",points:["Combine interviews, support themes, and usage data for a fuller picture","Evidence-backed items are easier to prioritise and defend to stakeholders","Research should inform milestones, not just individual features"],tip:"💡 An internally-generated idea and a customer-evidenced one may look identical on the roadmap slide — but only one survives stakeholder scrutiny."},
+  c3:{tag:"Core Concept",title:"Milestones & Effort",desc:"Turning strategy and research into a sequenced plan people can actually act on.",points:["Group work into milestones that tell a coherent story over time","Use rough, directional effort estimates to sequence realistically","The first draft exists to be reacted to, not to be final"],tip:"💡 A roadmap organised by milestone reads as a plan; one organised by individual feature reads as a wish list."},
+  c4:{tag:"Core Concept",title:"Maintaining the Roadmap",desc:"The ongoing work of keeping a roadmap alive, visible, and trustworthy after it ships.",points:["Evangelise the roadmap in recurring team and leadership updates","Revisit and update it on a set cadence as evidence and priorities shift","Treat an unmaintained roadmap as a trust problem, not a minor oversight"],tip:"💡 Publishing the roadmap is the easy part — evangelising and maintaining it is where most PMs drop the ball."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

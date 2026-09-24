@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product-led Certification — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F2FF;--card:#FFFFFF;--border:#E4D9F5;--navy:#1A0A2E;--purple:#6B21A8;--purple-l:#F3E8FF;--blue:#1D4ED8;--blue-l:#EFF6FF;--teal:#0F766E;--teal-l:#F0FDFA;--pink:#BE185D;--pink-l:#FDF2F8;--orange:#C2410C;--orange-l:#FFF7ED;--green:#15803D;--green-l:#F0FDF4;--gray:#6B7280;--white:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;}
+header{background:linear-gradient(135deg,#3B0764,#6B21A8,#9333EA);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.htag{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.8rem,5vw,3rem);color:#fff;line-height:1.1;margin-bottom:.5rem;font-weight:800;}
+header h1 span{color:#E9D5FF;}
+header p{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:1.5rem;}
+.score-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;}
+.sc{font-size:.75rem;font-weight:600;padding:.3rem .9rem;border-radius:50px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);}
+.sc.gold{background:rgba(245,158,11,.2);border-color:rgba(245,158,11,.4);color:#FCD34D;}
+.stats-bar{background:#fff;border-bottom:1px solid var(--border);padding:1.2rem;display:flex;justify-content:center;gap:3rem;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-num{font-size:1.6rem;font-weight:800;color:var(--purple);}
+.stat-lbl{font-size:.7rem;color:var(--gray);font-weight:500;text-transform:uppercase;letter-spacing:.08em;}
+main{max-width:700px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.63rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:2rem 0 1rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.plg-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.5rem;}
+.plg-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1.1rem;cursor:pointer;transition:all .2s;}
+.plg-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(107,33,168,.15);border-color:var(--purple);}
+.pc-icon{font-size:1.6rem;margin-bottom:.4rem;}
+.pc-title{font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:.15rem;}
+.pc-sub{font-size:.72rem;color:var(--gray);line-height:1.4;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:16px;margin-bottom:.75rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 6px 20px rgba(107,33,168,.1);}
+.mod.open{border-color:var(--purple);}
+.mod-head{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;}
+.mn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}
+.mt{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.15rem;}
+.ms{font-size:.72rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.85rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--purple);}
+.mod-body{display:none;padding:0 1.3rem 1.3rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.86rem;line-height:1.65;color:#444;padding:1rem 0 .8rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-top:.5rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font-size:.73rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.4rem;cursor:pointer;transition:all .15s;line-height:1.35;}
+.l:hover{background:var(--purple-l);border-color:var(--purple);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tip{margin-top:1rem;padding:.75rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--purple-l);border:1px solid rgba(107,33,168,.2);color:var(--purple);}
+.cert{background:linear-gradient(135deg,#3B0764,#6B21A8);border-radius:20px;padding:2rem;text-align:center;margin-top:2rem;}
+.cs{font-size:4rem;font-weight:800;color:#E9D5FF;line-height:1;}
+.cn{font-size:1.1rem;font-weight:700;color:#fff;margin:.4rem 0 .3rem;}
+.csub{font-size:.78rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,10,46,.75);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.3);animation:pop .22s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:20px 20px 0 0;}
+.modal-tag{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:.3rem;}
+.modal-title{font-size:1.3rem;font-weight:800;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:28px;height:28px;border-radius:50%;font-size:.8rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1.2rem 1.5rem 1.5rem;}
+.modal-desc{font-size:.88rem;line-height:1.65;color:#444;margin-bottom:1rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.modal-list li{display:flex;gap:.6rem;font-size:.84rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--purple);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1.2rem;padding:.8rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--purple-l);color:var(--purple);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Pendo</span><span class="htag">Mind the Product</span><span class="htag">3 Hours</span></div>
+  <h1>Product-led <span>Certified</span></h1>
+  <p>Complete Interactive Guide · 7 Modules · Product-led Growth Mastery</p>
+  <div class="score-row"><span class="sc gold">Certified ✓</span><span class="sc">Pendo × Mind the Product</span><span class="sc">June 2026</span><span class="sc">Credly Badge</span></div>
+</header>
+<div class="stats-bar">
+  <div class="stat"><div class="stat-num">28%</div><div class="stat-lbl">More Active Users</div></div>
+  <div class="stat"><div class="stat-num">30%</div><div class="stat-lbl">More Qualified Leads</div></div>
+  <div class="stat"><div class="stat-num">27%</div><div class="stat-lbl">Faster Onboarding</div></div>
+  <div class="stat"><div class="stat-num">15%</div><div class="stat-lbl">More Net Revenue Retention</div></div>
+</div>
+<main>
+<div class="div">What Does Product-led Mean?</div>
+<div class="plg-grid">
+  <div class="plg-card" onclick="openModal('plg_what')"><div class="pc-icon">🚀</div><div class="pc-title">Product-led Growth</div><div class="pc-sub">The product itself drives acquisition, retention, and expansion</div></div>
+  <div class="plg-card" onclick="openModal('plg_vs')"><div class="pc-icon">⚖️</div><div class="pc-title">PLG vs Sales-led</div><div class="pc-sub">Key differences and when each model works best</div></div>
+  <div class="plg-card" onclick="openModal('plg_metrics')"><div class="pc-icon">📊</div><div class="pc-title">PLG Metrics</div><div class="pc-sub">PQLs, time-to-value, activation rate, expansion revenue</div></div>
+  <div class="plg-card" onclick="openModal('plg_flywheel')"><div class="pc-icon">🔄</div><div class="pc-title">PLG Flywheel</div><div class="pc-sub">How product-led companies create compounding growth</div></div>
+</div>
+<div class="div">7 Modules — Full Curriculum</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F3E8FF;color:#6B21A8">01</div><div class="mi"><div class="mt">What it Means to be Product-led</div><div class="ms">PLG fundamentals · Business case · PLG benefits</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The foundation module — defines what product-led means, why it's transforming the software industry, and the quantifiable business benefits PLG companies enjoy over sales-led competitors.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Defining Product-led Growth','PLG is a go-to-market strategy where the product itself is the primary driver of customer acquisition, activation, and expansion. The product does the selling.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>Defining PLG</div>
+    <div class="l" onclick="openLesson('The Business Case for PLG','PLG companies see 28% more active users, 30% more qualified leads, 27% faster onboarding, and 15% more net revenue retention than non-PLG peers.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>Business Case for PLG</div>
+    <div class="l" onclick="openLesson('PLG in B2B vs B2C','PLG originated in B2C (Dropbox, Slack) but is now transforming B2B SaaS. Free trials, freemium, and self-serve are core B2B PLG tactics.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>PLG in B2B vs B2C</div>
+    <div class="l" onclick="openLesson('Product-led vs Sales-led','Sales-led: humans sell the product. Product-led: the product sells itself. Most mature companies blend both — product-led with sales-assisted.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>PLG vs Sales-led</div>
+    <div class="l" onclick="openLesson('Signs Your Company is Ready for PLG','Low-friction onboarding, clear user value, measurable activation moment, and a self-serve path to value are prerequisites for PLG success.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>PLG Readiness Signs</div>
+  </div>
+  <div class="tip">💡 PLG insight: The shift to product-led is a strategic decision, not a tactical one. It requires alignment across product, marketing, sales, and CS.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EFF6FF;color:#1D4ED8">02</div><div class="mi"><div class="mt">Setting Your Product-led Strategy</div><div class="ms">Free trial · Freemium · Self-serve · PLG motion</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers how to design your product-led go-to-market strategy. Teaches the major PLG motions (free trial, freemium, open source) and how to choose the right model for your product and market.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Free Trial vs Freemium','Free trial: full product for limited time. Freemium: limited product forever. Choose based on your product\'s time-to-value and complexity.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Free Trial vs Freemium</div>
+    <div class="l" onclick="openLesson('Designing Your PLG Motion','Map your user journey from sign-up to activation to expansion. Remove every friction point that slows the path to the aha moment.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Designing PLG Motion</div>
+    <div class="l" onclick="openLesson('The Aha Moment','The aha moment is the point when users first experience core product value. PLG strategy centres on getting users there as fast as possible.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>The Aha Moment</div>
+    <div class="l" onclick="openLesson('Time-to-Value Optimisation','Reduce time-to-value by streamlining onboarding, removing unnecessary steps, and using in-app guides to lead users to key features faster.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Time-to-Value</div>
+    <div class="l" onclick="openLesson('PLG Pricing Strategy','PLG pricing must make it easy to start (free/cheap) and obvious when to upgrade. Pricing friction kills PLG funnels.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>PLG Pricing Strategy</div>
+  </div>
+  <div class="tip">💡 PLG insight: Your aha moment is your most important product metric. Know it precisely and obsess over getting every user there faster.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDFA;color:#0F766E">03</div><div class="mi"><div class="mt">Understanding Your Users</div><div class="ms">User research · Segmentation · PQLs · Activation</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">In PLG, deep user understanding is everything. This module covers how to identify, segment, and understand your most valuable users — and how to use that knowledge to drive activation and expansion at scale.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Product Qualified Leads (PQLs)','PQLs are users who have experienced enough product value to be ready for a sales conversation or upgrade. Defined by usage signals, not demographics.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Product Qualified Leads</div>
+    <div class="l" onclick="openLesson('User Segmentation for PLG','Segment by usage pattern, activation status, and expansion potential. Different segments need different nudges at different times.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>PLG User Segmentation</div>
+    <div class="l" onclick="openLesson('Activation Metrics','Activation is the moment a user first gets value. Measure: % of users who reach the aha moment, time to activation, and activation by segment.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Activation Metrics</div>
+    <div class="l" onclick="openLesson('Identifying Power Users','Power users are your best advocates and expansion targets. Identify them by usage frequency, feature breadth, and NPS scores.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Identifying Power Users</div>
+    <div class="l" onclick="openLesson('Using Pendo to Understand Users','Pendo\'s paths, funnels, and segments give PLG teams deep insight into exactly how different users move through the product journey.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Pendo for PLG Insights</div>
+  </div>
+  <div class="tip">💡 PLG insight: The PQL is the PLG equivalent of the MQL — but it\'s far more reliable because it\'s based on actual product behaviour, not intent signals.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FDF2F8;color:#BE185D">04</div><div class="mi"><div class="mt">Collecting & Acting on User Feedback</div><div class="ms">Feedback loops · NPS · Feature requests · Policy</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">PLG companies build feedback loops directly into the product. This module covers how to systematically collect, manage, and act on user feedback to continuously improve the product-led experience.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Product Feedback Policy','A Product Feedback Policy defines: where users submit feedback, how often product reviews it, and how decisions will be communicated back. Transparency builds trust.');event.stopPropagation()"><span class="ld" style="background:#BE185D"></span>Product Feedback Policy</div>
+    <div class="l" onclick="openLesson('In-app NPS for PLG','Deploy NPS in-app at the moment of peak engagement. Segment responses by user type to get actionable signals from the right users.');event.stopPropagation()"><span class="ld" style="background:#BE185D"></span>In-app NPS</div>
+    <div class="l" onclick="openLesson('Closing the Feedback Loop','Communicate back to users when their feedback influenced a decision. This drives engagement, loyalty, and more feedback — a virtuous cycle.');event.stopPropagation()"><span class="ld" style="background:#BE185D"></span>Closing Feedback Loops</div>
+    <div class="l" onclick="openLesson('Feature Request Management','Aggregate, tag, and prioritise feature requests by frequency and strategic alignment. Don\'t build everything — build what moves the needle.');event.stopPropagation()"><span class="ld" style="background:#BE185D"></span>Feature Request Management</div>
+    <div class="l" onclick="openLesson('Using Pendo Listen for Feedback','Pendo Listen centralises in-app feedback, NPS, and feature requests in one place — making feedback management scalable for PLG teams.');event.stopPropagation()"><span class="ld" style="background:#BE185D"></span>Pendo Listen Tool</div>
+  </div>
+  <div class="tip">💡 PLG insight: In PLG, feedback IS your sales conversation. Users tell you exactly what they need to upgrade — listen and act on it.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF7ED;color:#C2410C">05</div><div class="mi"><div class="mt">Driving Feature Adoption</div><div class="ms">In-app guides · Onboarding · Activation campaigns</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Feature adoption is the engine of PLG — more adoption means more value, more retention, and more expansion. This module teaches how to drive adoption through in-app experiences, onboarding flows, and targeted campaigns.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('In-app Onboarding Design','Great onboarding shows users the fastest path to value. Use checklists, tooltips, and walkthroughs to guide users without overwhelming them.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>In-app Onboarding Design</div>
+    <div class="l" onclick="openLesson('Contextual In-app Guides','Trigger guides based on user behaviour, not time. Show the right guidance when users encounter a relevant moment — not on day 1 for everyone.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Contextual Guides</div>
+    <div class="l" onclick="openLesson('Feature Launch Campaigns','A great feature launch combines in-app announcement, guided walkthrough, and follow-up nudge to maximise adoption among the right users.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Feature Launch Campaigns</div>
+    <div class="l" onclick="openLesson('Adoption Metrics','Track: feature adoption rate, time-to-first-use, breadth of adoption (% of users), and depth (how often). Use to identify next intervention.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Adoption Metrics</div>
+    <div class="l" onclick="openLesson('Re-engagement Campaigns','Target dormant users with personalised in-app messages highlighting features they haven\'t tried. Re-engagement is cheaper than acquisition.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Re-engagement Campaigns</div>
+  </div>
+  <div class="tip">💡 PLG insight: A feature no one uses is a failed investment. Adoption campaigns are the PM\'s responsibility — not just marketing\'s.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDF4;color:#15803D">06</div><div class="mi"><div class="mt">Measuring PLG Success</div><div class="ms">PLG metrics · Data stack · Revenue metrics · Dashboards</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">You can't improve what you can't measure. This module covers the complete PLG measurement framework — from defining your data stack to building dashboards that give real-time visibility into PLG health.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('The PLG Metrics Framework','Key PLG metrics: Activation Rate, Time-to-Value, Feature Adoption, PQL Rate, Expansion Revenue, NPS, and Retention Cohorts.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>PLG Metrics Framework</div>
+    <div class="l" onclick="openLesson('Building Your Data Stack','A PLG data stack includes: product analytics (Pendo/Amplitude), CRM, data warehouse, and BI tool. Each serves a different measurement need.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>PLG Data Stack</div>
+    <div class="l" onclick="openLesson('10 KPIs for the Digital Workplace','DAU/MAU ratio, feature stickiness, onboarding completion, NPS, support deflection, expansion MRR, churn rate, PQL conversion, time-to-value, retention cohorts.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>10 PLG KPIs</div>
+    <div class="l" onclick="openLesson('PLG Revenue Metrics','Net Revenue Retention (NRR) is the gold standard PLG metric. NRR >100% means expansion revenue exceeds churn — the PLG dream state.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>PLG Revenue Metrics</div>
+    <div class="l" onclick="openLesson('Building a PLG Dashboard','Your PLG dashboard should show: activation funnel, feature adoption heatmap, NPS trend, PQL pipeline, and retention cohorts — all in one view.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>PLG Dashboard Design</div>
+  </div>
+  <div class="tip">💡 PLG insight: Net Revenue Retention >100% means your existing customers are growing your revenue without you acquiring a single new one. That\'s the power of PLG.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F3E8FF;color:#6B21A8">07</div><div class="mi"><div class="mt">Certification Exam</div><div class="ms">30 questions · 75% pass · Credly badge</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The final certification exam tests knowledge across all 6 modules with 30 multiple choice questions. Requires 75% to pass. Earners receive a Pendo × Mind the Product "Product-led Certified" badge via Credly.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Exam Format','30 multiple choice questions. 75% (22.5/30) to pass. 5 attempts. Covers all 6 modules equally.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>Exam Format</div>
+    <div class="l" onclick="openLesson('Credly Product-led Badge','Add to LinkedIn, email signature, and resume. Verifiable by employers. Signals deep PLG knowledge to hiring managers.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>Credly Badge</div>
+    <div class="l" onclick="openLesson('PLG in Your Career','PLG knowledge is increasingly required for PM and BDM roles at SaaS companies. This cert demonstrates you understand modern growth strategy.');event.stopPropagation()"><span class="ld" style="background:#6B21A8"></span>PLG Career Value</div>
+  </div>
+  <div class="tip">🏆 Shubhasish Dutta — Product-led Certified · Pendo × Mind the Product · June 2026</div></div>
+</div>
+
+<div class="cert"><div class="cs">PLG</div><div class="cn">Shubhasish Dutta — Product-led Certified</div><div class="csub">Pendo × Mind the Product · June 2026 · Never Expires · Credly Verified</div></div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal">
+    <div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div>
+  </div>
+</div>
+
+<script>
+const mdata={
+  plg_what:{tag:"PLG Fundamentals",title:"What is Product-led Growth?",desc:"PLG is a go-to-market strategy where the product itself — not salespeople or marketers — is the primary driver of customer acquisition, activation, retention, and expansion.",points:["Users experience value before paying — free trial or freemium model","The product markets itself through viral loops and word of mouth","Sales assists rather than leads — engaging only when users show intent","PLG companies scale faster with lower CAC than sales-led peers","Examples: Slack, Dropbox, Notion, Figma, Miro, HubSpot"],tip:"💡 The shift to PLG is the single biggest change in SaaS go-to-market strategy in the last decade."},
+  plg_vs:{tag:"PLG Fundamentals",title:"PLG vs Sales-led",desc:"Both models work, but they require different skills, metrics, and team structures. Understanding the difference is critical for any PM or BDM.",points:["Sales-led: high-touch, long cycles, humans close deals","PLG: self-serve, low-touch, product closes deals","Sales-led suits complex enterprise; PLG suits SMB and mid-market","Most mature SaaS companies use a hybrid: PLG for acquisition, sales for expansion","PLG reduces CAC dramatically — the product is the sales team"],tip:"💡 For BDM roles: PLG shifts your job from selling to enabling — you help customers succeed rather than convince them to buy."},
+  plg_metrics:{tag:"PLG Fundamentals",title:"PLG Metrics",desc:"PLG companies measure success differently from sales-led companies — focusing on product usage, activation, and expansion revenue.",points:["PQL: Product Qualified Lead — a user ready to buy based on usage","Time-to-Value: how fast users reach the aha moment","Activation Rate: % of users who complete key onboarding steps","Feature Adoption Rate: % using each core feature","NRR: Net Revenue Retention — expansion > churn means >100% NRR"],tip:"💡 If you track only one PLG metric, track NRR. >100% NRR means your existing customers are growing your revenue without new acquisition."},
+  plg_flywheel:{tag:"PLG Fundamentals",title:"The PLG Flywheel",desc:"PLG creates a compounding growth loop — each new user generates value that attracts more users, without proportional increase in costs.",points:["Acquisition: users discover product through word of mouth or viral features","Activation: users experience core value quickly and adopt the product","Retention: sticky features and habit formation keep users coming back","Expansion: power users upgrade, invite colleagues, expand seats","Referral: happy users become advocates and start the loop again"],tip:"💡 The PLG flywheel doesn\'t need constant fuel — once spinning, it generates its own momentum through user value."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

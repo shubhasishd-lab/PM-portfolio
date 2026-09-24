@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mixpanel Fundamentals — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F5FF;--card:#FFF;--border:#E0D4FF;--navy:#1A0A3C;--purple:#7C3AED;--purple-l:#EDE9FE;--blue:#4F46E5;--blue-l:#EEF2FF;--pink:#DB2777;--pink-l:#FDF2F8;--teal:#0D9488;--teal-l:#F0FDFA;--orange:#EA580C;--orange-l:#FFF7ED;--gray:#6B7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--navy);}
+header{background:linear-gradient(135deg,#1A0A3C,#4C1D95,#7C3AED);padding:2.5rem 2rem 2rem;text-align:center;}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.htag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:800;line-height:1.1;margin-bottom:.4rem;}
+header h1 span{color:#C4B5FD;}
+header p{color:rgba(255,255,255,.6);font-size:.8rem;margin-bottom:1.2rem;}
+.score-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.sc{font-size:.7rem;font-weight:500;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(255,165,0,.2);border-color:rgba(255,165,0,.4);color:#FFD700;}
+.skills-bar{background:#fff;border-bottom:1px solid var(--border);padding:1.2rem 1.5rem;}
+.sb-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);text-align:center;margin-bottom:.9rem;}
+.skills-row{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;}
+.skill-chip{padding:.35rem .85rem;border-radius:50px;font-size:.73rem;font-weight:600;cursor:pointer;transition:all .2s;border:1.5px solid;}
+.skill-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.12);}
+main{max-width:700px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:1.8rem 0 .8rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .2s;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,58,237,.12);}
+.card-icon{font-size:1.4rem;margin-bottom:.3rem;}
+.card-title{font-size:.82rem;font-weight:700;margin-bottom:.1rem;}
+.card-sub{font-size:.68rem;color:var(--gray);line-height:1.35;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:14px;margin-bottom:.65rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 4px 16px rgba(124,58,237,.1);}
+.mod.open{border-color:var(--purple);}
+.mod-head{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;}
+.mn{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.12rem;}
+.ms{font-size:.7rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.82rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--purple);}
+.mod-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.83rem;line-height:1.6;color:#444;padding:.9rem 0 .7rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.45rem .65rem;font-size:.7rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.35rem;cursor:pointer;transition:all .15s;line-height:1.3;}
+.l:hover{background:var(--purple-l);border-color:var(--purple);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.tip{margin-top:.9rem;padding:.7rem .9rem;border-radius:8px;font-size:.75rem;line-height:1.5;font-style:italic;background:var(--purple-l);border:1px solid rgba(124,58,237,.2);color:var(--purple);}
+.cert{background:linear-gradient(135deg,#4C1D95,#7C3AED,#DB2777);border-radius:16px;padding:1.8rem;text-align:center;margin-top:1.8rem;}
+.cert-icon{font-size:2rem;margin-bottom:.4rem;}
+.cn{font-size:1.1rem;font-weight:800;color:#C4B5FD;margin-bottom:.2rem;}
+.cn2{font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.2rem;}
+.csub{font-size:.7rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,10,60,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:16px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.25);animation:pop .2s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.2rem 1.3rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:16px 16px 0 0;}
+.modal-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:.25rem;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:26px;height:26px;border-radius:50%;font-size:.78rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1rem 1.3rem 1.3rem;}
+.modal-desc{font-size:.85rem;line-height:1.6;color:#444;margin-bottom:.9rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.modal-list li{display:flex;gap:.55rem;font-size:.82rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--purple);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1rem;padding:.75rem .9rem;border-radius:8px;font-size:.76rem;line-height:1.5;font-style:italic;background:var(--purple-l);color:var(--purple);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Mixpanel University</span><span class="htag">Fundamentals</span><span class="htag">Score: 76</span><span class="htag">Cert #18</span></div>
+  <h1>Mixpanel <span>Fundamentals</span></h1>
+  <p>Complete Interactive Guide · Data Governance · Digital Analytics · Funnel & Retention Analysis</p>
+  <div class="score-row"><span class="sc gold">Score: 76 ✓</span><span class="sc">400 Reputation Earned</span><span class="sc">July 26 2026</span><span class="sc">ID: 424800782</span></div>
+</header>
+
+<div class="skills-bar">
+  <div class="sb-title">4 Skills Certified — Tap to Explore</div>
+  <div class="skills-row">
+    <div class="skill-chip" style="background:#EDE9FE;color:#7C3AED;border-color:#7C3AED" onclick="openModal('s1')">📋 Data Governance</div>
+    <div class="skill-chip" style="background:#EEF2FF;color:#4F46E5;border-color:#4F46E5" onclick="openModal('s2')">📊 Digital Analytics</div>
+    <div class="skill-chip" style="background:#FDF2F8;color:#DB2777;border-color:#DB2777" onclick="openModal('s3')">🔽 Funnel Analysis</div>
+    <div class="skill-chip" style="background:#F0FDFA;color:#0D9488;border-color:#0D9488" onclick="openModal('s4')">🔄 Retention Analysis</div>
+  </div>
+</div>
+
+<main>
+
+<div class="div">Mixpanel Core Concepts</div>
+<div class="grid2">
+  <div class="card" onclick="openModal('c1')"><div class="card-icon">⚡</div><div class="card-title" style="color:#7C3AED">Events & Properties</div><div class="card-sub">The building blocks of all Mixpanel analytics</div></div>
+  <div class="card" onclick="openModal('c2')"><div class="card-icon">👥</div><div class="card-title" style="color:#4F46E5">Users & Identities</div><div class="card-sub">How Mixpanel tracks individuals across sessions</div></div>
+  <div class="card" onclick="openModal('c3')"><div class="card-icon">🎯</div><div class="card-title" style="color:#DB2777">Reports & Charts</div><div class="card-sub">Insights, Funnels, Retention, Flows and more</div></div>
+  <div class="card" onclick="openModal('c4')"><div class="card-icon">🔒</div><div class="card-title" style="color:#0D9488">Data Governance</div><div class="card-sub">Managing data quality, taxonomy and access</div></div>
+</div>
+
+<div class="div">Course Modules — Full Curriculum</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EDE9FE;color:#7C3AED">01</div><div class="mi"><div class="mt">Introduction to Mixpanel</div><div class="ms">Platform overview · Use cases · Setup · Navigation</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Introduces the Mixpanel platform — what it is, what makes it unique among analytics tools, and how product and growth teams use it to make data-driven decisions. Covers platform navigation and the core mental model for working with Mixpanel data.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is Mixpanel?','Mixpanel is a product analytics platform that tracks how users interact with your product. Unlike Google Analytics (page-level), Mixpanel is event-based — tracking every specific user action.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>What is Mixpanel?</div>
+    <div class="l" onclick="openLesson('Mixpanel vs Google Analytics','Google Analytics: page views, sessions, traffic sources. Mixpanel: user actions, feature usage, conversion funnels, retention cohorts. Mixpanel answers WHY users behave the way they do — not just WHAT they do.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Mixpanel vs GA</div>
+    <div class="l" onclick="openLesson('Core Use Cases','Product analytics: feature adoption, user flows, activation. Growth analytics: acquisition funnels, conversion optimisation. Retention analytics: cohort analysis, churn prediction. Mixpanel serves all three.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Core Use Cases</div>
+    <div class="l" onclick="openLesson('Platform Navigation','Key sections: Reports (Insights, Funnels, Retention, Flows, Experiments), Data Management (Events, Properties, Users), and Settings (Governance, Team, Integrations). Start with Reports for analysis.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Platform Navigation</div>
+    <div class="l" onclick="openLesson('Mixpanel Data Model','Everything in Mixpanel is built on: Events (what users do), Properties (details about events/users), and Profiles (who users are). Master these three and you can answer any analytics question.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Mixpanel Data Model</div>
+    <div class="l" onclick="openLesson('Setting Up Mixpanel','Implement via: JavaScript SDK (web), iOS/Android SDKs (mobile), or server-side API. Define your tracking plan BEFORE implementing — what events to track, what properties to include, naming conventions.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Setting Up Mixpanel</div>
+  </div>
+  <div class="tip">💡 Mixpanel insight: The setup investment pays enormous dividends. Teams that define their tracking plan carefully before implementing get 10x more value from their analytics.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EEF2FF;color:#4F46E5">02</div><div class="mi"><div class="mt">Events & Properties</div><div class="ms">Event tracking · Properties · Taxonomy · Naming conventions</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Events and properties are the foundation of all Mixpanel analytics. Everything you can analyse in Mixpanel starts with properly instrumented events. Covers the taxonomy design principles that make analysis fast and reliable.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is an Event?','An event is any action a user takes: Button Clicked, Video Watched, Purchase Completed, Feature Used. Events are the raw data that power ALL Mixpanel analysis. Without good events, analytics is impossible.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>What is an Event?</div>
+    <div class="l" onclick="openLesson('Event Properties','Properties add context to events. Event: "Purchase Completed". Properties: amount ($99), plan ("Pro"), payment_method ("credit_card"), item_count (3). Properties let you slice and filter analysis.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Event Properties</div>
+    <div class="l" onclick="openLesson('User Properties','User properties describe who the user is (persists across sessions): plan_type, signup_date, country, role, company_size. Combine with event properties for rich segmentation.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>User Properties</div>
+    <div class="l" onclick="openLesson('Super Properties','Super properties are automatically attached to every event a user fires — set once, applied everywhere. Use for: platform, app_version, user_tier. Reduces instrumentation effort dramatically.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Super Properties</div>
+    <div class="l" onclick="openLesson('Naming Conventions','Use object_action format: Report_Exported, Feature_Clicked, Account_Created. Consistent naming prevents taxonomy drift and makes analysis dramatically faster. Document conventions and enforce them across teams.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Naming Conventions</div>
+    <div class="l" onclick="openLesson('Tracking Plan','A tracking plan documents: every event to track, its trigger, all properties, who is responsible, and the business question it answers. Create before implementing — never after.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Tracking Plan</div>
+  </div>
+  <div class="tip">💡 Mixpanel insight: Your analysis is only as good as your event taxonomy. Invest time upfront in naming conventions and tracking plans — it saves months of confusion later.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FDF2F8;color:#DB2777">03</div><div class="mi"><div class="mt">Digital Analytics Foundations</div><div class="ms">Metrics · KPIs · Insights report · Segmentation</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers the core digital analytics concepts and how Mixpanel's Insights report brings them to life. Teaches metric selection, segmentation, and how to answer common product questions using Mixpanel's primary analysis tool.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Insights Report','Mixpanel\'s most versatile report. Track any event over time, segment by any property, compare cohorts. Answers: How many users did X? How does it vary by Y? What\'s the trend over time?');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Insights Report</div>
+    <div class="l" onclick="openLesson('Measurement Types','Total events: raw count of actions. Unique users: distinct people who performed action. DAU/WAU/MAU: daily/weekly/monthly active users. Session count: engagement depth. Choose based on your question.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Measurement Types</div>
+    <div class="l" onclick="openLesson('Segmentation in Mixpanel','Break down any metric by user or event property. Example: feature adoption broken down by plan_type reveals which user segments use which features. Segmentation surfaces the insights that aggregates hide.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Segmentation</div>
+    <div class="l" onclick="openLesson('Filters','Filters narrow your analysis to a specific subset of data. Example: analyse only users who signed up in the last 30 days, or only users on the Pro plan. Filters make analysis precise and actionable.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Filters</div>
+    <div class="l" onclick="openLesson('Formulas & Custom Metrics','Create calculated metrics: DAU/MAU ratio, events per user, revenue per session. Custom metrics connect raw event data to meaningful business KPIs without requiring a data science team.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Custom Metrics</div>
+    <div class="l" onclick="openLesson('Dashboards','Compile key charts into shareable dashboards for team visibility. Good PM dashboard: activation rate, feature adoption heatmap, DAU/MAU trend, NPS signal, and top drop-off points.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Dashboards</div>
+  </div>
+  <div class="tip">💡 Mixpanel insight: Aggregate metrics lie. Always segment before concluding. "Average" engagement can mask a bimodal distribution where power users love you and new users churn immediately.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF7ED;color:#EA580C">04</div><div class="mi"><div class="mt">Funnel Analysis</div><div class="ms">Conversion funnels · Drop-off · Time to convert · Segmented funnels</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Funnel analysis shows how users move through a defined sequence of steps — and critically, where they drop off. One of the most actionable analyses for PMs because every drop-off point is a specific, fixable problem.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is a Funnel?','A funnel tracks conversion through sequential steps. Example: Sign Up → Activate Feature → Invite Team → Upgrade. Each step shows conversion rate and drop-off. The biggest drop-off = biggest opportunity.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>What is a Funnel?</div>
+    <div class="l" onclick="openLesson('Building Funnels in Mixpanel','Select 2-10 events in sequence. Set conversion window (how long users have to complete the funnel). Choose: ordered (must happen in sequence) or unordered (any sequence). Mixpanel calculates conversion automatically.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Building Funnels</div>
+    <div class="l" onclick="openLesson('Conversion Window','The conversion window defines how long a user has to complete all steps. Too short: artificially low conversion. Too long: includes re-engaged users who confuse the analysis. Match to your actual user behaviour.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Conversion Window</div>
+    <div class="l" onclick="openLesson('Drop-off Analysis','Mixpanel shows exactly how many users dropped off at each step and what they did instead. Click "Explore" on a drop-off step to see user paths — this often reveals UX friction points invisible in aggregate data.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Drop-off Analysis</div>
+    <div class="l" onclick="openLesson('Segmented Funnels','Break down funnel conversion by user property: plan type, country, acquisition channel, device. Different segments often have dramatically different conversion rates — revealing where to focus optimisation efforts.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Segmented Funnels</div>
+    <div class="l" onclick="openLesson('Time to Convert','How long does it take users to complete a funnel? Long conversion times signal friction. Mixpanel shows average, median, and distribution of time-to-convert — helping you set realistic onboarding expectations.');event.stopPropagation()"><span class="ld" style="background:#EA580C"></span>Time to Convert</div>
+  </div>
+  <div class="tip">💡 Mixpanel insight: The step with the biggest drop-off in your funnel is your highest-priority product improvement. Fix that one step before building anything new.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDFA;color:#0D9488">05</div><div class="mi"><div class="mt">Retention Analysis</div><div class="ms">Retention curves · Cohorts · N-day · Unbounded · Bracket</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Retention is the most important product metric — it reveals whether your product is truly creating lasting value. Mixpanel's Retention report shows how many users return to perform a specific action after their first interaction.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Why Retention Matters','Retention is the foundation of sustainable growth. High retention = product creates habit. Low retention = product fails to deliver ongoing value. No amount of acquisition compensates for poor retention.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>Why Retention Matters</div>
+    <div class="l" onclick="openLesson('N-Day Retention','Did user perform return event on exactly day N after first event? Day 1, Day 7, Day 30. Measures: what % of users came back on a specific day. Most common retention metric for consumer apps.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>N-Day Retention</div>
+    <div class="l" onclick="openLesson('Unbounded Retention','Did user EVER perform return event after day N? More forgiving than N-Day — counts users who return any time after the threshold. Better for B2B SaaS where usage is less daily.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>Unbounded Retention</div>
+    <div class="l" onclick="openLesson('Bracket Retention','Did user perform return event within a defined time window? Example: within days 7-14. Useful for products with weekly or monthly natural usage cadence — like project management tools.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>Bracket Retention</div>
+    <div class="l" onclick="openLesson('Reading Retention Curves','A retention curve that drops steeply then flattens = you have a retained core. A curve that keeps dropping to zero = no core retained users. The flatten point is your product\'s "true" retention floor.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>Reading Retention Curves</div>
+    <div class="l" onclick="openLesson('Retention by Cohort','Compare retention curves for different user cohorts: sign-up month, acquisition channel, plan type, feature adopted. Cohorts with dramatically better retention reveal what correlates with long-term success.');event.stopPropagation()"><span class="ld" style="background:#0D9488"></span>Retention by Cohort</div>
+  </div>
+  <div class="tip">💡 Mixpanel insight: A retention curve that flattens — even at 10% — means you have a core of engaged users. The goal is to understand what makes them different and replicate it for all users.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EDE9FE;color:#7C3AED">06</div><div class="mi"><div class="mt">User Flows & Journeys</div><div class="ms">Flows report · Paths · Navigation patterns · Drop-off paths</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Flows reveal the actual paths users take through your product — not the intended ones. Understanding real navigation patterns surfaces UX problems, unexpected feature discovery, and drop-off pathways that aggregate metrics miss entirely.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Flows Report','Mixpanel Flows shows: what users do before a key event (path to conversion) and what they do after (path from conversion). Visualises the most common sequences as a Sankey diagram.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Flows Report</div>
+    <div class="l" onclick="openLesson('Paths TO an Event','What did users do before converting? Understanding the path to activation, purchase, or key feature use reveals which earlier actions predict conversion — and which to encourage.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Paths TO Event</div>
+    <div class="l" onclick="openLesson('Paths FROM an Event','What do users do AFTER a key action? After sign-up, do they activate the core feature or wander aimlessly? After purchase, do they onboard successfully or go silent? Paths FROM reveals next-step friction.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Paths FROM Event</div>
+    <div class="l" onclick="openLesson('Unexpected Navigation Patterns','Users rarely follow the designed path. Flows often reveal: users who reach the same destination via unexpected routes, features discovered through accidental navigation, and loops indicating confusion.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Unexpected Patterns</div>
+    <div class="l" onclick="openLesson('Drop-off Path Analysis','What do users do when they drop out of a funnel? Mixpanel shows the most common exit paths — revealing whether users leave the product entirely, explore elsewhere, or encounter a specific error.');event.stopPropagation()"><span class="ld" style="background:#7C3AED"></span>Drop-off Paths</div>
+  </div>
+  <div class="tip">💡 Mixpanel insight: Users vote with their behaviour, not their words. Flows shows you what users actually want to do — which is often very different from what you designed them to do.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EEF2FF;color:#4F46E5">07</div><div class="mi"><div class="mt">Data Governance in Mixpanel</div><div class="ms">Data quality · Lexicon · Access control · Schema management</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Data governance ensures your Mixpanel data remains accurate, trustworthy, and well-documented over time. Without governance, analytics platforms degrade into unusable messes of duplicate events, undefined properties, and contradictory metrics.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Why Governance Matters','Without governance: teams create duplicate events with different names, properties mean different things to different teams, and analysts spend more time cleaning data than finding insights. Governance prevents this.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Why Governance Matters</div>
+    <div class="l" onclick="openLesson('Lexicon — The Data Dictionary','Mixpanel Lexicon is your team\'s shared data dictionary: document every event and property, add descriptions, mark events as verified or hidden, and set display names. Makes data self-service for the whole team.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Lexicon Dictionary</div>
+    <div class="l" onclick="openLesson('Hiding & Dropping Events','Hide: events that exist but shouldn\'t appear in analysis (legacy events, test events). Drop: permanently delete incoming events you no longer want to track. Keeps the event list clean and usable.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Hiding & Dropping Events</div>
+    <div class="l" onclick="openLesson('User Roles & Permissions','Mixpanel roles: Owner (full access), Admin (manage team + data), Analyst (create reports, cannot change data), Consumer (view only). Assign the minimum necessary access — data governance is also data security.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Roles & Permissions</div>
+    <div class="l" onclick="openLesson('Data Governance Best Practices','Monthly: audit new events added, check for duplicates. Quarterly: review inactive events for hiding/dropping. Annually: full taxonomy review. Appoint a "data steward" responsible for governance quality.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Governance Best Practices</div>
+    <div class="l" onclick="openLesson('Schema Migrations','When you need to rename or restructure events: create new event alongside old, migrate gradually, verify data quality in new event, then hide/drop old event. Never delete live events abruptly.');event.stopPropagation()"><span class="ld" style="background:#4F46E5"></span>Schema Migrations</div>
+  </div>
+  <div class="tip">💡 Mixpanel insight: Data governance is the unglamorous work that makes analytics sustainable. Teams that invest in it spend time on insights; teams that don\'t spend time on data cleaning.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FDF2F8;color:#DB2777">08</div><div class="mi"><div class="mt">Acquisition Metrics & Trend Spotting</div><div class="ms">Acquisition funnels · Channel analysis · Trend detection · Anomalies</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers how to use Mixpanel to understand user acquisition — how users discover and first engage with your product — and how to spot meaningful trends and anomalies in your data before they become crises or missed opportunities.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Acquisition Funnels','Track the journey from first touch to activation. Example: Visit → Sign Up → Complete Onboarding → Use Core Feature. Each step reveals acquisition quality and onboarding effectiveness by channel.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Acquisition Funnels</div>
+    <div class="l" onclick="openLesson('UTM Parameters for Attribution','UTM tags in links (utm_source, utm_medium, utm_campaign) pass acquisition source data into Mixpanel. Essential for: understanding which channels bring the highest-quality (not just highest-volume) users.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>UTM Attribution</div>
+    <div class="l" onclick="openLesson('Channel Quality Analysis','Compare user cohorts by acquisition channel: organic search vs paid vs referral vs social. Which channel brings users with the best retention? Highest LTV? Fastest activation? Quality > volume.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Channel Quality</div>
+    <div class="l" onclick="openLesson('Trend Spotting','Use Insights with rolling averages to smooth noise and spot genuine trends. Look for: sustained directional changes over 2+ weeks, sudden spikes or drops that correlate with product changes, and seasonal patterns.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Trend Spotting</div>
+    <div class="l" onclick="openLesson('Anomaly Detection','Mixpanel can flag unusual spikes or drops in metrics. Before investigating an anomaly: check if it correlates with a product release, marketing campaign, external event, or data instrumentation change.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Anomaly Detection</div>
+    <div class="l" onclick="openLesson('Acquisition Metrics for PMs','Key acquisition metrics: new user signups (volume), activation rate (quality), time-to-activate (speed), acquisition cost by channel (efficiency). Connect all to retention and LTV for complete picture.');event.stopPropagation()"><span class="ld" style="background:#DB2777"></span>Acquisition KPIs</div>
+  </div>
+  <div class="tip">💡 Mixpanel insight: The best acquisition channel is not the one that brings the most users — it\'s the one that brings users who retain the best. Always segment acquisition analysis by retention outcomes.</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🏆</div>
+  <div class="cn">Mixpanel Fundamentals</div>
+  <div class="cn2">Shubhasish Dutta — Mixpanel University</div>
+  <div class="csub">Score: 76 · 400 Reputation · July 26 2026 · ID: 424800782 · Cert #18</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  s1:{tag:"Certified Skill",title:"Data Governance",desc:"The practice of managing Mixpanel data quality, taxonomy, documentation, and access to ensure analytics remains reliable and trustworthy over time.",points:["Document every event and property in Lexicon with clear descriptions","Enforce consistent naming conventions across all teams","Hide legacy and test events to keep the event list clean","Assign appropriate user roles — minimum necessary access","Conduct regular audits to identify duplicate or unused events","Appoint a data steward responsible for governance quality"],tip:"💡 Data governance is the difference between an analytics platform that compounds in value over time and one that degrades into an unusable mess."},
+  s2:{tag:"Certified Skill",title:"Digital Analytics",desc:"Using Mixpanel's Insights, Flows, and other reports to understand user behaviour and answer key product questions with data.",points:["Use Insights for trend analysis and metric tracking over time","Segment every metric by user and event properties for meaningful breakdowns","Apply filters to narrow analysis to specific user populations","Build custom metrics and formulas to calculate business KPIs","Create dashboards for team-wide visibility into key metrics","Connect analytics findings to specific product decisions and actions"],tip:"💡 Digital analytics is only valuable when it changes decisions. Always end an analysis with: 'Based on this data, we should...'"},
+  s3:{tag:"Certified Skill",title:"Funnel Analysis",desc:"Measuring and optimising conversion through key user journeys — from acquisition to activation, from trial to paid, from onboarding to power user.",points:["Define funnels around your most critical user journeys","Set appropriate conversion windows based on actual user behaviour","Identify the biggest drop-off step and investigate immediately","Segment funnels by acquisition channel, plan type, and persona","Use Flows to understand what dropped users do instead","A/B test funnel improvements before full rollout"],tip:"💡 Every drop-off step in your funnel is a specific, fixable problem. Funnel analysis turns abstract 'conversion rate' into actionable product improvements."},
+  s4:{tag:"Certified Skill",title:"Retention Analysis",desc:"Measuring how well your product creates lasting user habits and delivers ongoing value — the foundation of sustainable product growth.",points:["Choose the right retention type for your product: N-Day, Unbounded, or Bracket","The flatten point of a retention curve is your product's true retention floor","Compare retention cohorts to identify what correlates with long-term engagement","Feature-based retention: users who adopt X retain at 2x the rate","Improving Day 1 retention has the highest leverage on long-term retention","Connect retention improvements to revenue: better retention = lower CAC = higher LTV"],tip:"💡 A 5% improvement in retention can increase profit by 25-95%. Retention is the most high-leverage metric any PM can focus on."},
+  c1:{tag:"Core Concept",title:"Events & Properties",desc:"The fundamental building blocks of all Mixpanel data — every analysis starts with well-instrumented events and rich properties.",points:["Events capture user actions: Button Clicked, Feature Used, Purchase Completed","Event properties add context: amount, category, method, version","User properties describe who users are: plan, country, signup_date","Super properties auto-attach to every event a user fires","Group properties describe accounts or organisations (B2B analytics)","A strong tracking plan defines all events and properties before implementation"],tip:"💡 Your analytics are only as good as your event taxonomy. Invest in getting this right from the start."},
+  c2:{tag:"Core Concept",title:"Users & Identities",desc:"How Mixpanel tracks individual users across sessions, devices, and authenticated states — the foundation of user-level analytics.",points:["Anonymous tracking before login uses a random distinct_id","User identification ($identify call) links anonymous behaviour to known user profile","$identify should be called immediately after login or signup","Merge anonymous and identified profiles to get complete user journey","Alias: link two distinct_ids for the same user across different contexts","Proper identity management is essential for accurate funnel and retention analysis"],tip:"💡 Incorrect identity management is the most common cause of inflated user counts and broken funnel analyses in Mixpanel."},
+  c3:{tag:"Core Concept",title:"Reports & Charts",desc:"Mixpanel's suite of analysis tools — each designed to answer a specific type of product question.",points:["Insights: trend analysis, metric tracking, segmentation, custom formulas","Funnels: conversion rate between sequential steps, drop-off analysis","Retention: cohort-based return rate analysis — N-Day, Unbounded, Bracket","Flows: user path visualisation before and after key events","Experiments: A/B test results analysis with statistical significance","Dashboards: compile key charts for team-wide visibility and alignment"],tip:"💡 Start with Insights for most questions. Move to Funnels for conversion, Retention for stickiness, and Flows for navigation understanding."},
+  c4:{tag:"Core Concept",title:"Data Governance",desc:"The systems and practices that keep Mixpanel data accurate, documented, and trustworthy as teams and products grow.",points:["Lexicon: document every event and property with descriptions and examples","Verified events: mark well-documented, trustworthy events as verified","Hidden events: remove legacy/test events from analysis view without deleting","Dropped events: permanently stop ingesting events you no longer need","User roles: Owner, Admin, Analyst, Consumer — assign minimum necessary access","Monthly governance audits prevent taxonomy drift and data quality degradation"],tip:"💡 Good governance transforms Mixpanel from a black box into a trusted analytics foundation the whole team can rely on."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

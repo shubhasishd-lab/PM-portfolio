@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM Enterprise Design Thinking Practitioner — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F4F4F4;--card:#FFF;--border:#E0E0E0;--navy:#161616;--blue:#0043CE;--blue-l:#EEF4FF;--teal:#007D79;--teal-l:#D9FBFB;--purple:#6929C4;--purple-l:#F6F2FF;--green:#198038;--green-l:#DEFBE6;--orange:#FF832B;--orange-l:#FFF2E8;--gray:#525252;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--navy);}
+header{background:linear-gradient(135deg,#161616,#0043CE);padding:2.5rem 2rem 2rem;text-align:center;}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.htag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:700;line-height:1.1;margin-bottom:.4rem;}
+header h1 span{color:#A6C8FF;}
+header p{color:rgba(255,255,255,.6);font-size:.8rem;margin-bottom:1.2rem;}
+.score-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.sc{font-size:.7rem;font-weight:500;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);}
+.sc.gold{background:rgba(250,204,21,.2);border-color:rgba(250,204,21,.4);color:#FDE047;}
+.dt-loop{background:#fff;border-bottom:1px solid var(--border);padding:1.5rem;text-align:center;}
+.dl-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:1rem;}
+.dl-row{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:0;max-width:580px;margin:0 auto;}
+.dl-step{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer;transition:transform .2s;}
+.dl-step:hover{transform:translateY(-3px);}
+.dl-circle{width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;border:2px solid;}
+.dl-label{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;}
+.dl-arrow{font-size:1rem;color:#ccc;margin:0 .2rem;padding-bottom:1.2rem;}
+main{max-width:700px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:1.8rem 0 .8rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:8px;padding:1rem;cursor:pointer;transition:all .2s;text-align:center;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,67,206,.12);}
+.card-icon{font-size:1.4rem;margin-bottom:.3rem;}
+.card-title{font-size:.8rem;font-weight:700;margin-bottom:.1rem;}
+.card-sub{font-size:.65rem;color:var(--gray);line-height:1.3;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:8px;margin-bottom:.65rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 4px 16px rgba(0,67,206,.1);}
+.mod.open{border-color:var(--blue);}
+.mod-head{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;}
+.mn{width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.12rem;}
+.ms{font-size:.7rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.82rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--blue);}
+.mod-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.83rem;line-height:1.6;color:#444;padding:.9rem 0 .7rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:4px;padding:.45rem .65rem;font-size:.7rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.35rem;cursor:pointer;transition:all .15s;line-height:1.3;}
+.l:hover{background:var(--blue-l);border-color:var(--blue);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.tip{margin-top:.9rem;padding:.7rem .9rem;border-radius:4px;font-size:.75rem;line-height:1.5;font-style:italic;background:var(--blue-l);border-left:3px solid var(--blue);color:var(--blue);}
+.cert{background:linear-gradient(135deg,#161616,#0043CE);border-radius:8px;padding:1.8rem;text-align:center;margin-top:1.8rem;}
+.cert-icon{font-size:2rem;margin-bottom:.4rem;}
+.cn{font-size:1.1rem;font-weight:700;color:#A6C8FF;margin-bottom:.2rem;}
+.cn2{font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.2rem;}
+.csub{font-size:.7rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(22,22,22,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:8px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.25);animation:pop .2s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.2rem 1.3rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:8px 8px 0 0;}
+.modal-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:26px;height:26px;border-radius:4px;font-size:.78rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1rem 1.3rem 1.3rem;}
+.modal-desc{font-size:.85rem;line-height:1.6;color:#444;margin-bottom:.9rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.modal-list li{display:flex;gap:.55rem;font-size:.82rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1rem;padding:.75rem .9rem;border-radius:4px;font-size:.76rem;line-height:1.5;font-style:italic;background:var(--blue-l);border-left:3px solid var(--blue);color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">IBM</span><span class="htag">SkillsBuild</span><span class="htag">Design Thinking</span><span class="htag">Cert #21</span></div>
+  <h1>Enterprise Design<br><span>Thinking Practitioner</span></h1>
+  <p>5 Lessons · Human-Centred Design · Empathy · Ideation · Prototyping · IBM Framework</p>
+  <div class="score-row"><span class="sc gold">Practitioner Badge ✓</span><span class="sc">IBM SkillsBuild</span><span class="sc">Credly Verified</span><span class="sc">Cert #21</span></div>
+</header>
+
+<div class="dt-loop">
+  <div class="dl-title">The Design Thinking Loop — Tap to Explore</div>
+  <div class="dl-row">
+    <div class="dl-step" onclick="openModal('loop1')"><div class="dl-circle" style="background:#EEF4FF;border-color:#0043CE">👁️</div><span class="dl-label" style="color:#0043CE">Observe</span></div>
+    <div class="dl-arrow">→</div>
+    <div class="dl-step" onclick="openModal('loop2')"><div class="dl-circle" style="background:#F6F2FF;border-color:#6929C4">💡</div><span class="dl-label" style="color:#6929C4">Reflect</span></div>
+    <div class="dl-arrow">→</div>
+    <div class="dl-step" onclick="openModal('loop3')"><div class="dl-circle" style="background:#DEFBE6;border-color:#198038">🔨</div><span class="dl-label" style="color:#198038">Make</span></div>
+    <div class="dl-arrow">→</div>
+    <div class="dl-step" onclick="openModal('loop4')"><div class="dl-circle" style="background:#D9FBFB;border-color:#007D79">🧪</div><span class="dl-label" style="color:#007D79">Test</span></div>
+    <div class="dl-arrow">→</div>
+    <div class="dl-step" onclick="openModal('loop1')"><div class="dl-circle" style="background:#FFF2E8;border-color:#FF832B">🔄</div><span class="dl-label" style="color:#FF832B">Repeat</span></div>
+  </div>
+  <p style="font-size:.68rem;color:#aaa;margin-top:.8rem">Tap any stage to explore</p>
+</div>
+
+<main>
+
+<div class="div">IBM EDT Framework — 3 Principles</div>
+<div class="grid3">
+  <div class="card" onclick="openModal('p1')" style="border-color:rgba(0,67,206,.3)"><div class="card-icon">👤</div><div class="card-title" style="color:#0043CE">A Focus on User Outcomes</div><div class="card-sub">Everything starts with the user</div></div>
+  <div class="card" onclick="openModal('p2')" style="border-color:rgba(105,41,196,.3)"><div class="card-icon">🔄</div><div class="card-title" style="color:#6929C4">Restless Reinvention</div><div class="card-sub">Bias toward action and iteration</div></div>
+  <div class="card" onclick="openModal('p3')" style="border-color:rgba(0,125,121,.3)"><div class="card-icon">👥</div><div class="card-title" style="color:#007D79">Diverse Empowered Teams</div><div class="card-sub">Diverse voices build better solutions</div></div>
+</div>
+
+<div class="div">The 5 Whys — Root Cause Analysis Tool</div>
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF2E8;color:#FF832B">5W</div><div class="mi"><div class="mt">The 5 Whys in Enterprise Design Thinking</div><div class="ms">Root cause · Problem framing · Deep empathy · Insight discovery</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The 5 Whys is one of the most powerful tools in EDT — used during the Observe and Reflect stages to move past surface-level symptoms and uncover the real root cause of user problems. By asking "Why?" five times in succession, teams discover insights that completely reframe their understanding of what needs to be solved.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is the 5 Whys in EDT?','In IBM EDT, the 5 Whys is used to understand the INTENT behind a design initiative — not to diagnose problems. Before starting any EDT project, the team asks Why 5 times to clarify why this design effort truly matters.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>What is 5 Whys in EDT?</div>
+    <div class="l" onclick="openLesson('Clarifying Design Intent','The 5 Whys surfaces the genuine purpose behind a design project. Teams often start EDT with a vague brief. Asking Why 5 times reveals the real strategic intent — which shapes every subsequent design decision.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Clarifying Design Intent</div>
+    <div class="l" onclick="openLesson('5 Whys EDT Example','Brief: "Redesign the onboarding flow." Why? Users drop off. Why does that matter? Growth targets are missed. Why is that critical? New strategy depends on self-serve growth. Why now? Competitor launched a better experience. Why is that a threat? We lose market position. Now the REAL intent is clear: defend market position through superior self-serve experience.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>5 Whys EDT Example</div>
+    <div class="l" onclick="openLesson('Why Before What','IBM EDT uses 5 Whys BEFORE any design work begins. Understanding WHY the team is pursuing this initiative prevents wasted effort on design solutions that don\'t serve the true strategic intent.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Why Before What</div>
+    <div class="l" onclick="openLesson('5 Whys Shapes Your Hills','Once the true intent is uncovered through 5 Whys, teams write Hills that reflect that intent. A Hill written without understanding the Why is likely to miss the real outcome the business and users need.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>5 Whys Shapes Hills</div>
+    <div class="l" onclick="openLesson('5 Whys Aligns Stakeholders','Running 5 Whys with cross-functional stakeholders at project kickoff surfaces conflicting assumptions about intent. Resolving those conflicts early prevents misalignment that derails projects mid-flight.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Aligns Stakeholders</div>
+    <div class="l" onclick="openLesson('How to Facilitate in EDT','Gather the team at project kickoff. State the design brief. Ask "Why are we doing this?" Take the answer and ask "Why does that matter?" Repeat 5 times. Document each level. The final answer is your true design intent.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>How to Facilitate</div>
+    <div class="l" onclick="openLesson('5 Whys for PMs in EDT','PMs use 5 Whys at the start of any design initiative to validate that the team is pursuing the right outcome for the right reason. It replaces assumption-driven design with intent-driven design.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>5 Whys for PMs</div>
+  </div>
+  <div class="tip">💡 IBM EDT insight: The 5 Whys in EDT is not about finding what\'s broken — it\'s about understanding WHY your team is embarking on this design journey. Clarity of intent at the start is what separates purposeful design from busy design.</div></div>
+</div>
+
+<div class="div">IBM EDT Keys — 3 Core Tools</div>
+<div class="grid3">
+  <div class="card" onclick="openModal('k1')" style="border-color:rgba(25,128,56,.3)"><div class="card-icon">🗺️</div><div class="card-title" style="color:#198038">Hills</div><div class="card-sub">Outcome-based statements of intent</div></div>
+  <div class="card" onclick="openModal('k2')" style="border-color:rgba(0,67,206,.3)"><div class="card-icon">🎭</div><div class="card-title" style="color:#0043CE">Playbacks</div><div class="card-sub">Checkpoints to stay aligned with users</div></div>
+  <div class="card" onclick="openModal('k3')" style="border-color:rgba(105,41,196,.3)"><div class="card-icon">👤</div><div class="card-title" style="color:#6929C4">Sponsor Users</div><div class="card-sub">Real users involved throughout the process</div></div>
+</div>
+
+<div class="div">5 Lessons — Full Course</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EEF4FF;color:#0043CE">L1</div><div class="mi"><div class="mt">Introduction to Enterprise Design Thinking</div><div class="ms">What is EDT · Framework · For everyone · Enterprise context</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Establishes the foundation of Enterprise Design Thinking — IBM's approach to applying design thinking at the speed and scale a modern enterprise demands. Covers what makes EDT unique from traditional design thinking and why it matters for every role, not just designers.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('About This Lesson','Enterprise Design Thinking is IBM\'s framework for teams to deliver better outcomes by keeping the user at the centre of every decision. It scales design thinking across large, complex organisations.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>About This Lesson ✓</div>
+    <div class="l" onclick="openLesson('Design Thinking is for Everyone','EDT is not just for designers. It\'s for PMs, engineers, marketers, executives — anyone who makes decisions that affect users. IBM applies EDT across ALL business functions.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Design Thinking for Everyone ✓</div>
+    <div class="l" onclick="openLesson('Put the "Enterprise" in EDT','Traditional design thinking breaks down at enterprise scale. IBM\'s EDT adds: Hills (outcome statements), Playbacks (alignment checkpoints), and Sponsor Users (real user involvement) to make it work at scale.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Enterprise Design Thinking ✓</div>
+    <div class="l" onclick="openLesson('The EDT Framework','The Loop (Observe → Reflect → Make) + 3 Principles (User Outcomes, Restless Reinvention, Diverse Teams) + 3 Keys (Hills, Playbacks, Sponsor Users) = the complete IBM EDT system.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>The EDT Framework ✓</div>
+    <div class="l" onclick="openLesson('Prepare Yourself','Before applying EDT: align your team on the user group, understand the business context, identify your Sponsor Users, and clear time for observation and iteration. Preparation prevents wasted sprints.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Prepare Yourself ✓</div>
+    <div class="l" onclick="openLesson('Summary & Looking Ahead','Lesson 1 summary: EDT is IBM\'s human-centred approach for enterprise teams. It uses the Loop (continuous iteration), 3 Principles (guiding values), and 3 Keys (practical tools) to deliver better outcomes.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Summary & Looking Ahead ✓</div>
+  </div>
+  <div class="tip">💡 EDT insight: The most important shift in Enterprise Design Thinking is moving from "what can we build?" to "what outcomes do our users need?" This single question change transforms product decisions.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F6F2FF;color:#6929C4">L2</div><div class="mi"><div class="mt">A Focus on User Outcomes</div><div class="ms">Empathy · User research · Observe · Assumptions · Hills</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The first and most fundamental principle — everything in EDT starts with a deep understanding of user outcomes. Covers empathy-building techniques, observation methods, assumption identification, and how to write Hills that keep teams focused on what users actually need.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('About This Lesson','Principle 1: A Focus on User Outcomes means designing for the needs and goals of real users — not assumed needs, not business needs, not technological capabilities. User first, always.');event.stopPropagation()"><span class="ld" style="background:#6929C4"></span>About This Lesson ✓</div>
+    <div class="l" onclick="openLesson('Recognize Your Assumptions','Before researching users, list your assumptions about them. This surfaces hidden biases that could skew your research. Challenge every assumption with actual user observation.');event.stopPropagation()"><span class="ld" style="background:#6929C4"></span>Recognize Your Assumptions ✓</div>
+    <div class="l" onclick="openLesson('Observe to Learn More','Observation techniques: user interviews, contextual inquiry (watching users in their environment), diary studies, and usability testing. Observe what users DO, not just what they SAY they do.');event.stopPropagation()"><span class="ld" style="background:#6929C4"></span>Observe to Learn More ✓</div>
+    <div class="l" onclick="openLesson('Summary & Looking Ahead','Key takeaway: User outcomes are the North Star. Hills translate user outcomes into actionable team goals. "Who does what and wow?" — the Hills formula that keeps teams user-focused.');event.stopPropagation()"><span class="ld" style="background:#6929C4"></span>Summary & Looking Ahead ✓</div>
+    <div class="l" onclick="openLesson('Hills — Outcome Statements','Hills are statements of intent written from the user\'s perspective. Format: WHO does WHAT and WOW (the differentiator). Example: "A first-time PM can build a roadmap in under an hour without training."');event.stopPropagation()"><span class="ld" style="background:#6929C4"></span>Hills Framework</div>
+    <div class="l" onclick="openLesson('Sponsor Users','Real users who are actively involved throughout the design process — not just consulted at the start. Sponsor Users provide continuous feedback, preventing teams from building in isolation.');event.stopPropagation()"><span class="ld" style="background:#6929C4"></span>Sponsor Users</div>
+  </div>
+  <div class="tip">💡 EDT insight: "Observe to learn" not "observe to confirm." Most teams observe users to validate what they already believe. EDT demands genuine curiosity — be prepared to be surprised.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF2E8;color:#FF832B">L3</div><div class="mi"><div class="mt">Restless Reinvention</div><div class="ms">Bias to action · Ideation · Prototyping · Actively seek ideas</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The second principle — Restless Reinvention means teams constantly evolve their understanding and solutions rather than committing too early. Covers ideation techniques, rapid prototyping, and IBM's "bias toward action" mindset that replaces endless planning with fast learning.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('About This Lesson: Restless Reinvention','Teams that commit too early to one solution miss better options. Restless Reinvention keeps teams in a state of productive uncertainty — always willing to evolve their solution as they learn more.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>About This Lesson</div>
+    <div class="l" onclick="openLesson('Bias Toward Action','Stop planning, start making. IBM\'s EDT principle: a rough prototype in 2 hours teaches more than 2 weeks of planning. Action generates learning; planning generates assumptions.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Bias Toward Action</div>
+    <div class="l" onclick="openLesson('Actively Seek Great Ideas','Ideation techniques: How Might We questions, Crazy 8s (8 ideas in 8 minutes), analogous inspiration (how does this problem get solved in other industries?), and "Yes, and..." collaboration.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Actively Seek Great Ideas</div>
+    <div class="l" onclick="openLesson('Prototype to Learn','Prototypes are not final products — they are tools for learning. Fidelity should match your question: paper sketches for concept validation, clickable mockups for usability, code for technical feasibility.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Prototype to Learn</div>
+    <div class="l" onclick="openLesson('Playbacks — Staying Aligned','Playbacks are regular checkpoints where teams share their current understanding with users and stakeholders. They prevent teams from drifting away from user needs during the build process.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Playbacks</div>
+    <div class="l" onclick="openLesson('How Might We Questions','HMW questions reframe problems as opportunities: "Users struggle with onboarding" → "How might we make onboarding feel like play?" HMW opens creative space without prescribing solutions.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>How Might We Questions</div>
+  </div>
+  <div class="tip">💡 EDT insight: "Bias toward action" doesn\'t mean rushing. It means choosing to learn from a real prototype rather than debate about a hypothetical one. Make something — even if it\'s wrong.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#D9FBFB;color:#007D79">L4</div><div class="mi"><div class="mt">Diverse Empowered Teams</div><div class="ms">Diversity · Inclusion · Alignment · Storytelling · Collaboration</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The third principle — diverse teams build better solutions because they bring different perspectives, experiences, and expertise. Covers IBM's approach to building inclusive teams, creating psychological safety, and using storytelling to build alignment across different viewpoints.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('About This Lesson: Diverse Empowered Teams','Homogeneous teams have blind spots. Diverse teams — different backgrounds, roles, disciplines, and experiences — surface assumptions, challenge biases, and find solutions that no single perspective could reach.');event.stopPropagation()"><span class="ld" style="background:#007D79"></span>About Diverse Teams</div>
+    <div class="l" onclick="openLesson('Include a Variety of Voices','Deliberately include: engineers, designers, business stakeholders, customer-facing staff, and actual users. The best product decisions emerge from the intersection of technical, business, and human perspectives.');event.stopPropagation()"><span class="ld" style="background:#007D79"></span>Include Variety of Voices</div>
+    <div class="l" onclick="openLesson('Build Alignment Across Your Team','Alignment tools: shared Hills (everyone agrees on the outcome), collaborative Playbacks (regular sync on direction), and documented assumptions (everyone sees the same picture of what we know and don\'t know).');event.stopPropagation()"><span class="ld" style="background:#007D79"></span>Build Team Alignment</div>
+    <div class="l" onclick="openLesson('Start Sharing Stories','Stories create empathy within teams. Share user stories — real anecdotes from research — to keep the human at the centre of all team discussions. "Let me tell you about Sarah..." is more powerful than a statistic.');event.stopPropagation()"><span class="ld" style="background:#007D79"></span>Start Sharing Stories</div>
+    <div class="l" onclick="openLesson('Psychological Safety in EDT','Teams produce better ideas when members feel safe to: propose wild ideas, disagree with leaders, admit uncertainty, and share failures. IBM EDT requires leaders to model vulnerability first.');event.stopPropagation()"><span class="ld" style="background:#007D79"></span>Psychological Safety</div>
+    <div class="l" onclick="openLesson('Cross-Functional Collaboration','EDT works best when all functions participate from the start — not handed from one team to another. PM + Design + Engineering + Marketing collaborating from day one prevents costly late-stage rework.');event.stopPropagation()"><span class="ld" style="background:#007D79"></span>Cross-Functional Work</div>
+  </div>
+  <div class="tip">💡 EDT insight: Diversity without inclusion is decoration. The goal isn\'t just to have different people in the room — it\'s to ensure every voice genuinely shapes the outcome.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#DEFBE6;color:#198038">L5</div><div class="mi"><div class="mt">Make a Plan</div><div class="ms">Problem statements · Put it all together · Wrap-up · Assessment</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The capstone lesson — brings together all 5 lessons into a practical plan for applying EDT in real work. Covers writing powerful problem statements, integrating the Loop and Keys into a working practice, and the final assessment for the Practitioner badge.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('About This Lesson: Make a Plan','The planning lesson translates EDT theory into a concrete practice. How do you actually start using EDT on Monday morning? This lesson gives you the exact steps.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>About Make a Plan</div>
+    <div class="l" onclick="openLesson('What About Tomorrow?','Starting EDT doesn\'t require a company-wide transformation. Start small: apply one EDT activity to your next meeting. Use Hills in your next team kickoff. Run one user interview this week.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>What About Tomorrow?</div>
+    <div class="l" onclick="openLesson('Problem Statements','A great problem statement: defines the user (who), their need (what), and the insight (why). Format: "[User] needs [need] because [insight]." Replaces solution-first thinking with problem-first thinking.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>Problem Statements</div>
+    <div class="l" onclick="openLesson('Put It All Together','Complete EDT practice: Observe users → Synthesise insights → Write Hills → Ideate solutions → Prototype → Playback to users → Iterate. The Loop, Principles, and Keys all work together.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>Put It All Together</div>
+    <div class="l" onclick="openLesson('Learning Objectives Review','Review all learning objectives: Apply EDT Loop, use 3 Keys (Hills, Playbacks, Sponsor Users), embody 3 Principles (User Outcomes, Restless Reinvention, Diverse Teams), write problem statements.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>Learning Objectives</div>
+    <div class="l" onclick="openLesson('Explore More Resources','IBM provides: EDT practice cards (free download), community forum, advanced courses (Co-Creator, Coach, Leader badges), and case studies from global EDT implementations across industries.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>Explore More Resources</div>
+  </div>
+  <div class="tip">💡 EDT insight: The best way to learn Design Thinking is to DO Design Thinking. Pick one real problem from your work this week and apply the Loop. One iteration teaches more than any course.</div></div>
+</div>
+
+<!-- WRAP UP -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EEF4FF;color:#0043CE">WU</div><div class="mi"><div class="mt">Wrap-Up & Practitioner Badge</div><div class="ms">Final assessment · Credly badge · EDT in practice</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The course wrap-up consolidates all learning and prepares you for the final "Show what you know!" assessment that earns your IBM Enterprise Design Thinking Practitioner badge on Credly.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Learning Objectives Summary','All 5 lessons completed: EDT Introduction, User Outcomes, Restless Reinvention, Diverse Teams, Make a Plan. Ready for the final assessment.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Learning Objectives</div>
+    <div class="l" onclick="openLesson('Explore More Resources!','IBM EDT community, practice cards, and advanced badge paths (Co-Creator, Coach, Leader) available at ibm.com/design/thinking for continued learning beyond the Practitioner level.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Explore More Resources!</div>
+    <div class="l" onclick="openLesson('Show What You Know! — Final Assessment','The final quiz tests all 5 lessons. Multiple choice. Pass to earn the IBM Enterprise Design Thinking Practitioner badge — verified on Credly and shareable on LinkedIn.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Final Assessment</div>
+    <div class="l" onclick="openLesson('Course Completion & Credly Badge','On passing: IBM issues the Practitioner badge via Credly. Add to LinkedIn profile. The badge signals human-centred design capability — a significant differentiator for PM roles in 2026.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Credly Badge</div>
+  </div>
+  <div class="tip">🏆 Shubhasish Dutta — IBM Enterprise Design Thinking Practitioner · IBM SkillsBuild · Credly Verified · Cert #21</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🏆</div>
+  <div class="cn">Enterprise Design Thinking Practitioner</div>
+  <div class="cn2">Shubhasish Dutta — IBM SkillsBuild</div>
+  <div class="csub">IBM · Credly Verified Badge · Cert #21 · 2026</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  loop1:{tag:"EDT Loop",title:"Observe",desc:"Observation is the foundation of EDT — deeply understanding users in their real context before attempting to design any solution.",points:["Watch users in their actual environment — not in a lab","Note what they do, say, think, and feel","Suspend judgment during observation — just collect data","Challenge your assumptions with what you actually see","Use multiple observation methods: interviews, shadowing, diary studies","Observation with Sponsor Users creates continuous alignment throughout the project"],tip:"💡 Observe to learn, not to confirm. The most valuable user insights are the ones that surprise you."},
+  loop2:{tag:"EDT Loop",title:"Reflect",desc:"Reflection synthesises observations into insights — finding patterns, tensions, and opportunities that weren't visible in individual data points.",points:["Share observations with the full team — different people notice different things","Use affinity mapping to cluster related observations","Write How Might We questions to reframe problems as opportunities","Define Hills: outcome statements that guide the team's direction","Identify assumptions that need to be tested","Reflection is a team activity — diverse perspectives produce richer insights"],tip:"💡 Reflection turns raw observation data into actionable insights. Without it, you have interesting stories. With it, you have design direction."},
+  loop3:{tag:"EDT Loop",title:"Make",desc:"Making means creating tangible representations of ideas — prototypes that can be tested with real users to generate learning.",points:["Prototype the earliest possible version that can generate learning","Fidelity should match your question — paper for concepts, code for tech","The goal is learning, not a finished product","Bias toward action: a 2-hour prototype teaches more than 2 weeks of planning","Share prototypes internally first for feedback before user testing","Each prototype cycle reduces risk and increases confidence in the solution"],tip:"💡 'Make it real enough to test' is the EDT prototyping principle. A prototype that's too polished discourages honest feedback."},
+  loop4:{tag:"EDT Loop",title:"Test",desc:"Testing puts prototypes in front of real users to validate assumptions, surface new insights, and inform the next iteration of the design.",points:["Test with Sponsor Users and real target users","Observe reactions — don't explain or defend the prototype","Ask open questions: 'What would you do here?' not 'Do you like this?'","Document failures as carefully as successes — failures teach more","Let test findings drive the next iteration of the Loop","Test early and often — the cost of learning is always lower than the cost of building the wrong thing"],tip:"💡 Testing is not about proving your design is good. It's about finding out what's wrong so you can make it better."},
+  p1:{tag:"EDT Principle",title:"A Focus on User Outcomes",desc:"The first and most fundamental principle — every decision in EDT is anchored to real user needs and the outcomes users are trying to achieve.",points:["Design for outcomes users need — not features you want to build","Deeply understand the user's context, goals, and frustrations","Hills keep the team focused on user outcomes throughout the project","Sponsor Users provide continuous reality checks during development","User outcomes ≠ user preferences — what they need may differ from what they want","Product success is measured by user outcomes, not feature delivery"],tip:"💡 'What does the user need to accomplish?' is the most important question in EDT. Every design decision flows from the answer."},
+  p2:{tag:"EDT Principle",title:"Restless Reinvention",desc:"Teams constantly evolve their understanding and solutions — never committing prematurely, always open to better answers as they learn more.",points:["Treat every solution as a hypothesis to be tested, not a decision to be defended","Bias toward action: make something rather than planning indefinitely","Playbacks create regular opportunities to course-correct based on new learning","Embrace uncertainty as a signal that you're still learning","Fail fast: a failed prototype costs 1% of a failed product","Restless reinvention is a team mindset — leaders must model it first"],tip:"💡 Restless Reinvention doesn't mean changing direction constantly. It means staying open to evidence that a better direction exists."},
+  p3:{tag:"EDT Principle",title:"Diverse Empowered Teams",desc:"Teams with diverse perspectives, backgrounds, and roles consistently produce better solutions than homogeneous teams — when everyone's voice genuinely shapes the outcome.",points:["Include designers, engineers, business, and user-facing roles from day one","Diverse teams surface blind spots that single-perspective teams miss","Psychological safety enables honest contribution from all team members","Leaders must actively invite quieter voices into the conversation","Stories create shared empathy across different disciplines and backgrounds","Empowered means teams have genuine authority to make decisions — not just give opinions"],tip:"💡 The word 'empowered' in this principle is critical. A diverse team that can't act on its ideas is just a diverse advisory board."},
+  k1:{tag:"EDT Key",title:"Hills",desc:"Hills are statements of intent that frame the team's goals in terms of user outcomes — keeping teams aligned on WHAT they're trying to achieve for users.",points:["Format: WHO does WHAT and WOW (the differentiator)","Example: 'A new PM can create their first roadmap in under 1 hour without any training'","Hills are not features — they describe user outcomes, not product capabilities","2-3 Hills per project keeps focus without over-constraining solutions","Hills replace vague goals ('improve user experience') with specific outcome targets","All team decisions should be evaluated against: 'Does this help us achieve our Hills?'"],tip:"💡 Hills are the most practically useful EDT tool for PMs. They replace feature requirements with outcome-based intent — which is exactly how modern product teams should work."},
+  k2:{tag:"EDT Key",title:"Playbacks",desc:"Playbacks are regular checkpoints where teams share their current understanding with users and stakeholders — preventing drift and maintaining alignment throughout the process.",points:["Held at key milestones: after research synthesis, after prototyping, after testing","Show current thinking — not polished presentations","Invite honest challenge: 'What are we missing? What surprised you?'","Include Sponsor Users in Playbacks for continuous reality checks","Playbacks replace 'big reveal' presentations with ongoing dialogue","Regular Playbacks dramatically reduce the risk of building the wrong thing"],tip:"💡 Playbacks are EDT's answer to the most common product failure: building something users don't need because no one checked in with them during development."},
+  whys:{tag:"EDT Tool",title:"The 5 Whys",desc:"A root cause analysis technique used throughout EDT to move past surface symptoms and uncover the real problem worth solving.",points:["Ask 'Why?' 5 times in succession to reach root cause","Each Why peels back a layer of symptom to reveal deeper cause","Used in Observe (user interviews) and Reflect (team synthesis) stages","Root cause from Why 5 becomes the insight in problem statements","Prevents teams from solving symptoms instead of real problems","One extra 'why' can save months of building the wrong solution"],tip:"💡 The 5 Whys is EDT's most powerful diagnostic tool. If your team is solving the wrong problem, it's because they stopped asking why too soon."},
+  k3:{tag:"EDT Key",title:"Sponsor Users",desc:"Sponsor Users are real users who are actively involved throughout the design process — not just consulted at the start or end.",points:["2-5 Sponsor Users per project is typical","They participate in Playbacks, prototype testing, and research validation","Sponsor Users are NOT stakeholders or proxy users — they must be actual target users","Their ongoing involvement prevents teams from building based on outdated research","Sponsor Users build empathy within the product team through direct human connection","Relationship with Sponsor Users continues throughout the project lifecycle"],tip:"💡 Sponsor Users are EDT's most powerful differentiator. Most teams research users at the start and never see them again. EDT keeps users in the room throughout."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

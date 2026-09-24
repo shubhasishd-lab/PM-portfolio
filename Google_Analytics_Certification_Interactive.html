@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google Analytics Certification 2026 — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F9FA;--card:#FFF;--border:#DADCE0;--navy:#202124;--blue:#1A73E8;--blue-l:#E8F0FE;--green:#1E8E3E;--green-l:#E6F4EA;--yellow:#F9AB00;--yellow-l:#FEF7E0;--red:#D93025;--red-l:#FCE8E6;--gray:#5F6368;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--navy);}
+header{background:linear-gradient(135deg,#1557B0,#1A73E8,#4285F4);padding:2.5rem 2rem 2rem;text-align:center;}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.htag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-family:'Google Sans',sans-serif;font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:700;line-height:1.1;margin-bottom:.4rem;}
+header h1 span{color:#FDD663;}
+header p{color:rgba(255,255,255,.7);font-size:.82rem;margin-bottom:1.2rem;}
+.score-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.sc{font-size:.7rem;font-weight:500;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);}
+.sc.gold{background:rgba(249,171,0,.2);border-color:rgba(249,171,0,.4);color:#FDD663;}
+.progress-bar{background:#fff;border-bottom:1px solid var(--border);padding:1.2rem 1.5rem;}
+.pb-title{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);text-align:center;margin-bottom:.8rem;}
+.pb-sections{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;max-width:600px;margin:0 auto;}
+.pb-item{text-align:center;cursor:pointer;transition:transform .2s;}
+.pb-item:hover{transform:translateY(-2px);}
+.pb-circle{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;margin:0 auto .3rem;border:2px solid;}
+.pb-label{font-size:.58rem;font-weight:600;color:var(--gray);}
+main{max-width:700px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:1.8rem 0 .8rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:12px;margin-bottom:.65rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 4px 16px rgba(26,115,232,.1);}
+.mod.open{border-color:var(--blue);}
+.mod-head{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;}
+.mn{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.88rem;font-weight:600;color:var(--navy);margin-bottom:.12rem;}
+.ms{font-size:.7rem;color:var(--gray);}
+.status{font-size:.62rem;font-weight:600;padding:.15rem .5rem;border-radius:50px;flex-shrink:0;}
+.done{background:var(--green-l);color:var(--green);}
+.progress{background:var(--yellow-l);color:#B06000;}
+.pending{background:var(--bg);color:var(--gray);border:1px solid var(--border);}
+.mc{color:var(--gray);font-size:.82rem;transition:transform .2s;margin-left:.3rem;}
+.mod.open .mc{transform:rotate(90deg);color:var(--blue);}
+.mod-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.83rem;line-height:1.6;color:#444;padding:.9rem 0 .7rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.45rem .65rem;font-size:.7rem;color:var(--navy);font-weight:500;display:flex;align-items:flex-start;gap:.35rem;cursor:pointer;transition:all .15s;line-height:1.3;}
+.l:hover{background:var(--blue-l);border-color:var(--blue);transform:translateY(-1px);}
+.ld{width:6px;height:6px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.l.completed .ld{background:var(--green);}
+.l.completed{border-color:rgba(30,142,62,.2);}
+.l.inprog .ld{background:var(--yellow);}
+.l.pending-l .ld{background:#ccc;}
+.tip{margin-top:.9rem;padding:.7rem .9rem;border-radius:8px;font-size:.75rem;line-height:1.5;font-style:italic;background:var(--blue-l);border:1px solid rgba(26,115,232,.2);color:var(--blue);}
+.cert-banner{background:linear-gradient(135deg,#1557B0,#1A73E8);border-radius:16px;padding:1.8rem;text-align:center;margin-top:1.8rem;}
+.cb-icon{font-size:2rem;margin-bottom:.4rem;}
+.cb-title{font-size:1.1rem;font-weight:700;color:#FDD663;margin-bottom:.2rem;}
+.cb-name{font-size:.9rem;font-weight:500;color:#fff;margin-bottom:.2rem;}
+.cb-sub{font-size:.7rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(32,33,36,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:16px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.2);animation:pop .2s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.2rem 1.3rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:16px 16px 0 0;}
+.modal-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:26px;height:26px;border-radius:50%;font-size:.78rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1rem 1.3rem 1.3rem;}
+.modal-desc{font-size:.85rem;line-height:1.6;color:#444;margin-bottom:.9rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.modal-list li{display:flex;gap:.55rem;font-size:.82rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1rem;padding:.75rem .9rem;border-radius:8px;font-size:.76rem;line-height:1.5;font-style:italic;background:var(--blue-l);color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Google Skillshop</span><span class="htag">GA4</span><span class="htag">5 Sections</span><span class="htag">38 Activities</span></div>
+  <h1>Google Analytics<br><span>Certification 2026</span></h1>
+  <p>Complete Interactive Guide · Understand · Manage · Dive Deep · Integrate · Certify</p>
+  <div class="score-row"><span class="sc gold">38 of 38 Completed ✓</span><span class="sc">Google Skillshop</span><span class="sc">Cert #16</span></div>
+</header>
+
+<div class="progress-bar">
+  <div class="pb-title">5 Sections — Your Progress</div>
+  <div class="pb-sections">
+    <div class="pb-item" onclick="openModal('s1')">
+      <div class="pb-circle" style="background:#E6F4EA;border-color:#1E8E3E;color:#1E8E3E">8/9</div>
+      <div class="pb-label">Get Started</div>
+    </div>
+    <div class="pb-item" onclick="openModal('s2')">
+      <div class="pb-circle" style="background:#E6F4EA;border-color:#1E8E3E;color:#1E8E3E">11/11</div>
+      <div class="pb-label">Manage Data</div>
+    </div>
+    <div class="pb-item" onclick="openModal('s3')">
+      <div class="pb-circle" style="background:#E6F4EA;border-color:#1E8E3E;color:#1E8E3E">10/10</div>
+      <div class="pb-label">Dive Deeper</div>
+    </div>
+    <div class="pb-item" onclick="openModal('s4')">
+      <div class="pb-circle" style="background:#E6F4EA;border-color:#1E8E3E;color:#1E8E3E">6/6</div>
+      <div class="pb-label">Integrate</div>
+    </div>
+    <div class="pb-item" onclick="openModal('s5')">
+      <div class="pb-circle" style="background:#E6F4EA;border-color:#1E8E3E;color:#1E8E3E">2/2</div>
+      <div class="pb-label">Certify</div>
+    </div>
+  </div>
+</div>
+
+<main>
+<div class="div">Section 1 — Get Started Using Google Analytics</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mn" style="background:#E6F4EA;color:#1E8E3E">S1</div>
+    <div class="mi">
+      <div class="mt">Get Started Using Google Analytics (GA)</div>
+      <div class="ms">9 Activities · Account setup · Data collection · Key events</div>
+    </div>
+    <span class="status done">9/9 ✓</span>
+    <div class="mc">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="md">The foundation section — covers what GA4 is, how it handles data differently from Universal Analytics, and how to set up your account, property, and data streams for web and app tracking.</p>
+    <div class="ls">
+      <div class="l completed" onclick="openLesson('Understand GA & Business Growth','GA4 helps businesses understand how users find and interact with their products. It connects marketing data to business outcomes — traffic, engagement, conversions, and revenue.');event.stopPropagation()"><span class="ld"></span>GA & Business Growth ✓</div>
+      <div class="l completed" onclick="openLesson('How GA Handles Data','GA4 uses an event-based data model — every user interaction is an event. Unlike UA (session-based), GA4 tracks individual actions: page views, clicks, scrolls, purchases, custom events.');event.stopPropagation()"><span class="ld"></span>How GA Handles Data ✓</div>
+      <div class="l completed" onclick="openLesson('Create GA Account & Property','GA4 hierarchy: Account → Property → Data Streams. One account can have multiple properties (websites/apps). Each property has its own Measurement ID for data collection.');event.stopPropagation()"><span class="ld"></span>Create Account & Property ✓</div>
+      <div class="l completed" onclick="openLesson('Set Up Website for Data Collection','Install GA4 via: Google Tag Manager (recommended), gtag.js code snippet, or CMS plugin (WordPress, Shopify). Verify installation using GA4 DebugView or Tag Assistant.');event.stopPropagation()"><span class="ld"></span>Set Up Website ⚠️</div>
+      <div class="l completed" onclick="openLesson('Set Up App for Data Collection','For mobile apps: integrate Firebase SDK (Android/iOS). GA4 natively connects with Firebase — giving unified web+app analytics in one property. Essential for cross-platform products.');event.stopPropagation()"><span class="ld"></span>Set Up App ✓</div>
+      <div class="l completed" onclick="openLesson('Confirm Data Is Being Collected','Use GA4 Realtime report to verify data is flowing. DebugView shows individual events in real-time during testing. Check Event count in Reports > Engagement > Events after 24 hours.');event.stopPropagation()"><span class="ld"></span>Confirm Data Collection ✓</div>
+      <div class="l completed" onclick="openLesson('Power Reports with Dimensions & Metrics','Dimensions: qualitative attributes (device category, country, page title). Metrics: quantitative measurements (sessions, users, conversions). Every GA4 report combines dimensions + metrics.');event.stopPropagation()"><span class="ld"></span>Dimensions & Metrics ✓</div>
+      <div class="l completed" onclick="openLesson('Understand Key Events & Conversions','Key Events (formerly Conversions) are the most important user actions: purchases, sign-ups, form submissions. Mark any event as a Key Event to highlight it in reports and bidding.');event.stopPropagation()"><span class="ld"></span>Key Events & Conversions ✓</div>
+      <div class="l completed" onclick="openLesson('Manage Account Access & Settings','GA4 roles: Administrator, Editor, Analyst, Viewer. Assign minimum necessary access. Account settings: data retention (up to 14 months), timezone, currency, Google product links.');event.stopPropagation()"><span class="ld"></span>Account Access & Settings ✓</div>
+    </div>
+    <div class="tip">💡 GA4 insight: The move from session-based (UA) to event-based (GA4) data model is the most important conceptual shift. Everything in GA4 is an event — even page views.</div>
+  </div>
+</div>
+
+<div class="div">Section 2 — Manage GA Data & Learn to Read Reports</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mn" style="background:#E6F4EA;color:#1E8E3E">S2</div>
+    <div class="mi">
+      <div class="mt">Manage GA Data & Learn to Read Reports</div>
+      <div class="ms">11 Activities · Reports · Scopes · Attribution · Filters</div>
+    </div>
+    <span class="status done">11/11 ✓</span>
+    <div class="mc">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="md">The most comprehensive section — covers all GA4 reporting surfaces, how to read and interpret standard reports, apply filters and comparisons, and understand the data model deeply enough to make accurate decisions.</p>
+    <div class="ls">
+      <div class="l completed" onclick="openLesson('Navigate Your GA Account','GA4 navigation: Home (overview), Reports (standard), Explore (custom analysis), Advertising (campaign data), Configure (events, audiences, conversions), Admin (account settings).');event.stopPropagation()"><span class="ld"></span>Navigate GA Account ✓</div>
+      <div class="l completed" onclick="openLesson('Manage GA Events','Events are the core data unit. Automatically collected events (page_view, session_start), enhanced measurement events (scroll, outbound clicks), recommended events, and custom events.');event.stopPropagation()"><span class="ld"></span>Manage GA Events ✓</div>
+      <div class="l completed" onclick="openLesson('Understand GA Reports','GA4 reports surface: Life cycle reports (Acquisition, Engagement, Monetization, Retention) and User reports (Demographics, Tech). Each answers specific business questions about your users.');event.stopPropagation()"><span class="ld"></span>Understand GA Reports ✓</div>
+      <div class="l completed" onclick="openLesson('Get to Know Predefined Reports','Standard GA4 reports: Overview cards, Traffic acquisition, User acquisition, Engagement overview, Events, Conversions, Landing pages, Pages & screens, Monetization.');event.stopPropagation()"><span class="ld"></span>Predefined Reports ✓</div>
+      <div class="l completed" onclick="openLesson('Filter & Compare Data in Reports','Filters narrow data to specific subsets. Comparisons show multiple segments side by side. Example: compare iOS vs Android users, or organic vs paid traffic. Available in all standard reports.');event.stopPropagation()"><span class="ld"></span>Filter & Compare Data ✓</div>
+      <div class="l completed" onclick="openLesson('Use Explore for Advanced Analysis','Explore is GA4\'s custom analysis workspace: Free Form (custom table/chart), Funnel Exploration, Path Exploration, Segment Overlap, User Explorer, Cohort Exploration, User Lifetime.');event.stopPropagation()"><span class="ld"></span>Explore Advanced Analysis ✓</div>
+      <div class="l completed" onclick="openLesson('Navigate Major Workspaces','Reports workspace: standard pre-built reports. Explore workspace: custom ad-hoc analysis. Advertising workspace: Google Ads campaign performance. Configure: event and conversion management.');event.stopPropagation()"><span class="ld"></span>Navigate Workspaces ✓</div>
+      <div class="l completed" onclick="openLesson('Understand Scopes in GA','4 scopes define how dimensions and metrics are associated with data: Hit (event-level), Session, User, and Item (e-commerce). Wrong scope combinations produce misleading data.');event.stopPropagation()"><span class="ld"></span>Understand Scopes ✓</div>
+      <div class="l completed" onclick="openLesson('Understand Data Differences Between Reports','Different reports use different counting methodologies. Users in Acquisition report ≠ Users in Engagement report. Understanding scope and methodology prevents misinterpreting data.');event.stopPropagation()"><span class="ld"></span>Data Differences ✓</div>
+      <div class="l completed" onclick="openLesson('Understand Attribution Models in GA','Attribution determines which touchpoints get credit for conversions. GA4 models: Data-driven (default, ML-based), Last click, First click, Linear, Time decay, Position-based. Data-driven is most accurate.');event.stopPropagation()"><span class="ld"></span>Attribution Models ✓</div>
+      <div class="l completed" onclick="openLesson('Answer Business Questions with Standard Reports','Map business questions to GA4 reports: "Where do users come from?" → Traffic acquisition. "What do they do?" → Engagement. "Do they convert?" → Conversions. "Do they return?" → Retention.');event.stopPropagation()"><span class="ld"></span>Answer Business Questions ✓</div>
+    </div>
+    <div class="tip">💡 GA4 insight: Section 2 is the most important for PM work. Understanding how to read and interpret GA4 reports correctly is the foundation of all data-driven product decisions.</div>
+  </div>
+</div>
+
+<div class="div">Section 3 — Dive Deeper into GA Data & Reports</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mn" style="background:#FEF7E0;color:#B06000">S3</div>
+    <div class="mi">
+      <div class="mt">Dive Deeper into GA Data & Reports</div>
+      <div class="ms">10 Activities · Journeys · Collections · Segments · Ads</div>
+    </div>
+    <span class="status done">10/10 ✓</span>
+    <div class="mc">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="md">Advanced GA4 features — covering user journey visualisation, custom report collections, audience segments, Google Ads integration, UTM tracking, and data limits. This section unlocks the full power of GA4 for marketing and product decisions.</p>
+    <div class="ls">
+      <div class="l completed" onclick="openLesson('Answer Business Questions with Standard Reports','Reinforce applying the right GA4 report to the right business question. Build a mental map: acquisition questions → Traffic reports, behaviour questions → Engagement, revenue → Monetization.');event.stopPropagation()"><span class="ld"></span>Business Questions ✓</div>
+      <div class="l completed" onclick="openLesson('Visualise User Journeys in Explore','Path Exploration shows the actual sequence of screens/events users navigate. Understand: most common paths before conversion, drop-off points, and unexpected navigation patterns.');event.stopPropagation()"><span class="ld"></span>Visualise User Journeys ✓</div>
+      <div class="l completed" onclick="openLesson('Customise Reports in Your Property','Modify standard GA4 reports: add/remove dimensions and metrics, reorder columns, change visualisation type. Save customisations to your property for the whole team to use.');event.stopPropagation()"><span class="ld"></span>Customise Reports ✓</div>
+      <div class="l completed" onclick="openLesson('Create Collections for Your Business','Collections group related reports into custom navigation sections. Create collections for: Marketing team, Product team, Executive dashboard. Makes GA4 usable for non-analysts.');event.stopPropagation()"><span class="ld"></span>Create Collections 🔄</div>
+      <div class="l completed" onclick="openLesson('Group Users with Segments & Audiences','Segments: temporary filters for Explore analysis. Audiences: persistent user groups for remarketing and reporting. Create audiences based on behaviour, demographics, or custom conditions.');event.stopPropagation()"><span class="ld"></span>Segments & Audiences</div>
+      <div class="l completed" onclick="openLesson('Pair GA with Google Ads','Link GA4 to Google Ads to: import GA4 conversions for bid optimisation, create remarketing audiences from GA4 segments, see GA4 engagement data in Ads reports, and measure true ROAS.');event.stopPropagation()"><span class="ld"></span>GA + Google Ads</div>
+      <div class="l completed" onclick="openLesson('Auto-Tagging & UTM for Campaign Tracking','Auto-tagging: Google automatically tags Ads clicks with gclid parameter. UTM parameters: manually tag non-Google campaigns (utm_source, utm_medium, utm_campaign, utm_content, utm_term).');event.stopPropagation()"><span class="ld"></span>Auto-Tagging & UTM</div>
+      <div class="l completed" onclick="openLesson('Analyse Marketing Data in Advertising','Advertising workspace shows: campaign performance, attribution paths, conversion paths, and top converting journeys. See which channels and campaigns drive the most valuable conversions.');event.stopPropagation()"><span class="ld"></span>Marketing Data Analysis</div>
+      <div class="l completed" onclick="openLesson('Use Cross-Channel Insights for Budgeting','GA4 shows how different channels work together to drive conversions. Use attribution data to allocate budget toward channels with highest contribution to conversion paths — not just last click.');event.stopPropagation()"><span class="ld"></span>Cross-Channel Budgeting</div>
+      <div class="l completed" onclick="openLesson('Understand Cardinality & Data Limits','Cardinality: the number of unique values a dimension has. High-cardinality dimensions (user IDs, product SKUs) can cause (other) row in GA4 reports. Data thresholds apply to protect user privacy.');event.stopPropagation()"><span class="ld"></span>Cardinality & Data Limits</div>
+    </div>
+    <div class="tip">💡 GA4 insight: You are currently on "Create Collections for Your Business" — finish this and 6 more activities to complete Section 3! You\'re making great progress! 🔥</div>
+  </div>
+</div>
+
+<div class="div">Section 4 — Use GA with Other Tools & Data Sources</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mn" style="background:#F8F9FA;color:#5F6368">S4</div>
+    <div class="mi">
+      <div class="mt">Use GA with Other Tools & Data Sources</div>
+      <div class="ms">6 Activities · BigQuery · APIs · Search Console · Enterprise</div>
+    </div>
+    <span class="status done">6/6 ✓</span>
+    <div class="mc">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="md">Covers GA4's integration ecosystem — connecting with BigQuery for raw data analysis, Google Search Console for SEO insights, other Google tools, and enterprise features for large organisations.</p>
+    <div class="ls">
+      <div class="l completed" onclick="openLesson('Control How Data Is Used in GA','Data controls: data retention settings (2 or 14 months), Google signals (cross-device tracking), data deletion requests, consent mode for privacy compliance (GDPR, CCPA).');event.stopPropagation()"><span class="ld"></span>Control Data Usage</div>
+      <div class="l completed" onclick="openLesson('Connect GA with Other Tools','Native GA4 integrations: Google Ads, Search Console, BigQuery, Display & Video 360, Search Ads 360, Merchant Center, Firebase, Google Optimize. Each unlocks additional data flows.');event.stopPropagation()"><span class="ld"></span>Connect GA with Tools</div>
+      <div class="l completed" onclick="openLesson('Combine Business Data in GA','Import external data into GA4: cost data from non-Google ad platforms, CRM data, offline conversion data, product catalog data. Creates unified view of business performance in GA4.');event.stopPropagation()"><span class="ld"></span>Combine Business Data</div>
+      <div class="l completed" onclick="openLesson('Export GA Data to BigQuery','BigQuery export sends raw, unsampled GA4 event data to Google Cloud. Use for: complex SQL analysis, ML model training, combining with other data sources, long-term data retention beyond GA4 limits.');event.stopPropagation()"><span class="ld"></span>Export to BigQuery</div>
+      <div class="l completed" onclick="openLesson('Discover GA APIs','GA4 Data API: programmatically query GA4 reports. Admin API: manage GA4 configuration programmatically. Measurement Protocol: send server-side events directly to GA4. Used for custom integrations.');event.stopPropagation()"><span class="ld"></span>GA APIs</div>
+      <div class="l completed" onclick="openLesson('Get Enterprise Features with Google','GA4 360 (paid): higher data limits, SLAs, more custom dimensions/metrics, longer data freshness, sub-properties for governance, roll-up properties for aggregate view across properties.');event.stopPropagation()"><span class="ld"></span>Enterprise Features</div>
+    </div>
+    <div class="tip">💡 GA4 insight: BigQuery export is the most powerful GA4 feature — it unlocks raw, unsampled data for SQL analysis and ML. Even knowing it exists makes you a stronger PM candidate.</div>
+  </div>
+</div>
+
+<div class="div">Section 5 — Pass the Assessment & Earn Certification</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head">
+    <div class="mn" style="background:#F8F9FA;color:#5F6368">S5</div>
+    <div class="mi">
+      <div class="mt">Pass the Assessment & Earn Certification</div>
+      <div class="ms">2 Activities · Practice assessment · Final exam · Google certificate</div>
+    </div>
+    <span class="status done">2/2 ✓</span>
+    <div class="mc">›</div>
+  </div>
+  <div class="mod-body">
+    <p class="md">The final section — complete the practice assessment to prepare, then pass the official Google Analytics Certification exam. Passing earns a Google-verified certificate valid for 12 months, shareable on LinkedIn and your CV.</p>
+    <div class="ls">
+      <div class="l completed" onclick="openLesson('Practice Assessment','Timed practice exam covering all 4 previous sections. Identifies knowledge gaps before the real exam. Review any areas where you score below 80% before attempting the official assessment.');event.stopPropagation()"><span class="ld"></span>Practice Assessment</div>
+      <div class="l completed" onclick="openLesson('Google Analytics Certification Exam','50 questions. 75 minutes. 80% to pass. Covers: GA4 setup, data model, reports, Explore, attribution, integrations. Open book but time-pressured. Pass = Google-verified certificate instantly.');event.stopPropagation()"><span class="ld"></span>Certification Exam</div>
+    </div>
+    <div class="tip">💡 GA4 exam tip: The exam is open-book but time-pressured. Study the data model (events, dimensions, metrics, scopes) and attribution models most carefully — they appear most frequently.</div>
+  </div>
+</div>
+
+<div class="cert-banner">
+  <div class="cb-icon">🏆</div>
+  <div class="cb-title">Google Analytics Certification 2026</div>
+  <div class="cb-name">Shubhasish Dutta — Google Skillshop</div>
+  <div class="cb-sub">5 Sections · 38 Activities · 38 Completed ✓ · Cert #16 · CERTIFIED · Issue: Aug 8 2026 · Expiry: Aug 8 2027 · ID: 190979136</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  s1:{tag:"Section 1",title:"Get Started Using Google Analytics",desc:"Foundation section covering GA4 account setup, data collection implementation, and core concepts. 8 of 9 activities completed.",points:["GA4 uses event-based data model — everything is an event","Account → Property → Data Stream hierarchy","Install via GTM, gtag.js, or CMS plugin","Firebase SDK for mobile app tracking","DebugView and Realtime for implementation verification","Key Events replace Conversions from Universal Analytics"],tip:"💡 Complete the one remaining activity: Set Up Website for Data Collection to finish Section 1!"},
+  s2:{tag:"Section 2",title:"Manage GA Data & Learn to Read Reports",desc:"Full section completed! Covers all GA4 reporting surfaces, data interpretation, and attribution. 11 of 11 activities done.",points:["6 report types in GA4: Acquisition, Engagement, Monetization, Retention, Demographics, Tech","Explore workspace: 7 analysis types including Funnel and Path exploration","4 data scopes: Hit, Session, User, Item","Data-driven attribution is GA4's default and most accurate model","Filters and comparisons available in all standard reports","Different reports count users differently — understand methodology to avoid errors"],tip:"💡 Section 2 is fully complete! This is the most important section for day-to-day PM and marketing work."},
+  s3:{tag:"Section 3",title:"Dive Deeper into GA Data & Reports",desc:"Currently in progress — 3 of 10 completed. You are currently on 'Create Collections for Your Business'.",points:["Currently on: Create Collections for Your Business","Still to complete: Segments & Audiences, GA+Ads, UTM, Marketing Analysis, Cross-Channel, Cardinality","Collections group reports for different team needs","Segments are temporary; Audiences are persistent","UTM parameters: source, medium, campaign, content, term","BigQuery export for raw unsampled data analysis"],tip:"💡 You need 7 more activities in Section 3. Pick up where you left off with Collections!"},
+  s4:{tag:"Section 4",title:"Use GA with Other Tools & Data Sources",desc:"Not yet started — 0 of 6 activities. Covers integrations with BigQuery, APIs, and enterprise features.",points:["6 activities: Data controls, Tool connections, Business data import, BigQuery export, APIs, Enterprise","BigQuery export: raw unsampled GA4 event data for SQL analysis","GA4 Data API: programmatically query reports","Measurement Protocol: server-side event tracking","Enterprise (GA4 360): higher limits, SLAs, sub-properties","Consent Mode: privacy-compliant tracking for GDPR/CCPA"],tip:"💡 Section 4 is the shortest — only 6 activities. Complete after finishing Section 3!"},
+  s5:{tag:"Section 5",title:"Pass the Assessment & Earn Certification",desc:"The final hurdle — 2 activities: practice assessment and the official exam. Pass with 80% to earn your Google certificate.",points:["50 questions, 75 minutes, 80% pass mark","Key exam topics: data model, attribution, Explore, integrations","Practice assessment available before the real exam","Certificate valid for 12 months — shareable on LinkedIn","Open book but time-pressured — know the concepts well","Retakes available if you don't pass first time"],tip:"🏆 Complete Sections 3 and 4 first, then attack the exam! You're more than halfway there Asish!"}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Activity Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

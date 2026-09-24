@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Google AI Fundamentals — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F9FA;--card:#FFFFFF;--border:#E8EAED;--navy:#1A1A1A;--blue:#1A73E8;--blue-l:#E8F0FE;--green:#188038;--green-l:#E6F4EA;--yellow:#F9AB00;--yellow-l:#FEF7E0;--red:#D93025;--red-l:#FCE8E6;--gray:#5F6368;--white:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;}
+header{background:linear-gradient(135deg,#1A73E8,#0D47A1);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;border-radius:50%;background:rgba(255,255,255,.05);}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.htag{font-size:.63rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-family:'Google Sans',sans-serif;font-size:clamp(1.8rem,5vw,3rem);color:#fff;font-weight:700;line-height:1.1;margin-bottom:.5rem;}
+header h1 span{color:#FDD663;}
+header p{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:1.5rem;}
+.score-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;}
+.sc{font-size:.73rem;font-weight:500;padding:.3rem .9rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(249,171,0,.2);border-color:rgba(249,171,0,.4);color:#FDD663;}
+.google-colors{background:#fff;border-bottom:1px solid var(--border);padding:1rem;display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;}
+.gc-item{display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--gray);}
+.gc-dot{width:10px;height:10px;border-radius:50%;}
+main{max-width:700px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:2rem 0 1rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.ai-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.5rem;}
+.ai-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1rem;cursor:pointer;transition:all .2s;}
+.ai-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,115,232,.15);border-color:var(--blue);}
+.ac-icon{font-size:1.5rem;margin-bottom:.3rem;}
+.ac-title{font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:.1rem;}
+.ac-sub{font-size:.7rem;color:var(--gray);line-height:1.3;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:16px;margin-bottom:.75rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 6px 20px rgba(26,115,232,.1);}
+.mod.open{border-color:var(--blue);}
+.mod-head{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;}
+.mn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.15rem;}
+.ms{font-size:.72rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.85rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--blue);}
+.mod-body{display:none;padding:0 1.3rem 1.3rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.86rem;line-height:1.65;color:#444;padding:1rem 0 .8rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-top:.5rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font-size:.73rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.4rem;cursor:pointer;transition:all .15s;line-height:1.35;}
+.l:hover{background:var(--blue-l);border-color:var(--blue);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tip{margin-top:1rem;padding:.75rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--blue-l);border:1px solid rgba(26,115,232,.2);color:var(--blue);}
+.cert{background:linear-gradient(135deg,#1A73E8,#0D47A1);border-radius:20px;padding:2rem;text-align:center;margin-top:2rem;}
+.cert-icon{font-size:2.5rem;margin-bottom:.5rem;}
+.cn{font-size:1.2rem;font-weight:700;color:#FDD663;margin-bottom:.3rem;}
+.cn2{font-size:.95rem;font-weight:600;color:#fff;margin-bottom:.3rem;}
+.csub{font-size:.75rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,26,26,.75);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.2);animation:pop .22s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:20px 20px 0 0;}
+.modal-tag{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.3rem;}
+.modal-title{font-size:1.2rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:28px;height:28px;border-radius:50%;font-size:.8rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1.2rem 1.5rem 1.5rem;}
+.modal-desc{font-size:.88rem;line-height:1.65;color:#444;margin-bottom:1rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.modal-list li{display:flex;gap:.6rem;font-size:.84rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1.2rem;padding:.8rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--blue-l);color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Google</span><span class="htag">Coursera</span><span class="htag">AI Professional Certificate</span></div>
+  <h1>Google <span>AI Fundamentals</span></h1>
+  <p>Complete Interactive Guide · 7 Courses · AI Professional Certificate</p>
+  <div class="score-row"><span class="sc gold">Certified ✓</span><span class="sc">Google · Coursera</span><span class="sc">June 2026</span><span class="sc">LinkedIn Badge</span></div>
+</header>
+
+<div class="google-colors">
+  <div class="gc-item"><div class="gc-dot" style="background:#4285F4"></div>Use AI at Work</div>
+  <div class="gc-item"><div class="gc-dot" style="background:#EA4335"></div>Prompt Engineering</div>
+  <div class="gc-item"><div class="gc-dot" style="background:#FBBC04"></div>Responsible AI</div>
+  <div class="gc-item"><div class="gc-dot" style="background:#34A853"></div>AI Tools</div>
+</div>
+
+<main>
+
+<div class="div">4 Core AI Skills</div>
+<div class="ai-grid">
+  <div class="ai-card" onclick="openModal('s1')"><div class="ac-icon">💼</div><div class="ac-title">AI at Work</div><div class="ac-sub">Boost productivity using AI tools in everyday tasks</div></div>
+  <div class="ai-card" onclick="openModal('s2')"><div class="ac-icon">✍️</div><div class="ac-title">Prompt Engineering</div><div class="ac-sub">Write effective prompts to get better AI outputs</div></div>
+  <div class="ai-card" onclick="openModal('s3')"><div class="ac-icon">🛡️</div><div class="ac-title">Responsible AI</div><div class="ac-sub">Use AI ethically, safely and without bias</div></div>
+  <div class="ai-card" onclick="openModal('s4')"><div class="ac-icon">🔧</div><div class="ac-title">AI Tools Mastery</div><div class="ac-sub">Hands-on experience with Google's AI tools</div></div>
+</div>
+
+<div class="div">7 Courses — Full Curriculum</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E8F0FE;color:#1A73E8">01</div><div class="mi"><div class="mt">Introduction to AI and Machine Learning</div><div class="ms">AI fundamentals · ML concepts · How AI works</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers what AI and machine learning are, how they work, and why they matter for the modern workplace. No technical background required — designed for anyone who wants to understand AI at a conceptual level.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is AI?','AI is technology that enables computers to perform tasks that typically require human intelligence — reasoning, learning, problem-solving, and understanding language.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>What is AI?</div>
+    <div class="l" onclick="openLesson('What is Machine Learning?','ML is a subset of AI where systems learn from data rather than being explicitly programmed. The more data, the smarter the model becomes over time.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>What is Machine Learning?</div>
+    <div class="l" onclick="openLesson('Generative AI','GenAI creates new content — text, images, code, audio — by learning patterns from vast training datasets. Claude, Gemini, and ChatGPT are all GenAI systems.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>Generative AI</div>
+    <div class="l" onclick="openLesson('AI Capabilities & Limitations','AI excels at pattern recognition, summarisation, and generation. It struggles with: real-time information, physical world understanding, and consistent factual accuracy.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>AI Capabilities & Limits</div>
+    <div class="l" onclick="openLesson('Types of AI Models','Large Language Models (LLMs) for text, diffusion models for images, and multimodal models for text+images+audio. Each has different strengths and use cases.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>Types of AI Models</div>
+    <div class="l" onclick="openLesson('AI in the Workplace Today','AI is already transforming writing, research, coding, customer service, data analysis, and product management. Early adopters gain a significant productivity advantage.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>AI in the Workplace</div>
+  </div>
+  <div class="tip">💡 Google insight: Understanding how AI works at a conceptual level makes you a better user, collaborator, and product decision-maker.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E6F4EA;color:#188038">02</div><div class="mi"><div class="mt">Using AI at Work</div><div class="ms">Productivity · AI workflows · Task augmentation</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Practical module covering how to integrate AI tools into your daily work routine to boost productivity. Covers identifying the right tasks for AI, building AI workflows, and measuring productivity gains.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Identifying Tasks for AI','Best for AI: repetitive writing, summarisation, research, brainstorming, drafting, data analysis. Not ideal: final decisions, sensitive conversations, creative strategy.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>Tasks Ideal for AI</div>
+    <div class="l" onclick="openLesson('Building AI Workflows','Integrate AI into existing workflows rather than replacing them. Example PM workflow: research → AI summary → human analysis → AI draft → human review.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>Building AI Workflows</div>
+    <div class="l" onclick="openLesson('AI for Research & Summarisation','Use AI to quickly summarise long documents, research topics, and synthesise information from multiple sources. Saves hours of manual reading.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>AI for Research</div>
+    <div class="l" onclick="openLesson('AI for Writing & Communication','Draft emails, reports, presentations, and PRDs faster with AI assistance. Always review and personalise AI output before sending.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>AI for Writing</div>
+    <div class="l" onclick="openLesson('Human + AI Collaboration','The most effective AI use is augmentation — AI handles the first draft, human adds judgment, expertise, and final decisions. Neither alone is as effective as both together.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>Human + AI Collaboration</div>
+    <div class="l" onclick="openLesson('Measuring AI Productivity Gains','Track: time saved per task, quality improvement, and error reduction. Start with one workflow, measure impact, then expand AI use based on results.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>Measuring Productivity</div>
+  </div>
+  <div class="tip">💡 Google insight: 70% of managers believe AI skills are critical for their team's success. Being AI-fluent at work is becoming a baseline expectation, not a differentiator.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FEF7E0;color:#F9AB00">03</div><div class="mi"><div class="mt">Prompt Design Essentials</div><div class="ms">Prompt engineering · Techniques · Best practices</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The most practical module — teaches you how to write effective prompts that consistently produce high-quality AI outputs. Covers the core prompt engineering techniques used by professionals daily.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What Makes a Good Prompt?','Effective prompts are: specific, contextual, and goal-oriented. Include: who you are, what you need, format required, and any constraints. Vague prompts get vague results.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>What Makes a Good Prompt</div>
+    <div class="l" onclick="openLesson('Zero-Shot Prompting','Ask AI to perform a task directly without examples. Works well for simple, clear tasks. Example: "Summarise this meeting transcript in 5 bullet points."');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>Zero-Shot Prompting</div>
+    <div class="l" onclick="openLesson('Few-Shot Prompting','Provide 2-3 examples before your request to show AI the format and style you want. More reliable for complex or specific output requirements.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>Few-Shot Prompting</div>
+    <div class="l" onclick="openLesson('Chain-of-Thought Prompting','Ask AI to "think step by step" before answering. Dramatically improves accuracy for reasoning tasks, math problems, and complex analysis.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>Chain-of-Thought</div>
+    <div class="l" onclick="openLesson('Role Prompting','Give AI a role: "Act as an experienced Product Manager and review this PRD." Role context shapes the perspective, tone, and depth of the response.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>Role Prompting</div>
+    <div class="l" onclick="openLesson('Iterative Prompting','Rarely get the perfect output first try. Iterate: start broad, then refine. "Make it shorter", "Add more examples", "Focus on the PM angle" are all valid refinements.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>Iterative Prompting</div>
+  </div>
+  <div class="tip">💡 Google insight: Prompt engineering is 2026's most valuable soft skill. The ability to communicate precisely with AI is as important as Excel was in 2005.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FCE8E6;color:#D93025">04</div><div class="mi"><div class="mt">Responsible AI Principles</div><div class="ms">Ethics · Bias · Safety · Privacy</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers Google's approach to responsible AI — building and using AI that is safe, fair, accountable, and transparent. Essential for any PM building AI-powered products or working in organisations using AI at scale.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Google\'s 7 AI Principles','Be socially beneficial, avoid unfair bias, be built and tested for safety, be accountable to people, incorporate privacy design, uphold high standards of excellence, be available for uses that align with these principles.');event.stopPropagation()"><span class="ld" style="background:#D93025"></span>Google's 7 AI Principles</div>
+    <div class="l" onclick="openLesson('AI Bias & Fairness','AI models reflect the biases in their training data. PMs must audit AI outputs for bias, especially in hiring, lending, healthcare, and customer-facing decisions.');event.stopPropagation()"><span class="ld" style="background:#D93025"></span>AI Bias & Fairness</div>
+    <div class="l" onclick="openLesson('AI Hallucinations','AI can confidently state false information. Always verify critical facts from AI outputs, especially citations, statistics, and specific claims.');event.stopPropagation()"><span class="ld" style="background:#D93025"></span>AI Hallucinations</div>
+    <div class="l" onclick="openLesson('Privacy in AI','Never share personally identifiable information (PII) with public AI tools. Understand your organisation\'s AI usage policy before using AI with customer data.');event.stopPropagation()"><span class="ld" style="background:#D93025"></span>Privacy & AI</div>
+    <div class="l" onclick="openLesson('AI Transparency','Users should know when they\'re interacting with AI. PMs building AI features must consider: disclosure requirements, explainability, and user trust.');event.stopPropagation()"><span class="ld" style="background:#D93025"></span>AI Transparency</div>
+    <div class="l" onclick="openLesson('Human Oversight of AI','AI should augment, not replace, human judgment in high-stakes decisions. Maintain human oversight especially for decisions affecting people\'s lives, opportunities, or rights.');event.stopPropagation()"><span class="ld" style="background:#D93025"></span>Human Oversight</div>
+  </div>
+  <div class="tip">💡 Google insight: Responsible AI is not just ethics — it\'s good product strategy. AI products that users don\'t trust don\'t get adopted.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E8F0FE;color:#1A73E8">05</div><div class="mi"><div class="mt">Generative AI Tools & Applications</div><div class="ms">Gemini · Google Workspace AI · Practical tools</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Hands-on module covering Google's AI tools — Gemini, Google Workspace AI features, and how to integrate them into daily workflows. Includes practical exercises with real tools.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Google Gemini Overview','Gemini is Google\'s multimodal AI — it processes text, images, audio, and video. Available in Google Workspace, Android, and as a standalone app at gemini.google.com.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>Google Gemini</div>
+    <div class="l" onclick="openLesson('AI in Google Docs & Gmail','Gemini in Docs: draft, summarise, rewrite. Gemini in Gmail: smart replies, email drafting, summarisation. Saves 30+ minutes per day for heavy email users.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>AI in Docs & Gmail</div>
+    <div class="l" onclick="openLesson('AI in Google Sheets','Gemini in Sheets: generate formulas, analyse data, create charts from natural language. "Show me revenue by region as a bar chart" — done instantly.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>AI in Google Sheets</div>
+    <div class="l" onclick="openLesson('AI in Google Slides','Generate presentation outlines, speaker notes, and slide content from a brief description. Dramatically reduces deck creation time for PMs.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>AI in Google Slides</div>
+    <div class="l" onclick="openLesson('NotebookLM for Research','NotebookLM is Google\'s AI research tool — upload documents and ask questions across all of them simultaneously. Perfect for synthesising competitive research.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>NotebookLM</div>
+    <div class="l" onclick="openLesson('Comparing AI Tools','Claude: best for nuanced writing and analysis. Gemini: best for Google Workspace integration. ChatGPT: broadest general use. Use the right tool for the right job.');event.stopPropagation()"><span class="ld" style="background:#1A73E8"></span>Comparing AI Tools</div>
+  </div>
+  <div class="tip">💡 Google insight: You already use Claude daily Asish — adding Gemini for Google Workspace tasks gives you a complete AI toolkit that covers every workflow.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E6F4EA;color:#188038">06</div><div class="mi"><div class="mt">AI for Data & Analysis</div><div class="ms">Data analysis · AI insights · Decision making</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers how AI transforms data analysis — making it accessible to non-technical professionals. Teaches how to use AI to analyse data, generate insights, and make data-driven decisions without deep technical expertise.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('AI for Non-Technical Data Analysis','Upload a CSV and ask AI: "What are the top trends in this data?" AI identifies patterns, generates charts, and surfaces insights that would take analysts hours to find.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>AI for Data Analysis</div>
+    <div class="l" onclick="openLesson('Natural Language Querying','Ask data questions in plain English rather than writing SQL or formulas. "Show me sales by region for Q2" — AI translates to the right query automatically.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>Natural Language Querying</div>
+    <div class="l" onclick="openLesson('AI-Generated Insights','AI surfaces patterns and anomalies in data that humans miss. Use for: customer behaviour analysis, market trend identification, and product performance monitoring.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>AI-Generated Insights</div>
+    <div class="l" onclick="openLesson('Validating AI Analysis','Always sanity-check AI-generated analysis against known data. AI can misinterpret data context — human domain knowledge is essential for validation.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>Validating AI Analysis</div>
+    <div class="l" onclick="openLesson('AI + Human Decision Making','Use AI to generate options and surface data. Use human judgment to make the final call — especially for decisions with significant business or human impact.');event.stopPropagation()"><span class="ld" style="background:#188038"></span>AI + Human Decisions</div>
+  </div>
+  <div class="tip">💡 Google insight: AI democratises data analysis. PMs who combine AI data tools with domain expertise make better, faster decisions than those who rely on analysts alone.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FEF7E0;color:#F9AB00">07</div><div class="mi"><div class="mt">Capstone: AI in the Real World</div><div class="ms">Applied AI · Case studies · Certificate assessment</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The final course applies all 6 previous courses to real-world scenarios. Covers end-to-end AI use cases across different roles and industries, and includes the final assessment for the Google AI Professional Certificate.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('AI for Product Managers','PMs use AI for: user research synthesis, PRD drafting, competitive analysis, stakeholder communication, roadmap narratives, and feature prioritisation frameworks.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>AI for Product Managers</div>
+    <div class="l" onclick="openLesson('AI for Sales & BDM','AI helps BDMs with: prospect research, personalised outreach, proposal drafting, competitive intelligence, and CRM data enrichment. Directly relevant to your background Asish!');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>AI for Sales & BDM</div>
+    <div class="l" onclick="openLesson('AI for Customer Success','AI enables CS teams to: predict churn, personalise onboarding, automate routine queries, and surface expansion opportunities from usage data.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>AI for Customer Success</div>
+    <div class="l" onclick="openLesson('Building Your AI Strategy','Define: which tasks to AI-augment, which tools to use, data governance rules, and how to measure AI's impact on your productivity and output quality.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>Building Your AI Strategy</div>
+    <div class="l" onclick="openLesson('Certificate Assessment','Final graded assessment across all 7 courses. Tests: AI fundamentals, prompt engineering, responsible AI, and practical tool application. Passing earns the Google AI Professional Certificate.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>Certificate Assessment</div>
+    <div class="l" onclick="openLesson('Next Steps After Certification','Continue with: Google Data Analytics, Google Project Management, and domain-specific AI courses. Build a portfolio of AI-augmented work to show employers.');event.stopPropagation()"><span class="ld" style="background:#F9AB00"></span>Next Steps</div>
+  </div>
+  <div class="tip">🏆 Shubhasish Dutta — Google AI Professional Certificate · Coursera · June 2026 · Verified by Google</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🎓</div>
+  <div class="cn">Google AI Professional Certificate</div>
+  <div class="cn2">Shubhasish Dutta</div>
+  <div class="csub">Google · Coursera · June 2026 · Verified Certificate</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  s1:{tag:"Core AI Skill",title:"AI at Work",desc:"Using AI tools to boost productivity, improve output quality, and handle more work in less time — without replacing human judgment.",points:["Identify repetitive, time-consuming tasks that AI can accelerate","Build AI into your existing workflow rather than replacing it","Use AI for first drafts, research, and summarisation","Always review and personalise AI outputs before sharing","Track time saved and quality improvement to justify AI investment","Start with one workflow, prove value, then expand"],tip:"💡 The biggest productivity gains come from using AI consistently on everyday tasks, not just occasionally for big projects."},
+  s2:{tag:"Core AI Skill",title:"Prompt Engineering",desc:"The art and science of writing instructions that consistently get high-quality outputs from AI models.",points:["Be specific: include context, goal, format, and constraints","Use role prompting: 'Act as a senior PM and review this PRD'","Few-shot: show AI 2-3 examples of what you want","Chain-of-thought: ask AI to 'think step by step'","Iterate: refine prompts based on output quality","Save effective prompts as templates for reuse"],tip:"💡 A well-crafted prompt is worth 10 retry attempts. Invest 2 minutes crafting a great prompt and save 20 minutes of back-and-forth."},
+  s3:{tag:"Core AI Skill",title:"Responsible AI",desc:"Using AI in ways that are ethical, safe, fair, and transparent — protecting users, customers, and society.",points:["Verify AI-generated facts before sharing or publishing","Never share PII or confidential data with public AI tools","Check AI outputs for bias, especially in people-facing decisions","Disclose when AI was used to create content","Maintain human oversight for high-stakes decisions","Follow your organisation's AI usage policy"],tip:"💡 Responsible AI use builds trust — with users, employers, and stakeholders. It's not just ethics, it's professional credibility."},
+  s4:{tag:"Core AI Skill",title:"AI Tools Mastery",desc:"Hands-on proficiency with the major AI tools used in the workplace — knowing which tool to use for which task.",points:["Claude: nuanced writing, analysis, and complex reasoning","Gemini: Google Workspace integration and multimodal tasks","ChatGPT: broad general purpose with large plugin ecosystem","NotebookLM: research synthesis across multiple documents","Gemini in Sheets: data analysis without writing formulas","Choose the right tool for the right task — don't default to one"],tip:"💡 You already use Claude, ChatGPT, and Gemini Asish — this cert validates what you're already doing! 🎯"}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

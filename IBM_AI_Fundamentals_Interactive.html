@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBM AI Fundamentals — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#FFF0F3;--card:#FFFFFF;--border:#FFD6E0;--navy:#1A0010;--ibm:#FF0050;--ibm-l:#FFF0F3;--purple:#6E1A8C;--purple-l:#F5EAFA;--blue:#0043CE;--blue-l:#EEF4FF;--teal:#009D9A;--teal-l:#D9FBFB;--green:#198038;--green-l:#DEFBE6;--orange:#FF832B;--orange-l:#FFF2E8;--gray:#525252;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;}
+header{background:linear-gradient(135deg,#1A0010,#6E1A8C,#FF0050);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.05);}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.htag{font-size:.63rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-family:'IBM Plex Sans',sans-serif;font-size:clamp(1.8rem,5vw,3rem);color:#fff;font-weight:700;line-height:1.1;margin-bottom:.5rem;}
+header h1 span{color:#FFB3C6;}
+header p{color:rgba(255,255,255,.6);font-size:.85rem;margin-bottom:1.5rem;}
+.score-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;}
+.sc{font-size:.73rem;font-weight:500;padding:.3rem .9rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(255,183,77,.2);border-color:rgba(255,183,77,.4);color:#FFD54F;}
+.ai-types{background:#fff;border-bottom:1px solid var(--border);padding:1.5rem;}
+.at-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);text-align:center;margin-bottom:1rem;}
+.at-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.at-chip{padding:.4rem .9rem;border-radius:50px;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s;border:1.5px solid;}
+.at-chip:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.1);}
+main{max-width:700px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:2rem 0 1rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.ai-map{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.am-card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:.9rem .8rem;cursor:pointer;transition:all .2s;text-align:center;}
+.am-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,0,80,.1);}
+.am-icon{font-size:1.5rem;margin-bottom:.3rem;}
+.am-title{font-size:.78rem;font-weight:700;color:var(--navy);}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:16px;margin-bottom:.75rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 6px 20px rgba(255,0,80,.1);}
+.mod.open{border-color:var(--ibm);}
+.mod-head{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;}
+.mn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.15rem;}
+.ms{font-size:.72rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.85rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--ibm);}
+.mod-body{display:none;padding:0 1.3rem 1.3rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.86rem;line-height:1.65;color:#444;padding:1rem 0 .8rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-top:.5rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font-size:.73rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.4rem;cursor:pointer;transition:all .15s;line-height:1.35;}
+.l:hover{background:var(--ibm-l);border-color:var(--ibm);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tip{margin-top:1rem;padding:.75rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--ibm-l);border:1px solid rgba(255,0,80,.2);color:var(--ibm);}
+.optional-mod{background:linear-gradient(135deg,#1A0010,#6E1A8C);border-radius:16px;overflow:hidden;cursor:pointer;transition:box-shadow .2s;margin-bottom:.75rem;}
+.optional-mod:hover{box-shadow:0 6px 20px rgba(110,26,140,.3);}
+.optional-mod.open .mc{transform:rotate(90deg);color:#FFB3C6;}
+.optional-mod .mod-head{padding:1.1rem 1.3rem;}
+.optional-mod .mt{color:#fff;}
+.optional-mod .ms{color:rgba(255,255,255,.6);}
+.optional-mod .mc{color:rgba(255,255,255,.5);}
+.optional-mod .mod-body{background:rgba(255,255,255,.05);border-top:1px solid rgba(255,255,255,.1);}
+.optional-mod .md{color:rgba(255,255,255,.8);}
+.optional-mod .l{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15);color:#fff;}
+.optional-mod .l:hover{background:rgba(255,179,198,.15);border-color:rgba(255,179,198,.4);}
+.optional-mod .tip{background:rgba(255,179,198,.1);border-color:rgba(255,179,198,.2);color:#FFB3C6;}
+.cert{background:linear-gradient(135deg,#1A0010,#6E1A8C,#FF0050);border-radius:20px;padding:2rem;text-align:center;margin-top:2rem;}
+.cert-icon{font-size:2.5rem;margin-bottom:.5rem;}
+.cn{font-family:'IBM Plex Mono',monospace;font-size:1.1rem;color:#FFB3C6;margin-bottom:.3rem;}
+.cn2{font-size:.95rem;font-weight:600;color:#fff;margin-bottom:.3rem;}
+.csub{font-size:.75rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,0,16,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.3);animation:pop .22s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:20px 20px 0 0;}
+.modal-tag{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ibm);margin-bottom:.3rem;}
+.modal-title{font-size:1.2rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:28px;height:28px;border-radius:50%;font-size:.8rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1.2rem 1.5rem 1.5rem;}
+.modal-desc{font-size:.88rem;line-height:1.65;color:#444;margin-bottom:1rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.modal-list li{display:flex;gap:.6rem;font-size:.84rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--ibm);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1.2rem;padding:.8rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--ibm-l);color:var(--ibm);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">IBM SkillsBuild</span><span class="htag">6 Core Modules</span><span class="htag">1 Optional</span><span class="htag">Credly Badge</span></div>
+  <h1>Artificial Intelligence<br><span>Fundamentals</span></h1>
+  <p>Complete Interactive Guide · IBM SkillsBuild · AI Foundations + Prompt Engineering</p>
+  <div class="score-row"><span class="sc gold">Badge Earned ✓</span><span class="sc">IBM SkillsBuild</span><span class="sc">July 2026</span><span class="sc">Cert #12</span></div>
+</header>
+
+<div class="ai-types">
+  <div class="at-title">Types of AI — Tap to Explore</div>
+  <div class="at-row">
+    <div class="at-chip" style="background:#EEF4FF;color:#0043CE;border-color:#0043CE" onclick="openModal('t1')">🤖 Narrow AI</div>
+    <div class="at-chip" style="background:#F5EAFA;color:#6E1A8C;border-color:#6E1A8C" onclick="openModal('t2')">🧠 General AI</div>
+    <div class="at-chip" style="background:#FFF0F3;color:#FF0050;border-color:#FF0050" onclick="openModal('t3')">⚡ Super AI</div>
+    <div class="at-chip" style="background:#DEFBE6;color:#198038;border-color:#198038" onclick="openModal('t4')">✨ Generative AI</div>
+    <div class="at-chip" style="background:#D9FBFB;color:#009D9A;border-color:#009D9A" onclick="openModal('t5')">📊 Predictive AI</div>
+  </div>
+</div>
+
+<main>
+
+<div class="div">AI Technology Map — Tap Any</div>
+<div class="ai-map">
+  <div class="am-card" onclick="openModal('m1')"><div class="am-icon">🔵</div><div class="am-title">Machine Learning</div></div>
+  <div class="am-card" onclick="openModal('m2')"><div class="am-icon">🧬</div><div class="am-title">Deep Learning</div></div>
+  <div class="am-card" onclick="openModal('m3')"><div class="am-icon">💬</div><div class="am-title">NLP</div></div>
+  <div class="am-card" onclick="openModal('m4')"><div class="am-icon">👁️</div><div class="am-title">Computer Vision</div></div>
+  <div class="am-card" onclick="openModal('m5')"><div class="am-icon">⚖️</div><div class="am-title">AI Ethics</div></div>
+  <div class="am-card" onclick="openModal('m6')"><div class="am-icon">🎯</div><div class="am-title">Prompt Engineering</div></div>
+</div>
+
+<div class="div">6 Core Modules</div>
+
+<!-- Module 1 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EEF4FF;color:#0043CE">01</div><div class="mi"><div class="mt">What is Artificial Intelligence?</div><div class="ms">AI definition · History · Types · Applications</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Establishes the foundation of AI — what it is, where it came from, and how it's categorised. Covers the distinction between narrow AI (what exists today), general AI (theoretical), and superintelligence (speculative future). Includes IBM's perspective on AI as a tool for augmenting human intelligence.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Defining Artificial Intelligence','AI is the simulation of human intelligence in machines — enabling them to learn, reason, problem-solve, perceive, and understand language. IBM defines AI as augmented intelligence: AI augments, not replaces, human capability.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Defining AI</div>
+    <div class="l" onclick="openLesson('Brief History of AI','AI originated in 1956 at the Dartmouth Conference. Went through multiple "AI winters" (reduced funding/interest) and "AI springs" (breakthroughs). Current boom driven by big data, cloud computing, and GPU power.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>History of AI</div>
+    <div class="l" onclick="openLesson('Narrow AI (ANI)','Artificial Narrow Intelligence — AI that performs ONE specific task very well. All current AI is narrow AI. Examples: ChatGPT (language), AlphaGo (chess), facial recognition systems, recommendation engines.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>Narrow AI (ANI)</div>
+    <div class="l" onclick="openLesson('General AI (AGI)','Artificial General Intelligence — theoretical AI that can perform ANY intellectual task a human can. Does not exist yet. IBM, Google, and OpenAI are working toward it but debate when/if it will arrive.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>General AI (AGI)</div>
+    <div class="l" onclick="openLesson('AI Applications Today','AI powers: recommendation engines (Netflix, Spotify), fraud detection (banking), medical diagnosis, autonomous vehicles, virtual assistants, content generation, and supply chain optimisation.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>AI Applications Today</div>
+    <div class="l" onclick="openLesson('IBM\'s View: Augmented Intelligence','IBM calls it "augmented intelligence" — AI should amplify human expertise, not replace humans. The PM role is a great example: AI handles analysis, humans handle strategy and relationships.');event.stopPropagation()"><span class="ld" style="background:#0043CE"></span>IBM Augmented Intelligence</div>
+  </div>
+  <div class="tip">💡 IBM insight: Think of AI as a powerful tool in skilled hands — like a calculator for a mathematician. The human expertise is still what makes the difference.</div></div>
+</div>
+
+<!-- Module 2 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F5EAFA;color:#6E1A8C">02</div><div class="mi"><div class="mt">Machine Learning</div><div class="ms">Supervised · Unsupervised · Reinforcement · Algorithms</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Machine Learning is AI's engine — it allows systems to learn from data rather than being explicitly programmed. Covers the three types of ML (supervised, unsupervised, reinforcement) and how they power the AI tools PMs use daily.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is Machine Learning?','ML is a subset of AI that enables systems to automatically learn and improve from experience without being explicitly programmed for every scenario. The more data, the smarter the model.');event.stopPropagation()"><span class="ld" style="background:#6E1A8C"></span>What is ML?</div>
+    <div class="l" onclick="openLesson('Supervised Learning','Trains on labelled data (input + correct output). Examples: spam detection, image classification, price prediction. Most common ML approach. Used in product churn prediction models.');event.stopPropagation()"><span class="ld" style="background:#6E1A8C"></span>Supervised Learning</div>
+    <div class="l" onclick="openLesson('Unsupervised Learning','Trains on unlabelled data, finding hidden patterns. Examples: customer segmentation, anomaly detection, recommendation systems. Amplitude and Mixpanel use this to cluster user behaviour.');event.stopPropagation()"><span class="ld" style="background:#6E1A8C"></span>Unsupervised Learning</div>
+    <div class="l" onclick="openLesson('Reinforcement Learning','Learns by trial and error with rewards and penalties — like training a dog. Used in: game playing (AlphaGo), robotics, autonomous vehicles, and trading algorithms.');event.stopPropagation()"><span class="ld" style="background:#6E1A8C"></span>Reinforcement Learning</div>
+    <div class="l" onclick="openLesson('ML in PM Tools','Pendo predictive cohorts, Amplitude\'s Compass chart, and churn prediction models all use ML under the hood. PMs don\'t need to build ML — but understanding it makes you a better buyer and communicator.');event.stopPropagation()"><span class="ld" style="background:#6E1A8C"></span>ML in PM Tools</div>
+    <div class="l" onclick="openLesson('Overfitting & Underfitting','Overfitting: model memorises training data, fails on new data. Underfitting: model too simple, misses patterns. Both are problems PMs should understand when evaluating AI feature quality.');event.stopPropagation()"><span class="ld" style="background:#6E1A8C"></span>Overfitting & Underfitting</div>
+  </div>
+  <div class="tip">💡 IBM insight: Every AI product feature you build or buy is powered by one of these three ML approaches. Knowing which one helps you ask the right questions of your engineering team.</div></div>
+</div>
+
+<!-- Module 3 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#D9FBFB;color:#009D9A">03</div><div class="mi"><div class="mt">Deep Learning & Neural Networks</div><div class="ms">Neural nets · Layers · Training · Applications</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Deep Learning is the technology behind modern AI breakthroughs — from image recognition to large language models like Claude. Covers how neural networks are structured, how they learn, and what makes them so powerful for pattern recognition at scale.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is Deep Learning?','Deep Learning is a subset of ML using multi-layered neural networks. "Deep" refers to the many layers. It excels at unstructured data: images, audio, video, and text — driving the GenAI revolution.');event.stopPropagation()"><span class="ld" style="background:#009D9A"></span>What is Deep Learning?</div>
+    <div class="l" onclick="openLesson('Neural Network Architecture','Input layer (receives data) → Hidden layers (process patterns) → Output layer (produces prediction). More hidden layers = deeper network = more complex pattern recognition capability.');event.stopPropagation()"><span class="ld" style="background:#009D9A"></span>Neural Network Structure</div>
+    <div class="l" onclick="openLesson('How Neural Networks Learn','Forward pass: data flows through network making predictions. Backpropagation: errors flow backwards adjusting weights. This process repeated millions of times = a trained model.');event.stopPropagation()"><span class="ld" style="background:#009D9A"></span>How Networks Learn</div>
+    <div class="l" onclick="openLesson('Transformers & LLMs','Transformer architecture (2017, Google) revolutionised NLP. LLMs like Claude and GPT are massive transformer networks trained on internet-scale text. The attention mechanism is their key innovation.');event.stopPropagation()"><span class="ld" style="background:#009D9A"></span>Transformers & LLMs</div>
+    <div class="l" onclick="openLesson('Deep Learning Applications','Powers: image recognition (medical imaging), speech recognition (Siri, Alexa), language models (Claude, ChatGPT), autonomous driving, drug discovery, and fraud detection.');event.stopPropagation()"><span class="ld" style="background:#009D9A"></span>DL Applications</div>
+    <div class="l" onclick="openLesson('Deep Learning Limitations','Requires enormous amounts of data and compute. Black box — hard to explain decisions. Prone to bias from training data. High energy consumption. These are key PM considerations for AI feature design.');event.stopPropagation()"><span class="ld" style="background:#009D9A"></span>DL Limitations</div>
+  </div>
+  <div class="tip">💡 IBM insight: Claude, ChatGPT, and Gemini are all deep learning models. Understanding how they work at a conceptual level makes you a more credible PM when talking to AI engineers.</div></div>
+</div>
+
+<!-- Module 4 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF0F3;color:#FF0050">04</div><div class="mi"><div class="mt">Natural Language Processing (NLP)</div><div class="ms">Text understanding · Sentiment · Translation · Chatbots</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">NLP is AI's ability to understand and generate human language — the technology behind every AI assistant, chatbot, sentiment analysis tool, and language model. The most PM-relevant AI domain given how central language is to product management.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is NLP?','Natural Language Processing enables computers to understand, interpret, and generate human language. It bridges the gap between human communication and machine understanding.');event.stopPropagation()"><span class="ld" style="background:#FF0050"></span>What is NLP?</div>
+    <div class="l" onclick="openLesson('NLP Tasks','Key NLP tasks: text classification, sentiment analysis, named entity recognition, machine translation, text summarisation, question answering, and text generation. Claude does all of these.');event.stopPropagation()"><span class="ld" style="background:#FF0050"></span>NLP Tasks</div>
+    <div class="l" onclick="openLesson('Sentiment Analysis for PMs','NLP sentiment analysis automatically classifies customer feedback as positive, negative, or neutral — at scale. PMs use this to process thousands of reviews, support tickets, and NPS comments instantly.');event.stopPropagation()"><span class="ld" style="background:#FF0050"></span>Sentiment Analysis</div>
+    <div class="l" onclick="openLesson('Chatbots & Virtual Assistants','NLP powers chatbots by enabling them to understand intent, extract entities, and generate relevant responses. PM consideration: NLP chatbots work best for narrow, well-defined use cases.');event.stopPropagation()"><span class="ld" style="background:#FF0050"></span>Chatbots & VA</div>
+    <div class="l" onclick="openLesson('Large Language Models (LLMs)','LLMs are the latest generation of NLP models — trained on internet-scale text to understand and generate language across virtually any topic. Claude, GPT-4, and Gemini are LLMs.');event.stopPropagation()"><span class="ld" style="background:#FF0050"></span>Large Language Models</div>
+    <div class="l" onclick="openLesson('NLP in Product Management','PMs use NLP-powered tools for: user interview analysis (Dovetail), feedback synthesis (Pendo Listen), competitive intelligence, PRD drafting (Claude), and customer communication.');event.stopPropagation()"><span class="ld" style="background:#FF0050"></span>NLP in PM</div>
+  </div>
+  <div class="tip">💡 IBM insight: Every time you use Claude to analyse feedback, draft a PRD, or summarise research — you\'re using NLP. It\'s the most directly applicable AI domain for Product Managers.</div></div>
+</div>
+
+<!-- Module 5 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#DEFBE6;color:#198038">05</div><div class="mi"><div class="mt">Computer Vision</div><div class="ms">Image recognition · Object detection · Medical imaging · PM applications</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Computer Vision enables machines to interpret and understand visual information from images and video. Covers how CV works, its major applications, and how PMs building products with visual AI features should think about CV capabilities and limitations.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is Computer Vision?','CV is AI that can interpret visual information — identifying objects, faces, text, and scenes in images and video. It replicates and often exceeds human visual recognition capabilities in specific domains.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>What is Computer Vision?</div>
+    <div class="l" onclick="openLesson('How CV Works','CV models (usually CNNs — Convolutional Neural Networks) learn to recognise patterns in pixels. Trained on millions of labelled images, they learn to identify edges, shapes, textures, and objects.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>How CV Works</div>
+    <div class="l" onclick="openLesson('Image Classification','Assigns a label to an entire image: "this is a cat". Used in: medical diagnosis (detecting tumours), quality control (manufacturing defects), content moderation (social media).');event.stopPropagation()"><span class="ld" style="background:#198038"></span>Image Classification</div>
+    <div class="l" onclick="openLesson('Object Detection','Identifies and locates multiple objects within an image with bounding boxes. Powers: autonomous vehicles, security surveillance, retail shelf monitoring, and augmented reality.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>Object Detection</div>
+    <div class="l" onclick="openLesson('CV in Healthcare','Medical imaging AI detects: diabetic retinopathy, lung cancer, breast cancer, and skin lesions — often with accuracy matching or exceeding specialist physicians. IBM Watson Health was a major player.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>CV in Healthcare</div>
+    <div class="l" onclick="openLesson('CV for Product Managers','PMs building CV features must consider: training data quality and bias, privacy implications of visual data, edge cases (low light, unusual angles), and regulatory compliance for medical/security use.');event.stopPropagation()"><span class="ld" style="background:#198038"></span>CV for PMs</div>
+  </div>
+  <div class="tip">💡 IBM insight: Computer Vision is mature and production-ready. If your product involves images, documents, or video, there\'s likely a CV opportunity worth exploring on your roadmap.</div></div>
+</div>
+
+<!-- Module 6 -->
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF2E8;color:#FF832B">06</div><div class="mi"><div class="mt">AI Ethics & Bias</div><div class="ms">Fairness · Transparency · Accountability · Responsible AI</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The most important module for any PM building AI-powered products. Covers how bias enters AI systems, IBM's AI ethics framework, the regulatory landscape, and the practical steps PMs must take to build AI products that are fair, transparent, and accountable.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Sources of AI Bias','Bias enters AI through: biased training data, biased problem framing, biased feature selection, and biased evaluation. The AI amplifies whatever bias exists in the data it learned from.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Sources of AI Bias</div>
+    <div class="l" onclick="openLesson('IBM AI Ethics Pillars','IBM\'s 5 pillars: Explainability (can you explain the decision?), Fairness (does it treat all groups equitably?), Robustness (does it work reliably?), Transparency (is the data/model known?), Privacy (is data protected?).');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>IBM AI Ethics Pillars</div>
+    <div class="l" onclick="openLesson('Real-World Bias Examples','Amazon hiring AI penalised female candidates. Healthcare AI underdiagnosed Black patients. Facial recognition had higher error rates for darker skin tones. All caused by biased training data.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Real-World Bias Cases</div>
+    <div class="l" onclick="openLesson('AI Transparency & Explainability','Black-box AI (deep learning) makes decisions humans can\'t explain. Explainable AI (XAI) makes decision logic visible. Critical for: medical, legal, financial, and hiring AI applications.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Transparency & XAI</div>
+    <div class="l" onclick="openLesson('AI Regulation Landscape','EU AI Act (2024): risk-based regulation of AI. High-risk AI (healthcare, hiring, credit) faces strict requirements. PMs building in regulated sectors must understand compliance obligations.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>AI Regulation</div>
+    <div class="l" onclick="openLesson('Responsible AI for PMs','PM checklist: audit training data for bias, define fairness metrics upfront, build explainability into AI features, establish human oversight for high-stakes decisions, and document AI decision logic.');event.stopPropagation()"><span class="ld" style="background:#FF832B"></span>Responsible AI for PMs</div>
+  </div>
+  <div class="tip">💡 IBM insight: Responsible AI is not just ethics — it\'s risk management. An AI feature that discriminates or harms users creates legal, reputational, and financial exposure for the entire company.</div></div>
+</div>
+
+<!-- Optional Module -->
+<div class="div">Optional Module</div>
+<div class="optional-mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:rgba(255,179,198,.2);color:#FFB3C6">✦</div><div class="mi"><div class="mt">Prompt Engineering (Optional)</div><div class="ms">Prompt techniques · Best practices · PM-specific prompting</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The optional module covering prompt engineering — the skill of writing effective instructions for AI models to consistently produce high-quality outputs. Directly applicable to your daily Claude, Gemini, and ChatGPT usage.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is Prompt Engineering?','Prompt engineering is the practice of designing and refining inputs to AI models to get desired outputs. It\'s the most immediately useful AI skill for non-technical professionals.');event.stopPropagation()"><span class="ld" style="background:#FFB3C6"></span>What is Prompt Engineering?</div>
+    <div class="l" onclick="openLesson('Zero-Shot Prompting','Asking AI to perform a task directly without any examples. Works for well-defined, common tasks. "Summarise this meeting transcript" is a zero-shot prompt.');event.stopPropagation()"><span class="ld" style="background:#FFB3C6"></span>Zero-Shot Prompting</div>
+    <div class="l" onclick="openLesson('Few-Shot Prompting','Providing 2-3 examples before your request. Dramatically improves output quality for complex or specific formatting requirements. Show don\'t just tell.');event.stopPropagation()"><span class="ld" style="background:#FFB3C6"></span>Few-Shot Prompting</div>
+    <div class="l" onclick="openLesson('Chain-of-Thought','Asking AI to reason step by step before answering. Add "Think step by step" or "Let\'s work through this logically" to dramatically improve accuracy on complex tasks.');event.stopPropagation()"><span class="ld" style="background:#FFB3C6"></span>Chain-of-Thought</div>
+    <div class="l" onclick="openLesson('Role + Context Prompting','"Act as a senior Product Manager reviewing a PRD for a B2B SaaS company..." — role + context produces dramatically better, more relevant outputs than generic prompts.');event.stopPropagation()"><span class="ld" style="background:#FFB3C6"></span>Role + Context</div>
+    <div class="l" onclick="openLesson('Prompt Engineering for PMs','PM-specific prompt templates: PRD drafting, user story writing, competitive analysis, stakeholder communication, roadmap narrative, and customer interview synthesis.');event.stopPropagation()"><span class="ld" style="background:#FFB3C6"></span>PM Prompt Templates</div>
+  </div>
+  <div class="tip">💡 IBM insight: Prompt engineering is 2026\'s most in-demand AI skill. You\'re already doing this every day with Claude — this module gives you the formal vocabulary for what you\'ve been practising.</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🏆</div>
+  <div class="cn">Artificial Intelligence Fundamentals</div>
+  <div class="cn2">Shubhasish Dutta — IBM SkillsBuild</div>
+  <div class="csub">6 Modules + Prompt Engineering · Credly Badge · July 2026 · Cert #12</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  t1:{tag:"AI Type",title:"Narrow AI (ANI)",desc:"Artificial Narrow Intelligence — the only type of AI that currently exists. Designed to perform one specific task extremely well.",points:["All current AI systems are Narrow AI — including Claude, ChatGPT, and Gemini","Excels at its specific domain but cannot generalise to other tasks","Examples: spam filters, recommendation engines, facial recognition, language models","IBM Watson beat chess grandmasters but couldn't write a poem — classic narrow AI","Narrow AI is already transforming every industry despite its limitations","Most PM career opportunities involve building or buying Narrow AI features"],tip:"💡 Every AI product you will ever build in your PM career will be Narrow AI. Understanding its constraints helps you set realistic product expectations."},
+  t2:{tag:"AI Type",title:"General AI (AGI)",desc:"Artificial General Intelligence — theoretical AI that can perform any intellectual task a human can. Does not yet exist.",points:["AGI would match or exceed human intelligence across ALL domains","No consensus on when or whether AGI will be achieved","Major labs (OpenAI, DeepMind, Anthropic) are working toward it","Raises profound ethical questions about AI safety and control","Anthropic was founded specifically to ensure AGI is developed safely","Most experts believe AGI is still many years — possibly decades — away"],tip:"💡 AGI is Anthropic's mission — building it safely. That's the context behind everything Claude does."},
+  t3:{tag:"AI Type",title:"Superintelligent AI",desc:"Hypothetical AI that surpasses human intelligence in every domain — sometimes called ASI (Artificial Superintelligence).",points:["Purely theoretical — does not exist and may never exist","Would be capable of scientific discovery, creativity, and reasoning beyond any human","A key concern of AI safety researchers including Anthropic's founders","The subject of significant philosophical and existential debate","Not relevant to current PM work but important for understanding AI's long-term trajectory","IBM and most major AI companies focus resources on near-term Narrow AI applications"],tip:"💡 Superintelligence is a thought experiment more than a near-term reality. Focus your PM energy on what Narrow AI can do for your product today."},
+  t4:{tag:"AI Type",title:"Generative AI",desc:"AI that creates new content — text, images, code, audio, and video — by learning patterns from vast training datasets.",points:["GenAI is the current AI revolution driving massive business transformation","Examples: Claude (text), DALL-E/Midjourney (images), Suno (music), Sora (video)","Powered by Large Language Models (text) and Diffusion Models (images)","Enables: content creation, code generation, product design, customer service","PM opportunity: identify where GenAI can create value for your specific users","Risk: GenAI can generate convincing but false content — always verify outputs"],tip:"💡 You use GenAI every day with Claude. The IBM course gives you the vocabulary to explain what you're already doing to technical stakeholders."},
+  t5:{tag:"AI Type",title:"Predictive AI",desc:"AI that analyses historical data to forecast future outcomes — the backbone of business intelligence and product analytics.",points:["Uses ML to identify patterns and project them into the future","Examples: churn prediction, demand forecasting, fraud detection, product recommendations","Amplitude's predictive cohorts and Pendo's AI features are Predictive AI","Requires: clean historical data, clear success metrics, and regular model retraining","PM consideration: predictive models degrade over time as user behaviour changes","More established and reliable than GenAI for structured business forecasting tasks"],tip:"💡 Predictive AI is what powers the analytics tools you certified in — Amplitude, Mixpanel, and Pendo all use predictive AI under the hood."},
+  m1:{tag:"AI Technology",title:"Machine Learning",desc:"The engine of modern AI — systems that learn from data rather than being explicitly programmed for every scenario.",points:["Three types: Supervised (labelled data), Unsupervised (unlabelled), Reinforcement (rewards)","Powers: recommendation systems, fraud detection, churn prediction, image classification","The more high-quality data, the more accurate the ML model becomes","ML requires: data collection, feature engineering, model training, evaluation, deployment","PMs don't build ML models — but they define the problem, data requirements, and success metrics","Understanding ML helps PMs have credible conversations with data scientists and ML engineers"],tip:"💡 Every time Amplitude predicts which users will churn, or Pendo segments users by behaviour — that's ML at work."},
+  m2:{tag:"AI Technology",title:"Deep Learning",desc:"A subset of ML using multi-layered neural networks — the technology behind modern AI breakthroughs from image recognition to language models.",points:["'Deep' refers to many layers in the neural network — each layer learns more abstract features","Excels at: unstructured data (images, text, audio, video) where traditional ML struggles","Powers: all major LLMs (Claude, GPT-4, Gemini), image generation, speech recognition","Requires enormous amounts of data and compute power to train","Black-box nature makes it hard to explain decisions — important for regulated industries","Claude is a deep learning model — specifically a large transformer-based language model"],tip:"💡 Deep Learning is why AI seems almost magical — it finds patterns in data that humans couldn't manually programme."},
+  m3:{tag:"AI Technology",title:"Natural Language Processing",desc:"AI's ability to understand and generate human language — the most PM-relevant AI domain.",points:["Enables: text classification, sentiment analysis, translation, summarisation, generation","Powers every AI assistant and chatbot — including Claude","Sentiment analysis turns thousands of customer reviews into quantified insight","Named Entity Recognition (NER) extracts: names, dates, products, locations from text","LLMs represent the state of the art in NLP — Claude is an LLM","PM use cases: feedback synthesis, PRD drafting, user story generation, competitive intelligence"],tip:"💡 NLP is your most powerful PM tool. Every time you paste customer feedback into Claude and ask for themes — that's NLP doing heavy lifting for you."},
+  m4:{tag:"AI Technology",title:"Computer Vision",desc:"AI that can interpret and understand visual information from images and video.",points:["Convolutional Neural Networks (CNNs) are the primary architecture for CV tasks","Image classification: assign one label to the whole image","Object detection: find and label multiple objects with their locations","Semantic segmentation: classify every pixel in an image","Applications: medical imaging, autonomous vehicles, quality control, content moderation","PM consideration: CV models can have demographic bias — audit carefully for fairness"],tip:"💡 If your product roadmap includes document scanning, visual search, or medical imaging features — Computer Vision is your domain."},
+  m5:{tag:"AI Technology",title:"AI Ethics & Bias",desc:"The principles and practices ensuring AI systems are fair, transparent, accountable, and safe.",points:["Bias enters AI through biased training data, problem framing, and feature selection","IBM's 5 ethics pillars: Explainability, Fairness, Robustness, Transparency, Privacy","Real-world bias: Amazon hiring AI penalised women, healthcare AI underserved Black patients","EU AI Act (2024) creates legal obligations for high-risk AI applications","PMs must: audit training data, define fairness metrics, build explainability, enable human oversight","Responsible AI is risk management — one biased AI decision can create massive reputational damage"],tip:"💡 Every AI feature you ship as a PM has an ethics dimension. Building it in from the start is far cheaper than retrofitting it after a public incident."},
+  m6:{tag:"AI Technology",title:"Prompt Engineering",desc:"The skill of designing effective AI prompts to consistently produce high-quality outputs.",points:["Zero-shot: direct task without examples — works for common, well-defined requests","Few-shot: provide 2-3 examples to guide format and style","Chain-of-thought: 'think step by step' dramatically improves reasoning accuracy","Role prompting: 'act as a senior PM' gives AI helpful perspective context","Iterative refinement: treat first output as draft, refine with follow-up instructions","Save effective prompts as reusable templates for recurring PM tasks"],tip:"💡 You've been doing prompt engineering every day with Claude Asish — this module gives you the formal framework behind what you're already practising instinctively."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open,.optional-mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

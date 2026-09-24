@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HubSpot Inbound Marketing Certified — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F5F8FF;--card:#FFF;--border:#D4E4FF;--navy:#1A1033;--orange:#FF7A59;--orange-l:#FFF0EB;--blue:#0077CF;--blue-l:#E8F4FF;--teal:#00A4BD;--teal-l:#E5F7FA;--green:#00BDA5;--green-l:#E5FAF7;--purple:#6B2DF2;--purple-l:#F0EAFF;--gray:#6B7280;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Lexend',sans-serif;background:var(--bg);color:var(--navy);}
+header{background:linear-gradient(135deg,#0F3460,#1A5276,#FF7A59);padding:2.5rem 2rem 2rem;text-align:center;}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.htag{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .7rem;border-radius:50px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.6rem,4vw,2.6rem);color:#fff;font-weight:800;line-height:1.1;margin-bottom:.4rem;}
+header h1 span{color:#FFB399;}
+header p{color:rgba(255,255,255,.6);font-size:.8rem;margin-bottom:1.2rem;}
+.score-row{display:flex;justify-content:center;gap:.6rem;flex-wrap:wrap;}
+.sc{font-size:.7rem;font-weight:500;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(255,165,0,.2);border-color:rgba(255,165,0,.4);color:#FFD700;}
+.flywheel{background:#fff;border-bottom:1px solid var(--border);padding:1.5rem;text-align:center;}
+.fw-title{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);margin-bottom:1rem;}
+.fw-row{display:flex;justify-content:center;align-items:center;gap:.5rem;flex-wrap:wrap;}
+.fw-step{display:flex;flex-direction:column;align-items:center;gap:.3rem;cursor:pointer;transition:transform .2s;}
+.fw-step:hover{transform:translateY(-3px);}
+.fw-circle{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:2px solid;}
+.fw-label{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.fw-arrow{font-size:1.2rem;color:#ccc;padding-bottom:1.4rem;}
+main{max-width:700px;margin:0 auto;padding:1.5rem 1.5rem 4rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:1.8rem 0 .8rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.5rem;}
+.card{background:var(--card);border:1.5px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:all .2s;}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,119,207,.12);}
+.card-icon{font-size:1.4rem;margin-bottom:.3rem;}
+.card-title{font-size:.82rem;font-weight:700;margin-bottom:.1rem;}
+.card-sub{font-size:.68rem;color:var(--gray);line-height:1.35;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:14px;margin-bottom:.65rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 4px 16px rgba(0,119,207,.1);}
+.mod.open{border-color:var(--blue);}
+.mod-head{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;}
+.mn{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:800;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:.12rem;}
+.ms{font-size:.7rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.82rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--blue);}
+.mod-body{display:none;padding:0 1.2rem 1.2rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.83rem;line-height:1.6;color:#444;padding:.9rem 0 .7rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.4rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.45rem .65rem;font-size:.7rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.35rem;cursor:pointer;transition:all .15s;line-height:1.3;}
+.l:hover{background:var(--blue-l);border-color:var(--blue);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:3px;flex-shrink:0;}
+.tip{margin-top:.9rem;padding:.7rem .9rem;border-radius:8px;font-size:.75rem;line-height:1.5;font-style:italic;background:var(--blue-l);border:1px solid rgba(0,119,207,.2);color:var(--blue);}
+.cert{background:linear-gradient(135deg,#0F3460,#FF7A59);border-radius:16px;padding:1.8rem;text-align:center;margin-top:1.8rem;}
+.cert-icon{font-size:2rem;margin-bottom:.4rem;}
+.cn{font-size:1.1rem;font-weight:800;color:#FFB399;margin-bottom:.2rem;}
+.cn2{font-size:.9rem;font-weight:600;color:#fff;margin-bottom:.2rem;}
+.csub{font-size:.7rem;color:rgba(255,255,255,.6);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(15,20,60,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:16px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 30px 60px rgba(0,0,0,.25);animation:pop .2s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.86);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.2rem 1.3rem .9rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:16px 16px 0 0;}
+.modal-tag{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:.25rem;}
+.modal-title{font-size:1.1rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:26px;height:26px;border-radius:50%;font-size:.78rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1rem 1.3rem 1.3rem;}
+.modal-desc{font-size:.85rem;line-height:1.6;color:#444;margin-bottom:.9rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.modal-list li{display:flex;gap:.55rem;font-size:.82rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1rem;padding:.75rem .9rem;border-radius:8px;font-size:.76rem;line-height:1.5;font-style:italic;background:var(--blue-l);color:var(--blue);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">HubSpot Academy</span><span class="htag">Inbound Marketing</span><span class="htag">Certified</span><span class="htag">Cert #22</span></div>
+  <h1>Inbound Marketing<br><span>Certified</span></h1>
+  <p>Complete Interactive Guide · Attract · Engage · Delight · The Flywheel</p>
+  <div class="score-row"><span class="sc gold">Certified ✓</span><span class="sc">Jul 25 2026 – Aug 23 2028</span><span class="sc">CEO Yamini Rangan</span><span class="sc">HubSpot Academy</span></div>
+</header>
+
+<div class="flywheel">
+  <div class="fw-title">The Inbound Flywheel — Tap to Explore</div>
+  <div class="fw-row">
+    <div class="fw-step" onclick="openModal('fw1')"><div class="fw-circle" style="background:#E8F4FF;border-color:#0077CF">🧲</div><span class="fw-label" style="color:#0077CF">Attract</span></div>
+    <div class="fw-arrow">→</div>
+    <div class="fw-step" onclick="openModal('fw2')"><div class="fw-circle" style="background:#E5FAF7;border-color:#00BDA5">💬</div><span class="fw-label" style="color:#00BDA5">Engage</span></div>
+    <div class="fw-arrow">→</div>
+    <div class="fw-step" onclick="openModal('fw3')"><div class="fw-circle" style="background:#FFF0EB;border-color:#FF7A59">❤️</div><span class="fw-label" style="color:#FF7A59">Delight</span></div>
+  </div>
+  <p style="font-size:.7rem;color:#aaa;margin-top:.8rem">Tap any stage to explore</p>
+</div>
+
+<main>
+
+<div class="div">4 Core Inbound Concepts</div>
+<div class="grid2">
+  <div class="card" onclick="openModal('c1')"><div class="card-icon">🔄</div><div class="card-title" style="color:#0077CF">Inbound vs Outbound</div><div class="card-sub">Pull vs push — attracting vs interrupting</div></div>
+  <div class="card" onclick="openModal('c2')"><div class="card-icon">👤</div><div class="card-title" style="color:#00BDA5">Buyer Personas</div><div class="card-sub">Who you're marketing to and why it matters</div></div>
+  <div class="card" onclick="openModal('c3')"><div class="card-icon">🗺️</div><div class="card-title" style="color:#6B2DF2">Buyer's Journey</div><div class="card-sub">Awareness → Consideration → Decision</div></div>
+  <div class="card" onclick="openModal('c4')"><div class="card-icon">⚡</div><div class="card-title" style="color:#FF7A59">The Flywheel</div><div class="card-sub">How happy customers fuel your growth engine</div></div>
+</div>
+
+<div class="div">9 Lessons — Full Curriculum</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E8F4FF;color:#0077CF">01</div><div class="mi"><div class="mt">Inbound Marketing Fundamentals</div><div class="ms">Philosophy · Flywheel · Inbound vs Outbound</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Establishes the inbound philosophy — attracting customers through valuable content rather than interrupting them with ads. Introduces HubSpot's flywheel model as a replacement for the traditional funnel.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is Inbound Marketing?','Inbound marketing attracts customers by creating valuable content and experiences tailored to them. Unlike outbound (cold calls, ads), inbound earns attention rather than buying it.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>What is Inbound?</div>
+    <div class="l" onclick="openLesson('The Old Funnel vs New Flywheel','Old funnel: Awareness → Consideration → Decision → close and forget. New flywheel: Attract → Engage → Delight → customers become promoters who attract new customers. Customers fuel the engine.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>Funnel vs Flywheel</div>
+    <div class="l" onclick="openLesson('Friction in the Flywheel','Friction slows the flywheel: poor customer service, complex onboarding, disconnected teams, and bad follow-up. Remove friction and the flywheel spins faster generating more growth with less effort.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>Flywheel Friction</div>
+    <div class="l" onclick="openLesson('Force in the Flywheel','Force accelerates the flywheel: great content, personalised experiences, excellent support, and delighted customers who refer others. Add force at every stage for compounding growth.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>Flywheel Force</div>
+    <div class="l" onclick="openLesson('Inbound for Product Managers','PMs apply inbound thinking to: product onboarding (attract users to features), in-app education (engage with value), and customer success (delight → retention → expansion).');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>Inbound for PMs</div>
+  </div>
+  <div class="tip">💡 HubSpot insight: The best growth engine is a flywheel powered by happy customers. Focus on delighting existing customers and they become your best sales team.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E5FAF7;color:#00BDA5">02</div><div class="mi"><div class="mt">Creating Buyer Personas</div><div class="ms">Persona research · Demographics · Psychographics · Pain points</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Buyer personas are semi-fictional representations of ideal customers based on real data and research. Covers how to create, validate, and use personas to guide all inbound marketing decisions.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is a Buyer Persona?','A buyer persona is a detailed profile of your ideal customer: demographics, job role, goals, challenges, values, content preferences, and objections. Personas make marketing feel personal at scale.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>What is a Persona?</div>
+    <div class="l" onclick="openLesson('Researching Personas','Best persona data sources: customer interviews (most valuable), sales team insights, support ticket analysis, social media listening, and CRM behavioural data. Always use real data — never make personas up.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Persona Research</div>
+    <div class="l" onclick="openLesson('Negative Personas','Define who you are NOT targeting. Negative personas: too expensive to acquire, high churn rate, wrong budget, or poor product fit. Excluding them saves marketing budget and improves conversion rates.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Negative Personas</div>
+    <div class="l" onclick="openLesson('Using Personas in Marketing','Every piece of content, email, and campaign should target a specific persona. Ask: "Would [persona name] find this valuable?" If not, reconsider. Personas turn generic content into relevant communication.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Using Personas</div>
+    <div class="l" onclick="openLesson('Personas for Product Teams','PMs use personas to: prioritise features (which persona benefits most?), design user flows (how does this persona think?), and write PRDs (who is this feature for and what problem does it solve?).');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Personas for PMs</div>
+  </div>
+  <div class="tip">💡 HubSpot insight: Talk to at least 5-10 real customers before creating a persona. One interview reveals more than a week of demographic research.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0EAFF;color:#6B2DF2">03</div><div class="mi"><div class="mt">Understanding the Buyer's Journey</div><div class="ms">Awareness · Consideration · Decision · Content mapping</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The buyer's journey describes the process buyers go through before making a purchase. Every piece of content should be mapped to a stage — giving the right information to the right person at the right time.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Awareness Stage','Buyer realises they have a problem but doesn\'t know your solution yet. Content: educational blog posts, how-to guides, social media, podcasts, infographics. Goal: help them understand their problem.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Awareness Stage</div>
+    <div class="l" onclick="openLesson('Consideration Stage','Buyer has defined their problem and is researching solutions. Content: comparison guides, case studies, webinars, templates, email nurture sequences. Goal: position your solution as the best option.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Consideration Stage</div>
+    <div class="l" onclick="openLesson('Decision Stage','Buyer is ready to choose a vendor. Content: free trials, demos, testimonials, pricing pages, ROI calculators, implementation guides. Goal: remove final objections and make purchasing easy.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Decision Stage</div>
+    <div class="l" onclick="openLesson('Mapping Content to Journey','Audit existing content and tag each piece by stage. Identify gaps: most brands have too much Awareness content and not enough Consideration and Decision content. Fill the gaps strategically.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Content Mapping</div>
+    <div class="l" onclick="openLesson('Beyond the Purchase: Delight','The journey doesn\'t end at purchase. Post-purchase content: onboarding guides, advanced tips, customer community, product updates, and success stories keep customers engaged and reduce churn.');event.stopPropagation()"><span class="ld" style="background:#6B2DF2"></span>Post-Purchase Delight</div>
+  </div>
+  <div class="tip">💡 HubSpot insight: Most companies have plenty of top-of-funnel awareness content and not enough middle/bottom-of-funnel content. That's where most deals are won or lost.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E5F7FA;color:#00A4BD">04</div><div class="mi"><div class="mt">Attract: Content & SEO Strategy</div><div class="ms">SEO · Blogging · Social · Content strategy</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Attract stage brings strangers to your website and social channels through valuable content and SEO. Covers the key tactics for organic traffic generation and social media strategy.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('SEO for Inbound','Keyword research → create content around terms your personas search for → earn organic traffic. SEO is the foundation of inbound attraction — it brings qualified visitors already looking for what you offer.');event.stopPropagation()"><span class="ld" style="background:#00A4BD"></span>SEO Fundamentals</div>
+    <div class="l" onclick="openLesson('Blogging Strategy','Business blogs generate organic traffic and leads. Key: target specific keyword, answer one question thoroughly, optimise for search intent, include clear CTA. Consistent publishing compounds over time.');event.stopPropagation()"><span class="ld" style="background:#00A4BD"></span>Blog Strategy</div>
+    <div class="l" onclick="openLesson('Social Media for Attraction','Social media amplifies your content to new audiences. Choose 2-3 platforms where your personas spend time. Share content that educates, entertains, or inspires — not just product promotions.');event.stopPropagation()"><span class="ld" style="background:#00A4BD"></span>Social Media</div>
+    <div class="l" onclick="openLesson('Content as Attraction Engine','Great content attracts the right visitors: specific, valuable, and persona-targeted. A visitor who found you through educational content is more qualified than one from a generic ad.');event.stopPropagation()"><span class="ld" style="background:#00A4BD"></span>Content Engine</div>
+    <div class="l" onclick="openLesson('Pillar Pages & Topic Clusters','Pillar page (broad topic) + cluster content (sub-topics) + internal links = topical authority. Google rewards sites that comprehensively cover topics. This structure is the modern SEO approach.');event.stopPropagation()"><span class="ld" style="background:#00A4BD"></span>Topic Clusters</div>
+  </div>
+  <div class="tip">💡 HubSpot insight: Organic search is the highest-quality traffic source. Visitors who find you through a specific search query have already told you exactly what problem they need solving.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E5FAF7;color:#00BDA5">05</div><div class="mi"><div class="mt">Engage: Converting & Nurturing Leads</div><div class="ms">Landing pages · Forms · CTAs · Email nurture · Lead scoring</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Engage stage converts visitors into leads and nurtures them toward a purchase. Covers conversion rate optimisation, lead capture, and email nurture sequences that guide leads through the buyer's journey.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Landing Page Optimisation','High-converting landing pages: single clear offer, benefit-focused headline, minimal navigation, social proof, and one CTA. Remove everything that doesn\'t support the conversion goal.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Landing Pages</div>
+    <div class="l" onclick="openLesson('Forms & Lead Capture','Ask for only the information you truly need. Longer forms reduce conversion rates. Progressive profiling: collect additional information across multiple interactions rather than all at once.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Lead Capture Forms</div>
+    <div class="l" onclick="openLesson('CTA Best Practices','Effective CTAs: action-oriented text ("Download Guide" not "Submit"), benefit-focused, visually distinct, and contextually relevant. A/B test CTAs regularly — small changes can double conversion rates.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>CTA Best Practices</div>
+    <div class="l" onclick="openLesson('Email Nurture Sequences','Lead nurture: automated email sequence delivering relevant content based on persona and lifecycle stage. Average: 7-12 touchpoints before a B2B purchase. Nurture keeps leads warm between purchase decisions.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Email Nurture</div>
+    <div class="l" onclick="openLesson('Lead Scoring','Assign scores based on: demographics (fit) + behaviour (engagement). High-fit + high-engagement = Sales Qualified Lead (SQL). Lead scoring prevents sales from wasting time on low-quality leads.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Lead Scoring</div>
+    <div class="l" onclick="openLesson('Marketing & Sales Alignment','Inbound works best when marketing and sales agree on: lead definitions, handoff process, and feedback loops. A shared Service Level Agreement (SLA) between marketing and sales prevents leads from falling through cracks.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Marketing-Sales Alignment</div>
+  </div>
+  <div class="tip">💡 HubSpot insight: The goal of the Engage stage is not to sell — it's to help leads make the right decision. If your product is the right fit, helping them decide naturally leads to a purchase.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF0EB;color:#FF7A59">06</div><div class="mi"><div class="mt">Delight: Customer Success & Retention</div><div class="ms">Customer success · NPS · Referrals · Advocacy programs</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The Delight stage transforms customers into promoters — people who actively refer new business. Covers customer success strategies, NPS measurement, and building advocacy programs that fuel flywheel growth.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Why Delight Matters','Acquiring a new customer costs 5-25x more than retaining an existing one. Delighted customers: buy more, refer others, leave positive reviews, and defend your brand. They are your cheapest and most effective sales channel.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Why Delight Matters</div>
+    <div class="l" onclick="openLesson('NPS as a Delight Metric','Net Promoter Score measures customer loyalty. Promoters (9-10): refer others. Passives (7-8): satisfied but not loyal. Detractors (0-6): at risk and potentially harmful. Focus on converting passives to promoters.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>NPS for Delight</div>
+    <div class="l" onclick="openLesson('Personalised Customer Communication','Use CRM data to personalise: onboarding sequences, check-in cadence, product recommendations, and renewal conversations. Personalisation at scale is what modern CRMs like HubSpot are built for.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Personalised Communication</div>
+    <div class="l" onclick="openLesson('Customer Advocacy Programs','Referral programs, case study opportunities, speaker programs, and user communities turn satisfied customers into active promoters. Give advocates recognition and resources to spread the word.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Advocacy Programs</div>
+    <div class="l" onclick="openLesson('Feedback Loops','Systematically collect and act on customer feedback. Close the loop: tell customers when their feedback influenced a product decision. This builds extraordinary loyalty and generates more feedback.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Feedback Loops</div>
+    <div class="l" onclick="openLesson('Delight for Product Teams','PM delight tactics: proactive in-app tips, celebration moments for user achievements, personalised onboarding, and early access programs for power users. Delight reduces churn and increases expansion revenue.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Delight for PMs</div>
+  </div>
+  <div class="tip">💡 HubSpot insight: Your happiest customers are your most powerful marketing channel. Build delight into your product and support experience — not just your marketing campaigns.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E8F4FF;color:#0077CF">07</div><div class="mi"><div class="mt">Social Media & Content Promotion</div><div class="ms">Social strategy · Platform selection · Promotion · Amplification</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers how to use social media as an inbound marketing channel — amplifying content, building community, and engaging with prospects and customers where they spend their time.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Platform Selection','Choose platforms based on persona research. LinkedIn: B2B professionals and decision makers. Instagram: visual brands and younger audiences. Twitter/X: tech and thought leadership. Don\'t try to be everywhere.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>Platform Selection</div>
+    <div class="l" onclick="openLesson('Social Media Content Mix','80/20 rule: 80% educational/entertaining content, 20% promotional. Social audiences follow you for value, not ads. Build trust first, then promote. Constant promotion kills engagement and follower growth.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>Content Mix</div>
+    <div class="l" onclick="openLesson('Social Listening','Monitor: brand mentions, competitor activity, industry keywords, and customer sentiment. Social listening surfaces content ideas, competitor weaknesses, and customer pain points you can address.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>Social Listening</div>
+    <div class="l" onclick="openLesson('Employee Advocacy','Employees collectively have larger social networks than most brand accounts. Empower employees to share company content — with authentic personal commentary — to dramatically expand organic reach.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>Employee Advocacy</div>
+    <div class="l" onclick="openLesson('LinkedIn for Inbound','LinkedIn is the most powerful B2B inbound channel. Long-form articles, thought leadership posts, and comment engagement drive qualified traffic and build professional credibility. Critical for PM personal branding.');event.stopPropagation()"><span class="ld" style="background:#0077CF"></span>LinkedIn for Inbound</div>
+  </div>
+  <div class="tip">💡 HubSpot insight: LinkedIn is your most powerful personal branding tool for PM job hunting Asish. Share your certification journey, PM insights, and case studies to attract recruiters inbound.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#E5FAF7;color:#00BDA5">08</div><div class="mi"><div class="mt">Email Marketing & Lead Nurturing</div><div class="ms">Email strategy · Segmentation · Automation · Deliverability</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Email remains the highest-ROI marketing channel — generating $42 for every $1 spent. Covers email strategy, list segmentation, marketing automation, and deliverability best practices.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Email Marketing ROI','$42 return for every $1 spent — the highest ROI of any marketing channel. Email works because: subscribers chose to hear from you (permission-based), highly targetable, measurable, and automation makes it scalable.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Email ROI</div>
+    <div class="l" onclick="openLesson('List Segmentation','Segment by: persona, lifecycle stage, behaviour (clicked/didn\'t click), geography, or purchase history. Segmented campaigns generate 14% higher open rates and 100% higher clicks than non-segmented campaigns.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>List Segmentation</div>
+    <div class="l" onclick="openLesson('Email Automation (Workflows)','Automated workflows: welcome sequences for new subscribers, lead nurture for prospects, onboarding for new customers, re-engagement for inactive subscribers. Set up once, runs indefinitely.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Email Automation</div>
+    <div class="l" onclick="openLesson('Subject Line Best Practices','Open rates start with subject lines. Best practices: personalisation (name), curiosity gap, specific value promise, brevity (under 50 characters), and A/B testing. Never mislead — trust is your most valuable email asset.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Subject Lines</div>
+    <div class="l" onclick="openLesson('Email Deliverability','Emails that don\'t reach inboxes don\'t generate results. Protect deliverability: maintain clean list (remove bounces), avoid spam trigger words, authenticate your domain (SPF, DKIM, DMARC), and monitor sender reputation.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Deliverability</div>
+    <div class="l" onclick="openLesson('Email Analytics','Track: open rate (list health), click rate (content relevance), conversion rate (landing page effectiveness), unsubscribe rate (content quality signal). All four together give a complete email health picture.');event.stopPropagation()"><span class="ld" style="background:#00BDA5"></span>Email Analytics</div>
+  </div>
+  <div class="tip">💡 HubSpot insight: Your email list is the only marketing asset you truly own. Social followers can disappear overnight if a platform changes its algorithm. Your list is yours forever.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF0EB;color:#FF7A59">09</div><div class="mi"><div class="mt">Inbound Marketing Analytics & Reporting</div><div class="ms">KPIs · Attribution · Reporting · Continuous improvement</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Measurement closes the inbound loop — showing what's working, what needs improvement, and proving ROI. Covers the key inbound metrics, attribution models, and how to build reports that drive action.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Inbound KPI Framework','Attract KPIs: organic traffic, social reach. Engage KPIs: conversion rate, leads generated, email open/click rates. Delight KPIs: NPS, customer retention, expansion revenue, referrals. Track all three stages.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Inbound KPIs</div>
+    <div class="l" onclick="openLesson('Marketing Attribution','Which marketing touchpoints deserve credit for a conversion? First-touch (discovery), last-touch (final decision), and multi-touch (all touchpoints). Multi-touch attribution is most accurate for inbound.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Attribution Models</div>
+    <div class="l" onclick="openLesson('Closed-Loop Reporting','Connect marketing activity to actual revenue: which blog posts generated customers? Which emails closed deals? Closed-loop reporting requires CRM + marketing automation integration (e.g. HubSpot).');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Closed-Loop Reporting</div>
+    <div class="l" onclick="openLesson('A/B Testing for Inbound','Test: email subject lines, CTA copy/colour, landing page headlines, form length, and content format. Run one test at a time with sufficient sample size. Statistical significance required before declaring a winner.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>A/B Testing</div>
+    <div class="l" onclick="openLesson('Monthly Inbound Review','Review: traffic sources (growing/declining?), conversion rates by stage, email performance, top content pieces, and pipeline influenced by marketing. Connect every metric back to revenue impact.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Monthly Review</div>
+    <div class="l" onclick="openLesson('Continuous Improvement Cycle','Inbound marketing is never done. The improvement cycle: Analyse → Identify opportunities → Hypothesise → Test → Measure → Implement → Repeat. Compounding improvements drive exponential results over time.');event.stopPropagation()"><span class="ld" style="background:#FF7A59"></span>Improvement Cycle</div>
+  </div>
+  <div class="tip">🏆 Shubhasish Dutta — Inbound Marketing Certified · HubSpot Academy · Jul 25 2026 – Aug 23 2028 · Code: 44536f4d8afb47bd8ea2299c895bd6fb</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">🎯</div>
+  <div class="cn">Inbound Marketing Certified</div>
+  <div class="cn2">Shubhasish Dutta — HubSpot Academy</div>
+  <div class="csub">Valid: Jul 25 2026 – Aug 23 2028 · CEO Yamini Rangan · Cert #22</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  fw1:{tag:"Flywheel Stage",title:"Attract",desc:"The Attract stage brings the right strangers to your website through valuable content, SEO, and social media — people who are actively searching for solutions to their problems.",points:["Create content around keywords your personas search for","Blog posts, videos, and social content pull qualified visitors organically","SEO ensures your content is discoverable when people need it","Social media amplifies your content to new relevant audiences","Topic clusters build SEO authority on your core subject areas","Attract quality over quantity — the right visitors convert better"],tip:"💡 Inbound attraction is permission-based. People who find you through helpful content are already interested — they're far easier to convert than cold outbound contacts."},
+  fw2:{tag:"Flywheel Stage",title:"Engage",desc:"The Engage stage converts attracted visitors into leads and nurtures them with relevant content until they're ready to buy.",points:["Landing pages and forms capture visitor information in exchange for value","Lead magnets (guides, templates, tools) make conversion compelling","Email nurture sequences deliver relevant content based on behaviour and stage","Lead scoring prioritises the most sales-ready leads for faster follow-up","Marketing-sales alignment ensures no lead falls through the cracks","Personalisation at every touchpoint increases engagement and conversion rates"],tip:"💡 Engagement is about building trust, not closing deals. Give leads what they need to make a confident decision — the sale follows naturally."},
+  fw3:{tag:"Flywheel Stage",title:"Delight",desc:"The Delight stage turns customers into promoters who actively refer new business — adding force to the flywheel and reducing customer acquisition cost.",points:["Onboarding content helps new customers succeed quickly","Proactive customer success prevents churn before it happens","NPS measurement identifies promoters, passives, and detractors","Advocacy programs give happy customers tools to refer others","Feedback loops show customers their input is valued and acted on","Delighted customers generate referrals that cost nothing to acquire"],tip:"💡 The Delight stage is where the flywheel accelerates. Every customer you delight becomes a free marketing channel that attracts new customers without additional spend."},
+  c1:{tag:"Core Concept",title:"Inbound vs Outbound",desc:"The fundamental difference between modern inbound marketing and traditional outbound marketing.",points:["Outbound interrupts: cold calls, TV ads, billboards, unsolicited email","Inbound attracts: SEO content, social media, webinars, helpful guides","Outbound pushes messages at anyone; inbound pulls in people actively seeking solutions","Outbound ROI declines as people develop 'ad blindness'; inbound compounds over time","Inbound content keeps working long after it's created; outbound stops the moment you stop paying","Most effective modern strategy: primarily inbound, supported by paid amplification of best content"],tip:"💡 Outbound is renting attention; inbound is owning it. The long-term economics of inbound are far superior for most businesses."},
+  c2:{tag:"Core Concept",title:"Buyer Personas",desc:"Semi-fictional representations of ideal customers based on real data — the foundation of all inbound marketing decisions.",points:["Built from: customer interviews, CRM data, support tickets, and sales insights","Include: demographics, job role, goals, challenges, values, and content preferences","Create 2-3 detailed personas maximum — too many dilutes focus","Negative personas define who you're NOT targeting — equally important","Every piece of content, email, and campaign should target a specific persona","Update personas annually as your customer base and market evolve"],tip:"💡 Personas make marketing feel like a one-on-one conversation at scale. When your content speaks directly to one person's specific situation, everyone in that situation feels seen."},
+  c3:{tag:"Core Concept",title:"The Buyer's Journey",desc:"The three-stage process buyers go through from problem awareness to purchase decision.",points:["Awareness: buyer realises they have a problem worth solving","Consideration: buyer researches and evaluates different solution approaches","Decision: buyer selects a specific vendor or product to solve their problem","Map all existing content to a journey stage to identify gaps","Most brands over-invest in Awareness and under-invest in Consideration and Decision","The journey continues after purchase — ongoing delight content prevents churn"],tip:"💡 Meeting buyers where they are in their journey is what makes inbound marketing feel helpful rather than pushy. Right content + right person + right time = conversion."},
+  c4:{tag:"Core Concept",title:"The Flywheel",desc:"HubSpot's model for sustainable business growth — where happy customers fuel acquisition of new customers through referrals and advocacy.",points:["Replaces the traditional funnel where customers fall out at the bottom","In the flywheel, customers become promoters who attract new customers","Force accelerates the flywheel: great content, excellent service, customer success","Friction slows the flywheel: poor onboarding, unresponsive support, disconnected teams","Every team — marketing, sales, service — adds force and removes friction","The bigger the flywheel spins, the more growth it generates with less energy input"],tip:"💡 The flywheel model perfectly aligns marketing, product, and customer success around one shared goal: delight customers so thoroughly that they become your growth engine."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>

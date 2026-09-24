@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Analytics Certified — Interactive Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F4FF;--card:#FFFFFF;--border:#E2D9F3;--navy:#1A0A3C;--purple:#5B21B6;--purple-l:#EDE9FE;--blue:#1D4ED8;--blue-l:#EFF6FF;--teal:#0F766E;--teal-l:#F0FDFA;--orange:#C2410C;--orange-l:#FFF7ED;--green:#15803D;--green-l:#F0FDF4;--red:#BE123C;--red-l:#FFF1F2;--gray:#6B7280;--white:#FFFFFF;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'IBM Plex Sans',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;}
+header{background:linear-gradient(135deg,#1A0A3C,#3B0764,#6D28D9);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;}
+header::before{content:'';position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(109,40,217,.4),transparent 70%);}
+header::after{content:'';position:absolute;bottom:-60px;left:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(29,78,216,.3),transparent 70%);}
+.htags{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.htag{font-size:.63rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .8rem;border-radius:50px;background:rgba(255,255,255,.12);color:rgba(255,255,255,.9);border:1px solid rgba(255,255,255,.2);}
+header h1{font-size:clamp(1.8rem,5vw,3rem);color:#fff;font-weight:700;line-height:1.1;margin-bottom:.5rem;}
+header h1 span{color:#C4B5FD;}
+header p{color:rgba(255,255,255,.55);font-size:.85rem;margin-bottom:1.5rem;}
+.score-row{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;}
+.sc{font-size:.73rem;font-weight:500;padding:.3rem .9rem;border-radius:50px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.8);}
+.sc.gold{background:rgba(245,158,11,.18);border-color:rgba(245,158,11,.35);color:#FCD34D;}
+.maturity-bar{background:#fff;border-bottom:1px solid var(--border);padding:1.5rem;}
+.mb-title{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gray);text-align:center;margin-bottom:1rem;}
+.maturity-levels{display:flex;justify-content:center;align-items:flex-end;gap:0;max-width:500px;margin:0 auto;}
+.ml{flex:1;display:flex;flex-direction:column;align-items:center;cursor:pointer;transition:transform .2s;}
+.ml:hover{transform:translateY(-3px);}
+.ml-bar{width:100%;border-radius:6px 6px 0 0;transition:opacity .2s;}
+.ml:hover .ml-bar{opacity:.85;}
+.ml-label{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-top:.4rem;text-align:center;color:var(--gray);}
+.ml-connector{width:1px;height:40px;background:var(--border);}
+main{max-width:700px;margin:0 auto;padding:2rem 1.5rem 5rem;}
+.div{display:flex;align-items:center;gap:1rem;font-size:.62rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gray);margin:2rem 0 1rem;}
+.div::before,.div::after{content:'';flex:1;height:1px;background:var(--border);}
+.framework-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.5rem;}
+.fw{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:1.1rem;cursor:pointer;transition:all .2s;}
+.fw:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(91,33,182,.12);}
+.fw-icon{font-size:1.5rem;margin-bottom:.4rem;}
+.fw-title{font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:.15rem;}
+.fw-sub{font-size:.72rem;color:var(--gray);line-height:1.4;}
+.mod{background:var(--card);border:1.5px solid var(--border);border-radius:16px;margin-bottom:.75rem;overflow:hidden;cursor:pointer;transition:border-color .2s,box-shadow .2s;}
+.mod:hover{box-shadow:0 6px 20px rgba(91,33,182,.1);}
+.mod.open{border-color:var(--purple);}
+.mod-head{display:flex;align-items:center;gap:1rem;padding:1.1rem 1.3rem;}
+.mn{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;flex-shrink:0;}
+.mi{flex:1;}.mt{font-size:.92rem;font-weight:700;color:var(--navy);margin-bottom:.15rem;}
+.ms{font-size:.72rem;color:var(--gray);}
+.mc{color:var(--gray);font-size:.85rem;transition:transform .2s;}
+.mod.open .mc{transform:rotate(90deg);color:var(--purple);}
+.mod-body{display:none;padding:0 1.3rem 1.3rem;border-top:1px solid var(--border);}
+.mod.open .mod-body{display:block;}
+.md{font-size:.86rem;line-height:1.65;color:#444;padding:1rem 0 .8rem;}
+.ls{display:grid;grid-template-columns:1fr 1fr;gap:.45rem;margin-top:.5rem;}
+.l{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .7rem;font-size:.73rem;color:var(--navy);font-weight:600;display:flex;align-items:flex-start;gap:.4rem;cursor:pointer;transition:all .15s;line-height:1.35;}
+.l:hover{background:var(--purple-l);border-color:var(--purple);transform:translateY(-1px);}
+.ld{width:5px;height:5px;border-radius:50%;margin-top:4px;flex-shrink:0;}
+.tip{margin-top:1rem;padding:.75rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--purple-l);border:1px solid rgba(91,33,182,.2);color:var(--purple);}
+.metric-strip{background:var(--navy);border-radius:16px;padding:1.2rem;margin:1rem 0;display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;}
+.metric{text-align:center;cursor:pointer;transition:transform .2s;}
+.metric:hover{transform:translateY(-2px);}
+.metric-num{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:600;color:#C4B5FD;}
+.metric-label{font-size:.65rem;color:rgba(255,255,255,.5);font-weight:500;text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem;}
+.cert{background:linear-gradient(135deg,#1A0A3C,#3B0764,#6D28D9);border-radius:20px;padding:2rem;text-align:center;margin-top:2rem;border:1px solid rgba(196,181,253,.2);}
+.cert-icon{font-size:2.5rem;margin-bottom:.5rem;}
+.cn{font-size:1.2rem;font-weight:700;color:#C4B5FD;margin-bottom:.3rem;}
+.cn2{font-size:.95rem;font-weight:600;color:#fff;margin-bottom:.3rem;}
+.csub{font-size:.75rem;color:rgba(255,255,255,.5);}
+.overlay{display:none;position:fixed;inset:0;background:rgba(26,10,60,.8);z-index:300;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(8px);}
+.overlay.active{display:flex;}
+.modal{background:var(--card);border-radius:20px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;box-shadow:0 40px 80px rgba(0,0,0,.3);animation:pop .22s cubic-bezier(.34,1.56,.64,1);}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-top{padding:1.4rem 1.5rem 1rem;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;position:sticky;top:0;background:var(--card);border-radius:20px 20px 0 0;}
+.modal-tag{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:.3rem;}
+.modal-title{font-size:1.2rem;font-weight:700;color:var(--navy);line-height:1.2;}
+.modal-close{background:var(--bg);border:none;width:28px;height:28px;border-radius:50%;font-size:.8rem;cursor:pointer;color:var(--gray);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.modal-body{padding:1.2rem 1.5rem 1.5rem;}
+.modal-desc{font-size:.88rem;line-height:1.65;color:#444;margin-bottom:1rem;}
+.modal-list{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.modal-list li{display:flex;gap:.6rem;font-size:.84rem;line-height:1.5;color:#333;}
+.modal-list li::before{content:'→';color:var(--purple);font-weight:700;flex-shrink:0;margin-top:1px;}
+.modal-tip{margin-top:1.2rem;padding:.8rem 1rem;border-radius:10px;font-size:.78rem;line-height:1.5;font-style:italic;background:var(--purple-l);color:var(--purple);}
+</style>
+</head>
+<body>
+<header>
+  <div class="htags"><span class="htag">Pendo</span><span class="htag">Mind the Product</span><span class="htag">Product Analytics</span></div>
+  <h1>Product Analytics<br><span>Certified</span></h1>
+  <p>Complete Interactive Guide · 8 Modules · Data Actualization & Analytics Mastery</p>
+  <div class="score-row"><span class="sc gold">Certified ✓</span><span class="sc">Pendo × Mind the Product</span><span class="sc">13 June 2026</span><span class="sc">Credly Badge</span></div>
+</header>
+
+<div class="maturity-bar">
+  <div class="mb-title">Analytics Maturity Model — Tap a Level</div>
+  <div class="maturity-levels">
+    <div class="ml" onclick="openModal('m1')"><div class="ml-bar" style="height:40px;background:#E9D5FF"></div><div class="ml-label" style="color:#7C3AED">Descriptive</div></div>
+    <div class="ml" onclick="openModal('m2')"><div class="ml-bar" style="height:65px;background:#C4B5FD"></div><div class="ml-label" style="color:#6D28D9">Diagnostic</div></div>
+    <div class="ml" onclick="openModal('m3')"><div class="ml-bar" style="height:90px;background:#8B5CF6"></div><div class="ml-label" style="color:#5B21B6">Predictive</div></div>
+    <div class="ml" onclick="openModal('m4')"><div class="ml-bar" style="height:115px;background:#6D28D9"></div><div class="ml-label" style="color:#4C1D95">Prescriptive</div></div>
+    <div class="ml" onclick="openModal('m5')"><div class="ml-bar" style="height:140px;background:#4C1D95"></div><div class="ml-label" style="color:#3B0764">Actualized</div></div>
+  </div>
+</div>
+
+<main>
+
+<div class="metric-strip">
+  <div class="metric" onclick="openModal('kpi1')"><div class="metric-num">DAU/MAU</div><div class="metric-label">Stickiness Ratio</div></div>
+  <div class="metric" onclick="openModal('kpi2')"><div class="metric-num">AARRR</div><div class="metric-label">Pirate Metrics</div></div>
+  <div class="metric" onclick="openModal('kpi3')"><div class="metric-num">NRR</div><div class="metric-label">Net Revenue Retention</div></div>
+</div>
+
+<div class="div">Key Analytics Frameworks</div>
+<div class="framework-grid">
+  <div class="fw" onclick="openModal('fw1')"><div class="fw-icon">📊</div><div class="fw-title">Data Actualization</div><div class="fw-sub">The ultimate analytics maturity state where data drives every decision</div></div>
+  <div class="fw" onclick="openModal('fw2')"><div class="fw-icon">🔄</div><div class="fw-title">Analytics Flywheel</div><div class="fw-sub">How better data creates better decisions creates better products</div></div>
+  <div class="fw" onclick="openModal('fw3')"><div class="fw-icon">🎯</div><div class="fw-title">North Star Metric</div><div class="fw-sub">One metric that captures the core value your product delivers</div></div>
+  <div class="fw" onclick="openModal('fw4')"><div class="fw-icon">🧪</div><div class="fw-title">Experimentation</div><div class="fw-sub">A/B testing and structured experiments to validate analytics insights</div></div>
+</div>
+
+<div class="div">8 Modules — Full Curriculum</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EDE9FE;color:#5B21B6">01</div><div class="mi"><div class="mt">Introduction to Product Analytics</div><div class="ms">What is product analytics · Why it matters · Analytics mindset</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Establishes the foundation of product analytics — what it is, why it's the most critical PM skill in 2026, and the mindset shift required to become a truly data-driven product manager. Introduces the Data Actualization framework.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What is Product Analytics?','Product analytics is the practice of collecting, analysing, and acting on data about how users interact with your product to drive better decisions.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>What is Product Analytics?</div>
+    <div class="l" onclick="openLesson('Why Analytics Matters for PMs','PMs without analytics are flying blind. Data tells you what\'s working, what\'s broken, and where to focus your limited resources for maximum impact.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Why Analytics Matters</div>
+    <div class="l" onclick="openLesson('The Data-Driven PM Mindset','Data-driven doesn\'t mean data-dependent. It means using data as the primary input for decisions while combining it with qualitative judgment.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Data-Driven Mindset</div>
+    <div class="l" onclick="openLesson('Introduction to Data Actualization','Data Actualization is the highest state of analytics maturity — where teams have accurate, clean, actionable data and use it confidently to make product decisions.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Data Actualization Intro</div>
+    <div class="l" onclick="openLesson('Analytics vs Intuition','Neither data nor gut feel alone is enough. The best PMs combine analytics (the WHAT) with customer empathy (the WHY) to make confident decisions.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Analytics vs Intuition</div>
+    <div class="l" onclick="openLesson('The Analytics Maturity Model','5 levels: Descriptive → Diagnostic → Predictive → Prescriptive → Actualized. Most teams operate at level 1-2. Data Actualization is level 5.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Analytics Maturity Model</div>
+  </div>
+  <div class="tip">💡 Analytics insight: You don't need a data science degree to be data-driven. You need the right questions, the right tools, and the courage to act on what the data tells you.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EFF6FF;color:#1D4ED8">02</div><div class="mi"><div class="mt">Data Actualization Framework</div><div class="ms">5 levels · Characteristics · Achieving actualization</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Deep dive into Pendo's Data Actualization framework — the ultimate state of analytics maturity where teams have accurate, clean, actionable data available whenever and wherever they need it. The most important theoretical module in the course.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Data Actualization Defined','Data Actualization: the state where you have accurate, clean, and actionable data when and where you need it. You ask progressively harder questions. Gut feel aids tricky decisions.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Data Actualization Defined</div>
+    <div class="l" onclick="openLesson('Characteristics of Data Actualization','1. Accurate clean actionable data always available. 2. Ability to ask progressively harder questions. 3. Gut feel still plays a role in tricky situations. NOT: easy decisions every time.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>DA Characteristics</div>
+    <div class="l" onclick="openLesson('Level 1: Descriptive Analytics','What happened? Basic reporting and dashboards. Most teams start here. Tells you the past but not why or what to do next.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Level 1: Descriptive</div>
+    <div class="l" onclick="openLesson('Level 2: Diagnostic Analytics','Why did it happen? Root cause analysis, funnel breakdowns, cohort comparisons. Teams at this level understand their data, not just see it.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Level 2: Diagnostic</div>
+    <div class="l" onclick="openLesson('Level 3: Predictive Analytics','What will happen? ML models, churn prediction, feature adoption forecasting. Teams at this level get ahead of problems before they occur.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Level 3: Predictive</div>
+    <div class="l" onclick="openLesson('Level 4-5: Prescriptive & Actualized','Level 4: What should we do? Automated recommendations. Level 5: Full actualization — data is embedded in every decision, every team, every workflow.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Levels 4-5: Prescriptive & Actualized</div>
+  </div>
+  <div class="tip">💡 Key exam note: Data Actualization does NOT mean every decision is easy. It means you have the data to make better, more confident decisions — even hard ones.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDFA;color:#0F766E">03</div><div class="mi"><div class="mt">Core Product Metrics</div><div class="ms">AARRR · North Star · DAU/MAU · Retention</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers the essential product metrics every PM must know — from the AARRR pirate metrics framework to defining your North Star metric and building a metrics hierarchy that connects daily work to business outcomes.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('AARRR Pirate Metrics','Acquisition, Activation, Retention, Referral, Revenue. The complete funnel for measuring user journey health from first touch to expansion.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>AARRR Framework</div>
+    <div class="l" onclick="openLesson('North Star Metric','One metric that best captures the core value your product delivers to users. Everything else ladders up to it. Examples: Slack DAU, Airbnb nights booked.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>North Star Metric</div>
+    <div class="l" onclick="openLesson('DAU/MAU Stickiness Ratio','Daily Active Users / Monthly Active Users. A ratio of 0.5+ means users return every other day. The gold standard for measuring product engagement.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>DAU/MAU Ratio</div>
+    <div class="l" onclick="openLesson('Retention Cohort Analysis','Group users by when they joined and track how many return over time. Retention curves reveal your product\'s true stickiness and where users fall off.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Retention Cohorts</div>
+    <div class="l" onclick="openLesson('Feature Adoption Metrics','Breadth (% of users who used a feature) × Depth (how often they use it) = feature health score. Low breadth = adoption problem. Low depth = value problem.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>Feature Adoption Metrics</div>
+    <div class="l" onclick="openLesson('Net Revenue Retention (NRR)','NRR >100% = expansion revenue exceeds churn. The single most important SaaS health metric. PLG companies typically target 110-130% NRR.');event.stopPropagation()"><span class="ld" style="background:#0F766E"></span>NRR Metric</div>
+  </div>
+  <div class="tip">💡 Analytics insight: Choose ONE North Star metric and let everything else ladder up to it. Tracking 20 metrics equally means tracking none of them effectively.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF7ED;color:#C2410C">04</div><div class="mi"><div class="mt">Collecting & Managing Product Data</div><div class="ms">Data collection · Data quality · Pendo analytics setup</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers the practical side of product analytics — how to instrument your product to capture the right data, maintain data quality, and build a data foundation that supports Data Actualization. Includes Pendo-specific implementation guidance.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('What Data to Collect','Collect: page views, feature clicks, session duration, user paths, error events, and custom events. Avoid: collecting everything — it creates noise.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>What Data to Collect</div>
+    <div class="l" onclick="openLesson('Event Tracking Best Practices','Name events consistently: object_action format (e.g. feature_clicked, report_exported). Consistent naming makes analysis 10x easier later.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Event Tracking Best Practices</div>
+    <div class="l" onclick="openLesson('Data Quality Management','Bad data leads to bad decisions. Audit your analytics regularly for missing events, duplicate tracking, and definition drift across teams.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Data Quality Management</div>
+    <div class="l" onclick="openLesson('Pendo Analytics Implementation','Pendo\'s tag-based tracking captures user behaviour without engineering effort. Install once, track everything, segment infinitely.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Pendo Analytics Setup</div>
+    <div class="l" onclick="openLesson('Qualitative + Quantitative Data','Quantitative tells you WHAT users do. Qualitative (session replays, interviews) tells you WHY. Both together create the complete picture.');event.stopPropagation()"><span class="ld" style="background:#C2410C"></span>Quant + Qual Data</div>
+  </div>
+  <div class="tip">💡 Analytics insight: Garbage in, garbage out. Before building dashboards, audit your data collection. 30 minutes of cleanup saves weeks of bad analysis.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#F0FDF4;color:#15803D">05</div><div class="mi"><div class="mt">Analysing User Behaviour</div><div class="ms">Funnels · Paths · Segmentation · Session replays</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The most hands-on module — teaches specific analytical techniques for understanding user behaviour. Covers funnel analysis, user path analysis, segmentation strategies, and how to use session replays to add qualitative depth to quantitative findings.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Funnel Analysis','Map the steps users take to complete a key action. Measure conversion at each step. Every drop-off is an opportunity — investigate the WHY.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Funnel Analysis</div>
+    <div class="l" onclick="openLesson('User Path Analysis','See the actual paths users take through your product — not the intended paths. Unexpected paths reveal UX problems and discovery opportunities.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>User Path Analysis</div>
+    <div class="l" onclick="openLesson('Behavioural Segmentation','Segment users by what they DO, not who they are. Usage-based segments are far more predictive of retention and expansion than demographic segments.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Behavioural Segmentation</div>
+    <div class="l" onclick="openLesson('Session Replay Analysis','Watch real user sessions to see exactly where users struggle, rage-click, or abandon. Nothing beats observing the product being used in real time.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Session Replay Analysis</div>
+    <div class="l" onclick="openLesson('Feature Usage Heatmaps','Heatmaps show which features get the most attention and which are ignored. Use to inform feature investment and retirement decisions.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Feature Usage Heatmaps</div>
+    <div class="l" onclick="openLesson('Identifying Power Users with Analytics','Power users have high DAU/MAU ratio, use many features, and have low support ticket volume. Identify them and learn from their behaviour.');event.stopPropagation()"><span class="ld" style="background:#15803D"></span>Identifying Power Users</div>
+  </div>
+  <div class="tip">💡 Analytics insight: Funnel analysis shows you the WHAT. Session replays show you the WHY. Always watch replays for sessions where users dropped out of your funnel.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#FFF1F2;color:#BE123C">06</div><div class="mi"><div class="mt">Experimentation & A/B Testing</div><div class="ms">Hypothesis testing · A/B tests · Statistical significance</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Covers how to design, run, and analyse product experiments that generate reliable insights. Teaches hypothesis formation, A/B test design, and how to avoid common experimentation pitfalls that lead to false conclusions.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Hypothesis-Driven Development','Every experiment starts with a hypothesis: "We believe [change] will cause [outcome] because [reason]." This structure forces clarity before testing.');event.stopPropagation()"><span class="ld" style="background:#BE123C"></span>Hypothesis Formation</div>
+    <div class="l" onclick="openLesson('A/B Test Design','Control vs variant. Randomise users. Define success metric upfront. Set minimum detectable effect. Run until statistical significance reached.');event.stopPropagation()"><span class="ld" style="background:#BE123C"></span>A/B Test Design</div>
+    <div class="l" onclick="openLesson('Statistical Significance','95% confidence (p < 0.05) means there\'s a 5% chance your result is random. Never ship based on insignificant results — even if they look positive.');event.stopPropagation()"><span class="ld" style="background:#BE123C"></span>Statistical Significance</div>
+    <div class="l" onclick="openLesson('Common Experimentation Mistakes','Stopping tests early, testing too many variables, ignoring segment-level results, and using the wrong success metric are the most common test-ruining mistakes.');event.stopPropagation()"><span class="ld" style="background:#BE123C"></span>Common Mistakes</div>
+    <div class="l" onclick="openLesson('Multi-variate Testing','Test multiple variables simultaneously to understand interaction effects. Requires more traffic but gives richer insight than sequential A/B tests.');event.stopPropagation()"><span class="ld" style="background:#BE123C"></span>Multi-variate Testing</div>
+    <div class="l" onclick="openLesson('Experimentation Culture','Build a culture where failed experiments are celebrated. A failed test that disproves a hypothesis is just as valuable as one that confirms it.');event.stopPropagation()"><span class="ld" style="background:#BE123C"></span>Experimentation Culture</div>
+  </div>
+  <div class="tip">💡 Analytics insight: The goal of an experiment is to LEARN, not to win. A disproved hypothesis saves you from building the wrong thing — that\'s always a victory.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EDE9FE;color:#5B21B6">07</div><div class="mi"><div class="mt">Communicating Analytics to Stakeholders</div><div class="ms">Data storytelling · Dashboards · Executive reporting</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">Analytics only creates value when it drives decisions. This module covers how to communicate data insights to different audiences — from engineers who need granularity to executives who need the headline number and the business implication.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Data Storytelling for PMs','Lead with the insight, not the data. "Feature adoption is 23% below target in APAC" is more useful than showing a graph and letting people draw their own conclusions.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Data Storytelling</div>
+    <div class="l" onclick="openLesson('Building Product Dashboards','Great dashboards show: product health (1 screen), trend direction, and alert when something needs attention. Avoid 20-metric dashboards nobody reads.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Dashboard Design</div>
+    <div class="l" onclick="openLesson('Reporting to Executives','Executives need: 1 headline metric, trend direction, business impact, and recommended action. Skip the methodology — lead with the insight.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Executive Reporting</div>
+    <div class="l" onclick="openLesson('Democratising Data Access','The best analytics cultures give everyone access to data — not just analysts. Self-serve analytics empowers the whole team to ask and answer questions.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Democratising Data</div>
+    <div class="l" onclick="openLesson('Analytics in Sprint Reviews','Include metrics in every sprint review: what did we ship, what metrics changed, and what do we do next? This connects delivery to outcomes.');event.stopPropagation()"><span class="ld" style="background:#5B21B6"></span>Analytics in Sprint Reviews</div>
+  </div>
+  <div class="tip">💡 Analytics insight: The best data presentation answers three questions: What happened? Why does it matter? What should we do? Answer these and you have a compelling data story.</div></div>
+</div>
+
+<div class="mod" onclick="toggleMod(this)">
+  <div class="mod-head"><div class="mn" style="background:#EFF6FF;color:#1D4ED8">08</div><div class="mi"><div class="mt">Certification Exam</div><div class="ms">35 questions · 75% pass · Credly badge</div></div><div class="mc">›</div></div>
+  <div class="mod-body"><p class="md">The final certification exam tests knowledge across all 7 modules with 35 questions. Requires 75% to pass. Shubhasish passed with a perfect score in just 1 minute 8 seconds! Earners receive a Pendo × Mind the Product Product Analytics Certified badge via Credly.</p>
+  <div class="ls">
+    <div class="l" onclick="openLesson('Exam Format','35 questions. 75% (26/35) to pass. 5 attempts. Topics: Data Actualization, Core Metrics, Funnel Analysis, Experimentation, Stakeholder Communication.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Exam Format</div>
+    <div class="l" onclick="openLesson('Key Exam Concept: Data Actualization','Remember: DA does NOT mean easy decisions. It means accurate, clean, actionable data + ability to ask harder questions + gut feel still aids tricky decisions.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Key Exam Concept</div>
+    <div class="l" onclick="openLesson('Credly Product Analytics Badge','Verifiable badge from Pendo × Mind the Product. Demonstrates analytics mastery to hiring managers. Add to LinkedIn immediately.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Credly Badge</div>
+    <div class="l" onclick="openLesson('Career Value of Analytics Cert','Product Analytics is the #1 skill gap for PMs globally. This cert + Amplitude + Mixpanel makes you exceptionally strong on the analytics dimension.');event.stopPropagation()"><span class="ld" style="background:#1D4ED8"></span>Career Value</div>
+  </div>
+  <div class="tip">🏆 Shubhasish Dutta — 35/35 · Product Analytics Certified · Pendo × Mind the Product · 13 June 2026</div></div>
+</div>
+
+<div class="cert">
+  <div class="cert-icon">📊</div>
+  <div class="cn">Product Analytics Certified</div>
+  <div class="cn2">Shubhasish Dutta</div>
+  <div class="csub">Pendo × Mind the Product · 13 June 2026 · Never Expires · Credly Verified</div>
+</div>
+</main>
+
+<div class="overlay" id="overlay" onclick="closeOverlay(event)">
+  <div class="modal"><div class="modal-top"><div><div class="modal-tag" id="modal-tag"></div><div class="modal-title" id="modal-title"></div></div><button class="modal-close" onclick="closeModal()">✕</button></div>
+  <div class="modal-body"><p class="modal-desc" id="modal-desc"></p><ul class="modal-list" id="modal-list"></ul><div class="modal-tip" id="modal-tip"></div></div></div>
+</div>
+
+<script>
+const mdata={
+  m1:{tag:"Maturity Level 1",title:"Descriptive Analytics",desc:"The most basic level — tells you WHAT happened. Basic dashboards, reports, and metrics. Most teams start here.",points:["Shows historical data: page views, sessions, feature clicks","Answers: How many users visited? What did they click?","No explanation of why things happened","Useful as a starting point but limited for decision-making","Most legacy analytics tools operate at this level","Example: 'We had 10,000 users last month'"],tip:"💡 Descriptive analytics is the foundation. Without it, you can't progress to higher levels."},
+  m2:{tag:"Maturity Level 2",title:"Diagnostic Analytics",desc:"Level 2 answers WHY things happened — root cause analysis, funnel breakdowns, and cohort comparisons.",points:["Explains reasons behind metrics changes","Funnel analysis reveals where users drop off","Cohort analysis shows retention patterns over time","Compares segments to identify performance differences","Requires richer data and more analytical skill","Example: 'Users drop off at step 3 because the form is too complex'"],tip:"💡 Most high-performing product teams operate between Level 2 and 3."},
+  m3:{tag:"Maturity Level 3",title:"Predictive Analytics",desc:"Level 3 tells you WHAT WILL HAPPEN — using historical patterns to forecast future behaviour.",points:["Churn prediction models identify at-risk users early","Feature adoption forecasting guides roadmap investment","ML models surface patterns humans can't see manually","Requires data science capabilities or AI-powered tools","Enables proactive product decisions, not just reactive ones","Example: 'This segment has 73% churn probability in 30 days'"],tip:"💡 Predictive analytics shifts PMs from reactive to proactive — you fix problems before users experience them."},
+  m4:{tag:"Maturity Level 4",title:"Prescriptive Analytics",desc:"Level 4 tells you WHAT TO DO — automated recommendations based on data patterns.",points:["AI recommends next best actions for users automatically","Automated personalisation at scale without manual rules","Systems optimise themselves based on outcome signals","Requires sophisticated data infrastructure and ML pipelines","Few teams reach this level — it\'s the frontier of analytics maturity","Example: 'Show this user the export feature tutorial — 89% upgrade probability'"],tip:"💡 Prescriptive analytics is where AI and product management converge most powerfully."},
+  m5:{tag:"Maturity Level 5",title:"Data Actualization",desc:"The highest analytics maturity state — accurate, clean, actionable data available whenever and wherever needed, with the ability to ask progressively harder questions.",points:["Accurate, clean, and actionable data always available","Teams ask progressively harder and more sophisticated questions","Data is embedded in every decision at every level","Gut feel still plays a role in tricky, ambiguous situations","NOT a guarantee that every decision is easy — hard decisions remain hard","This is the goal state the entire course builds toward"],tip:"💡 Data Actualization is a journey, not a destination. Most world-class companies are still working toward it."},
+  kpi1:{tag:"Key Metric",title:"DAU/MAU — Stickiness Ratio",desc:"Daily Active Users divided by Monthly Active Users. Measures how often users return to your product within a month.",points:["0.2 = users return every 5 days on average","0.5 = users return every other day — very sticky","1.0 = every monthly user is also daily — theoretical max","WhatsApp ~0.85, Facebook ~0.65, most B2B SaaS ~0.2-0.4","Low DAU/MAU signals engagement problem or narrow use case","Track by segment — power users vs casual users vary dramatically"],tip:"💡 DAU/MAU is the single most intuitive measure of product habit formation. Low ratio = users don't need you daily yet."},
+  kpi2:{tag:"Key Metric",title:"AARRR Pirate Metrics",desc:"Dave McClure's 5-stage funnel framework covering the complete user journey from acquisition to revenue expansion.",points:["Acquisition: how users find your product (CAC, traffic sources)","Activation: first experience of value (% who complete onboarding)","Retention: do users come back? (DAU/MAU, cohort retention)","Referral: do users tell others? (NPS, viral coefficient)","Revenue: do users pay and expand? (ARPU, NRR, LTV)"],tip:"💡 AARRR helps PMs diagnose exactly WHERE in the funnel their product has problems — and fix the right thing."},
+  kpi3:{tag:"Key Metric",title:"Net Revenue Retention (NRR)",desc:"NRR measures the revenue retained from existing customers, including expansion, contraction, and churn — all in one metric.",points:["NRR >100% = expansion revenue exceeds churn — growth without new customers","NRR 100% = flat — no growth from existing base","NRR <100% = shrinking — churn exceeds expansion","World-class SaaS companies target 120-130% NRR","PLG companies typically achieve higher NRR than sales-led peers","NRR is the most important single metric for SaaS company health"],tip:"💡 NRR >100% means your existing customers are growing your revenue even if you acquire zero new customers. That's the PLG dream state."},
+  fw1:{tag:"Analytics Framework",title:"Data Actualization",desc:"Pendo's framework for the ultimate state of analytics maturity — where data is accurate, accessible, and embedded in every product decision.",points:["5 characteristics: accurate data, harder questions, gut feel preserved","NOT a state where decisions become easy — complex decisions remain complex","Achieved through: data quality, team literacy, tooling, and culture","Pendo is built to help product teams reach Data Actualization","Requires investment in data infrastructure, analytics culture, and tooling","The goal is not more data — it's better decisions from existing data"],tip:"💡 Data Actualization is less about technology and more about culture. The best data stack in the world doesn't help if teams don't trust or use the data."},
+  fw2:{tag:"Analytics Framework",title:"Analytics Flywheel",desc:"The compounding loop where better analytics creates better decisions, which creates better products, which attract more users, which generates more data.",points:["More users → more behavioural data","More data → richer analytics and patterns","Richer analytics → better product decisions","Better decisions → better product → more users","The flywheel compounds over time — early investment pays exponential dividends","Teams that invest in analytics infrastructure early develop structural advantages"],tip:"💡 Analytics compounds like interest. The earlier you invest in analytics quality, the larger the compounding advantage."},
+  fw3:{tag:"Analytics Framework",title:"North Star Metric",desc:"A single metric that best captures the core value your product delivers to users. Everything else ladders up to it.",points:["Must capture real user value, not just company revenue","Should predict long-term growth and retention","Examples: Slack (DAU), Airbnb (nights booked), Spotify (time listening)","Avoid vanity metrics like total sign-ups or page views as North Stars","Your North Star should guide roadmap trade-offs and prioritisation","Review and evolve your North Star as your product matures"],tip:"💡 If your North Star metric grows, everything else tends to follow. Choose it carefully — it will define what your team optimises for."},
+  fw4:{tag:"Analytics Framework",title:"Experimentation Framework",desc:"A systematic approach to testing product hypotheses with controlled experiments before committing to full implementation.",points:["Hypothesis: We believe X will cause Y because Z","Control vs variant with randomised user assignment","Define success metric and minimum detectable effect upfront","Run until statistical significance (p < 0.05) is reached","Never stop tests early based on early results","Document all experiments — failed tests are as valuable as successful ones"],tip:"💡 An experimentation framework turns product development from opinion-based to evidence-based. This is how the best product teams in the world operate."}
+};
+function openModal(key){const d=mdata[key];if(!d)return;document.getElementById('modal-tag').textContent=d.tag;document.getElementById('modal-title').textContent=d.title;document.getElementById('modal-desc').textContent=d.desc;const ul=document.getElementById('modal-list');ul.innerHTML='';d.points.forEach(p=>{const li=document.createElement('li');li.textContent=p;ul.appendChild(li);});document.getElementById('modal-tip').textContent=d.tip;document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function openLesson(title,desc){event.stopPropagation();document.getElementById('modal-tag').textContent='Lesson Detail';document.getElementById('modal-title').textContent=title;document.getElementById('modal-desc').textContent=desc;document.getElementById('modal-list').innerHTML='';document.getElementById('modal-tip').textContent='';document.getElementById('overlay').classList.add('active');document.body.style.overflow='hidden';}
+function closeModal(){document.getElementById('overlay').classList.remove('active');document.body.style.overflow='';}
+function closeOverlay(e){if(e.target.id==='overlay')closeModal();}
+function toggleMod(card){const isOpen=card.classList.contains('open');document.querySelectorAll('.mod.open').forEach(c=>c.classList.remove('open'));if(!isOpen)card.classList.add('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
