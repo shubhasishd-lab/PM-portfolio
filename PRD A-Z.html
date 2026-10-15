@@ -1,0 +1,634 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>PRD A-Z</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: one vertical flowchart spine of expandable nodes (A, pillars 1-6, Z), with side tabs for chain, checklist, pitfalls, cheat sheet and drills. */
+:root{
+  --bg:#EDF0F5;--surface:#FFFFFF;--ink:#131C2B;--muted:#4F5B70;--line:#C9D1DF;--soft:#E4E9F2;
+  --accent:#1B2A4A;--on-accent:#FFFFFF;
+  --p0:#1B2A4A;--p1:#4B3FB5;--p2:#0B7A75;--p3:#A35208;--p4:#1F5FBF;--p5:#566075;--p6:#2B7A2E;--on-p:#FFFFFF;
+  --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --body:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D131F;--surface:#151D2D;--ink:#E7ECF6;--muted:#A0ACC2;--line:#2A3549;--soft:#1C2538;
+    --accent:#C9D6F7;--on-accent:#0D131F;
+    --p0:#C9D6F7;--p1:#A99DFF;--p2:#4FD1C5;--p3:#F2A65E;--p4:#7FB3FF;--p5:#AAB5C9;--p6:#7ED68A;--on-p:#0D131F;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D131F;--surface:#151D2D;--ink:#E7ECF6;--muted:#A0ACC2;--line:#2A3549;--soft:#1C2538;
+  --accent:#C9D6F7;--on-accent:#0D131F;
+  --p0:#C9D6F7;--p1:#A99DFF;--p2:#4FD1C5;--p3:#F2A65E;--p4:#7FB3FF;--p5:#AAB5C9;--p6:#7ED68A;--on-p:#0D131F;
+  color-scheme:dark;
+}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+*,*::before,*::after{box-sizing:border-box}
+.wrap{max-width:920px;margin:0 auto;padding:28px 16px 64px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(38px,8vw,60px);line-height:1;margin:0 0 10px;letter-spacing:-.02em}
+.lede{margin:0;max-width:62ch;color:var(--muted);font-size:16px}
+h2{font-family:var(--display);font-weight:700;font-size:24px;margin:0 0 4px;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:17px;margin:0;text-wrap:balance}
+h4{font-family:var(--mono);font-weight:500;font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:6px 0 0}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+.tabs{display:flex;gap:4px;overflow-x:auto;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;margin-top:22px;border-bottom:1px solid var(--line)}
+.tab{flex:0 0 auto;white-space:nowrap;padding:8px 14px;border:1px solid transparent;background:none;border-radius:3px;cursor:pointer;font-weight:500;font-size:14px;color:var(--muted)}
+.tab:hover{border-color:var(--line);color:var(--ink)}
+.tab[aria-current="page"]{background:var(--accent);color:var(--on-accent)}
+main{padding-top:20px;display:flex;flex-direction:column;gap:18px}
+.sec-head{display:flex;flex-direction:column;gap:4px;margin-bottom:2px}
+.sec-head p{color:var(--muted);max-width:66ch}
+
+/* pillar colour hooks */
+[data-p="0"]{--c:var(--p0)}[data-p="1"]{--c:var(--p1)}[data-p="2"]{--c:var(--p2)}[data-p="3"]{--c:var(--p3)}
+[data-p="4"]{--c:var(--p4)}[data-p="5"]{--c:var(--p5)}[data-p="6"]{--c:var(--p6)}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:8px;padding:5px 11px 5px 5px;border:1px solid var(--line);background:var(--surface);border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500}
+.chip:hover{border-color:var(--c)}
+.chip b{display:grid;place-items:center;width:22px;height:22px;background:var(--c);color:var(--on-p);font-family:var(--display);font-size:13px;border-radius:2px}
+.ghost{padding:6px 12px;border:1px solid var(--line);background:none;border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500}
+.ghost:hover{border-color:var(--ink)}
+.toolbar .sp{flex:1}
+
+.flow{display:flex;flex-direction:column}
+.node{background:var(--surface);border:1px solid var(--line);border-radius:4px;scroll-margin-top:72px}
+.hd{width:100%;display:grid;grid-template-columns:40px minmax(0,1fr) 16px;gap:14px;align-items:center;padding:14px;text-align:left;background:none;border:0;cursor:pointer}
+.badge{display:grid;place-items:center;width:40px;height:40px;background:var(--c);color:var(--on-p);font-family:var(--display);font-weight:700;font-size:20px;border-radius:3px}
+.hd .t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hd .q{color:var(--muted);font-size:14px}
+.hd .s{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--c)}
+.chev{width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .15s}
+.hd[aria-expanded="true"] .chev{transform:rotate(-135deg)}
+.bd{padding:0 14px 16px;border-top:1px solid var(--line)}
+.link{position:relative;height:48px;margin-left:34px;border-left:2px solid var(--line)}
+.link::after{content:"";position:absolute;left:-7px;bottom:-1px;border:6px solid transparent;border-top:8px solid var(--line);border-bottom:0}
+.link span{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11.5px;color:var(--muted)}
+
+.subs{display:flex;flex-wrap:wrap;align-items:center;gap:6px 0;margin:14px 0 10px}
+.sub{padding:7px 12px;border:1px solid var(--line);background:var(--surface);border-radius:3px;cursor:pointer;font-size:13.5px;font-weight:500}
+.sub:hover{border-color:var(--c)}
+.sub[aria-pressed="true"]{background:var(--c);border-color:var(--c);color:var(--on-p)}
+.sub.wn{border-style:dashed;margin-left:12px}
+.arr{padding:0 7px;color:var(--muted)}
+.pane{display:flex;flex-direction:column;gap:12px;padding:14px 16px;border:1px solid color-mix(in srgb,var(--c) 24%,var(--line));background:color-mix(in srgb,var(--c) 6%,var(--surface));border-radius:3px;margin-top:14px}
+.subs+.pane{margin-top:0}
+.pane ul,.pane ol{margin:0;padding-left:20px}
+.pane li+li{margin-top:4px}
+.pane b{font-weight:600}
+.tpl{font-family:var(--mono);font-size:13px;background:var(--surface);border:1px solid var(--line);padding:10px 12px;border-radius:3px;overflow-wrap:anywhere}
+.ex{border:1px dashed var(--c);padding:10px 12px;border-radius:3px;display:flex;flex-direction:column;gap:4px;background:var(--surface)}
+.warn{border:1px solid var(--line);padding:10px 12px;border-radius:3px;display:flex;flex-direction:column;gap:6px;background:var(--surface)}
+.lab{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--c)}
+.warn .lab{color:var(--muted)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-family:var(--mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--soft);white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;min-width:110px}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.strip{display:flex;flex-wrap:wrap;align-items:center;gap:6px 0}
+.sc-chip{padding:6px 10px;border:1px solid var(--line);background:var(--surface);border-radius:3px;font-size:13px;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chips span{padding:4px 10px;border:1px solid var(--line);background:var(--surface);border-radius:3px;font-size:13px}
+.lad{display:flex;flex-direction:column;gap:6px}
+.lad div{display:grid;grid-template-columns:minmax(0,1fr);gap:3px}
+.lad .bar{height:6px;background:var(--soft);border-radius:2px;overflow:hidden}
+.lad .bar i{display:block;height:100%;background:var(--c)}
+.lad small{color:var(--muted)}
+.ri{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:5px 7px;width:92px}
+.ri[data-f="n"]{width:120px}
+.sc{font-variant-numeric:tabular-nums;font-weight:600;text-align:right}
+.rk{font-variant-numeric:tabular-nums;text-align:right}
+
+/* steps */
+.prog{display:flex;flex-direction:column;gap:6px}
+.track{height:8px;background:var(--soft);border-radius:2px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--accent);transition:width .2s}
+.steps{display:flex;flex-direction:column;gap:6px}
+.step{display:grid;grid-template-columns:22px 30px minmax(0,1fr);gap:12px;align-items:start;padding:11px 12px;background:var(--surface);border:1px solid var(--line);border-radius:3px;cursor:pointer}
+.step input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--accent)}
+.step .n{font-family:var(--display);font-weight:700;font-size:18px;color:var(--c)}
+.step .tt{display:flex;flex-direction:column;gap:2px}
+.step .tt b{font-weight:600}
+.step .tt span{color:var(--muted);font-size:14px}
+.step.done .tt b{text-decoration:line-through;text-decoration-thickness:1px;color:var(--muted)}
+.tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--c);color:var(--c);padding:1px 6px;border-radius:2px;margin-left:8px;vertical-align:1px;font-weight:400}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card .k{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.card p{font-size:14px}
+.callout{background:var(--accent);color:var(--on-accent);padding:16px 18px;border-radius:3px;display:flex;flex-direction:column;gap:6px}
+.callout .lab{color:inherit;opacity:.75}
+.callout p{font-family:var(--display);font-size:19px;line-height:1.35;text-wrap:balance}
+.plain{background:var(--surface);border:1px solid var(--line);padding:14px 16px;border-radius:3px}
+details{background:var(--surface);border:1px solid var(--line);border-radius:3px}
+summary{cursor:pointer;padding:12px 14px;font-weight:500;list-style:none;display:flex;gap:12px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";margin-left:auto;font-family:var(--mono);color:var(--muted)}
+details[open] summary::after{content:"–"}
+details .ans{padding:0 14px 14px;display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+details .ans .ok{font-weight:600}
+.dn{font-family:var(--display);font-weight:700;color:var(--accent)}
+.list{display:flex;flex-direction:column;gap:8px}
+.foot{margin-top:36px;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:520px){.hd{gap:10px}.link span{font-size:11px}.sub.wn{margin-left:0}}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>PRD A-Z</h1>
+    <p class="lede">How a Product Requirements Document is built, from the first painful problem to the metric that proves it worked. Open any step to go deeper.</p>
+  </header>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+  <main id="view"></main>
+  <p class="foot">A general PRD framework. All examples and numbers are hypothetical.</p>
+</div>
+
+<script>
+(function(){
+var NAMES=['','Why','Who','What','Functional','Technical','Success'];
+
+/* ---------- helpers ---------- */
+var P=function(t){return '<p>'+t+'</p>'};
+var H=function(t){return '<h4>'+t+'</h4>'};
+var UL=function(a){return '<ul>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>'};
+var OL=function(a){return '<ol>'+a.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ol>'};
+var TPL=function(t){return '<div class="tpl">'+t+'</div>'};
+var EX=function(t){return '<div class="ex"><span class="lab">Example, hypothetical</span><p>'+t+'</p></div>'};
+var WARN=function(a){return '<div class="warn"><span class="lab">Watch out</span>'+UL(a)+'</div>'};
+var CHIPS=function(a){return '<div class="chips">'+a.map(function(x){return '<span>'+x+'</span>'}).join('')+'</div>'};
+var STRIP=function(a,cls){return '<div class="strip">'+a.map(function(x,i){return (i?'<span class="arr" aria-hidden="true">&rarr;</span>':'')+'<span class="sc-chip">'+x+'</span>'}).join('')+'</div>'};
+var T=function(h,rows){return '<div class="tw"><table><thead><tr>'+h.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+c+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>'};
+var LADDER=function(a){return '<div class="lad">'+a.map(function(x,i){return '<div><span><b>'+(i+1)+'. '+x[0]+'</b> <small>'+x[1]+'</small></span><span class="bar"><i style="width:'+(20*(i+1))+'%"></i></span></div>'}).join('')+'</div>'};
+var TAG=function(p){return '<span class="tag" data-p="'+p+'">'+(p?NAMES[p]:'All')+'</span>'};
+
+/* ---------- RICE calculator ---------- */
+var rice=[
+  {n:'Feature A',r:6000,i:1,c:90,e:0.5},
+  {n:'Feature B',r:9000,i:3,c:30,e:6},
+  {n:'Feature C',r:3000,i:2,c:70,e:2}
+];
+var IMPACT=[[0.25,'0.25 minimal'],[0.5,'0.5 low'],[1,'1 medium'],[2,'2 high'],[3,'3 massive']];
+function riceHTML(){
+  var rows=rice.map(function(f,i){
+    var opts=IMPACT.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===f.i?' selected':'')+'>'+o[1]+'</option>'}).join('');
+    return '<tr><td><input class="ri" id="ri-'+i+'-n" data-i="'+i+'" data-f="n" value="'+f.n+'" aria-label="Feature '+(i+1)+' name"></td>'+
+      '<td><input class="ri" id="ri-'+i+'-r" type="number" min="0" data-i="'+i+'" data-f="r" value="'+f.r+'" aria-label="Reach"></td>'+
+      '<td><select class="ri" id="ri-'+i+'-i" data-i="'+i+'" data-f="i" aria-label="Impact">'+opts+'</select></td>'+
+      '<td><input class="ri" id="ri-'+i+'-c" type="number" min="0" max="100" data-i="'+i+'" data-f="c" value="'+f.c+'" aria-label="Confidence percent"></td>'+
+      '<td><input class="ri" id="ri-'+i+'-e" type="number" min="0.1" step="0.5" data-i="'+i+'" data-f="e" value="'+f.e+'" aria-label="Effort in person-months"></td>'+
+      '<td class="sc" id="sc'+i+'"></td><td class="rk" id="rk'+i+'"></td></tr>';
+  }).join('');
+  return H('Try it, change any number')+
+    '<div class="tw"><table><thead><tr><th>Feature</th><th>Reach / quarter</th><th>Impact</th><th>Confidence %</th><th>Effort (person-months)</th><th class="num">RICE</th><th class="num">Rank</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+    P('The presets show the judgment lesson. Feature A reaches fewer users with moderate impact, but evidence is strong and it takes about two weeks. Feature B looks huge on paper, with weak evidence and six months of work. Confidence and effort change the economics.');
+}
+function updateRice(){
+  var sc=rice.map(function(f){return f.e>0?f.r*f.i*(f.c/100)/f.e:NaN});
+  sc.forEach(function(s,i){
+    var a=document.getElementById('sc'+i),b=document.getElementById('rk'+i);
+    if(!a)return;
+    a.textContent=isNaN(s)?'n/a':Math.round(s).toLocaleString('en-IN');
+    var rank=isNaN(s)?'-':1+sc.filter(function(o){return !isNaN(o)&&o>s}).length;
+    b.textContent=rank;
+  });
+}
+
+/* ---------- flow nodes ---------- */
+var NODES=[
+{id:'a',p:0,badge:'A',title:'What a PRD is',q:'The shared source of truth, from problem to proof.',secs:'Start here',
+ body:
+  P('A Product Requirements Document (PRD) is the shared source of truth for a product problem, the users affected by it, the outcome the product should create, the solution boundaries, the rules the product must follow, and the evidence that shows whether it worked.')+
+  H('A PRD bridges three worlds')+
+  T(['World','What it contributes'],[
+    ['Business / Strategy','Why the problem matters, strategic value, business goal, constraints, prioritization.'],
+    ['User / Experience','Who experiences the problem, context, behavior, pain points, desired outcomes.'],
+    ['Technical / Execution','What the system must do, rules, integrations, performance, security, testability.']])+
+  H('Who owns what')+
+  T(['Function','Owns'],[
+    ['Product','The problem, the desired outcome, requirements and constraints'],
+    ['Design','The experience and the visual solution'],
+    ['Engineering','The implementation'],
+    ['QA','Validating behavior'],
+    ['Analytics','Validating outcomes']])+
+  P('These functions collaborate. They do not work in silos.')+
+  H('What a PRD should not do')+
+  P('It should not become a line-by-line coding manual, and it should not dictate every pixel of the UI.')+
+  H('The chain that holds it together')+
+  STRIP(['Problem','Objective','Solution','Requirements','Acceptance Criteria','Metrics'])+
+  P('The chain protects against the feature factory: building features because someone suggested them, with no proof of the problem and no way to measure success.')+
+  '<div class="warn"><span class="lab">How to read the six pillars</span><p>They are a thinking lens. Real PRD templates may have more or fewer headings. Map each pillar onto the sections your company uses, and make sure every question below gets answered.</p></div>'
+},
+
+{id:'p1',p:1,badge:'1',title:'The Why',q:'Why does this problem matter?',secs:'Executive Summary · Problem · Business Goal',
+ subs:[
+  {k:'Problem',h:
+    P('Start with an acute, evidence-backed pain, not a loose feature idea. A good problem statement names the negative condition and what it costs the user. This is the Problem-Friction Framework.')+
+    TPL('[Who] experiences [friction] because [reason]. The consequence is [impact]. Evidence: [source].')+
+    EX('Shoppers abandon their cart at the payment step because extra charges only appear there. The business loses completed orders and shoppers lose trust in the listed price. Evidence: funnel drop-off data and an exit survey.')+
+    P('Include the behavior (what users do) and the underlying reason (why they do it). Both need to be measurable.')},
+  {k:'Business goal',h:
+    P('A business goal is not always "make money." Say why the business or institution should care.')+
+    CHIPS(['Revenue','Strategic positioning','Institutional value','Retention','Efficiency','Trust'])+
+    EX('Goal: raise completed purchases to protect revenue and build trust in the displayed price.')+
+    P('State the goal plainly here, then tie it to a measurable result in Pillar 6.')},
+  {k:'Value hook',h:
+    P('Engagement is not automatically value. Some products create value by taking something away (noise, steps, delay, doubt) while protecting what matters. Think of it as subtraction as a service.')+
+    UL(['Ask what the product should remove.','Ask what must be protected so removal never causes harm.','The answer to the second question becomes a guardrail in Pillar 6.'])},
+  {k:'Executive summary',h:
+    P('The Executive Summary is the narrative engine of the PRD. It tells the story on one page: the painful reality, the friction, why it matters, the outcome you want, and why the business should care.')+
+    UL(['What are we solving?','What are we proposing?','Why now?','What is the strategic goal?'])},
+  {k:'Watch out',warn:1,h:WARN(['Opening with a feature ("let\'s build a better notification system") instead of a problem.','A pain with no evidence behind it.','A business goal nobody can measure.'])}
+ ]},
+
+{id:'p2',p:2,badge:'2',title:'The Who',q:'Who has the problem, and in what context?',secs:'Target Users · Personas · Jobs to be done',
+ subs:[
+  {k:'Segment to persona',h:
+    P('Turn a broad market segment into concrete user situations and behavior patterns, so the team can reason about who needs what and why. Do not stop at demographics.')+
+    T(['Persona field','What to capture'],[['Context','Where and when the problem happens'],['Motivation','What the person is trying to achieve'],['Behavior','What they actually do today'],['Emotional trigger','What makes the pain feel urgent'],['Pain point','What goes wrong'],['Desired outcome','What a good result looks like to them']])+
+    P('Keep MVP personas focused. Three is enough.')+
+    EX('"Priya, frequent shopper" buys on her phone during commutes, wants speed, abandons when the total jumps at payment, and wants to know the final price before she commits.')},
+  {k:'Persona vs problem',h:
+    H('The removal test')+
+    P('Delete the persona from the document. If the problem still exists, the persona was a story that helped the team see a user type, and the problem stands on its own.')+
+    H('Personas are not facts')+
+    P('A line like "70% of shoppers feel misled" needs evidence. A persona is a useful model. Research validates the behavior underneath it.')},
+  {k:'Job to be done',h:
+    TPL('When [situation], I want to [motivation], so I can [outcome].')+
+    EX('When I am about to pay, I want to see the full total, so I can decide without being surprised.')+
+    P('A job statement keeps the focus on the progress the user wants, which makes it easier to compare different solutions to the same need.')},
+  {k:'Evidence ladder',h:
+    P('Problems can start as hypotheses. Strong PRDs climb this ladder.')+
+    LADDER([['Hypothesis or anecdote','useful starting point, low confidence'],['Qualitative research','interviews and observation reveal context and motivation'],['Quantitative survey','estimates how common a problem or preference is'],['Behavioral data','shows what users actually do'],['Experiment or prototype test','tests whether the intervention changes behavior']])+
+    P('Evidence that a problem exists is different from evidence that a particular solution works.')},
+  {k:'Watch out',warn:1,h:WARN(['Describing users only by age, role or location.','Quoting persona statistics with no source.','Five or six MVP personas, which blurs priorities.'])}
+ ]},
+
+{id:'p3',p:3,badge:'3',title:'The What',q:'What are we proposing, and what is in the MVP?',secs:'Solution Overview · MVP Scope · Prioritization',
+ subs:[
+  {k:'Decompose',h:
+    P('"Let\'s build a better notification system" is too broad. Trace each feature to a specific pain point.')+
+    T(['Pain point','Feature that answers it'],[['Surprise charges at payment','Upfront total price preview'],['Re-typing card details every time','Saved payment methods'],['Doubt about whether a seller is reliable','Verified seller badge']])+
+    P('Every feature must answer one question: which problem does it solve? If you cannot say, it is not ready for the MVP. The pairs above are hypothetical.')},
+  {k:'Funnel',h:
+    P('From many ideas to a bounded MVP:')+
+    OL(['Collect possible user needs and ideas.','Identify and validate meaningful problems.','Generate candidate solutions.','Check feasibility, constraints and dependencies.','Score and compare with a framework such as RICE.','Select the MVP using evidence, strategic importance and learning value.','Defer the rest instead of letting scope grow.'])},
+  {k:'RICE',h:function(){return (
+    TPL('RICE score = Reach × Impact × Confidence ÷ Effort')+
+    T(['Factor','Meaning'],[['Reach','How many users or events the feature affects in a defined period'],['Impact','How strongly it moves the target outcome'],['Confidence','How strong the evidence is behind Reach and Impact'],['Effort','Engineering, design and operational work required']])+
+    P('<b>Confidence is evidence strength, not personal belief.</b> A guessed 30% lift with little research is low confidence. Interviews and surveys can justify moderate confidence. Strong behavioral data or an experiment can justify high confidence.')+
+    riceHTML())}},
+  {k:'MVP scope',h:
+    P('The MVP is the smallest viable product that delivers meaningful value and tests the key product hypothesis. It is more than the fewest features.')+
+    T(['Bucket','Question to answer'],[['In','What must exist to test the core hypothesis?'],['Out','What is explicitly excluded, and why?'],['Deferred','What waits until the MVP teaches us something?']])+
+    H('A framework is a decision aid')+
+    P('RICE exposes trade-offs. You can still choose a lower-scoring feature for a strategic reason, as long as the reason is written down.')},
+  {k:'Watch out',warn:1,h:WARN(['A ranking table whose scores do not sort in the order shown.','A strategic summary that recommends something the MVP scope leaves out.','Scores with no stated assumptions or confidence source.','Scope that keeps growing because nothing was deferred.'])}
+ ]},
+
+{id:'p4',p:4,badge:'4',title:'Functional Requirements',q:'What must the product do?',secs:'User Stories · Requirements · Acceptance Criteria · User Flows',
+ subs:[
+  {k:'User story',h:
+    TPL('As a [user], I want to [action or capability], so that [outcome or benefit].')+
+    T(['Version','Text'],[['Need first (better start)','As a shopper, I want to see the total price before I commit, so that I am not surprised at payment.'],['Already a solution','As a shopper, I want a price breakdown banner at the top of the payment page.']])+
+    P('The second version can become a requirement later. As an opening need statement it fixes the solution too early. A user story states a need. Acceptance criteria prove system behavior, so they are never just more user stories.')},
+  {k:'Requirement',h:
+    P('A requirement says what the system must do. It sits between the feature and the test. Read the ladder from top to bottom.')+
+    T(['Level','Question','Example'],[
+      ['Objective','What change do we want?','Reduce checkout abandonment.'],
+      ['Feature','What are we proposing?','Upfront price preview.'],
+      ['Requirement','What must the system do?','Show the total with tax and shipping before the Pay button is enabled.'],
+      ['Acceptance criterion','How do we prove it works?','Given a shopper on the payment step, when the page loads, then the full total is visible before payment.'],
+      ['Metric','Did the outcome improve?','Abandonment at payment falls from 40% to 30%.']])},
+  {k:'Acceptance criteria',h:
+    P('Acceptance criteria are specific, observable, testable and pass/fail. They are not a restatement of the feature purpose.')+
+    TPL('Given [starting condition], When [event or action], Then [expected system behavior].')+
+    EX('Given a shopper is on the payment step, when the page loads, then the total including tax and shipping is shown before the Pay button is enabled.')+
+    EX('Exception path: given a promo code is invalid, when the shopper applies it, then the total stays unchanged and an error message names the problem.')+
+    P('<b>Keep features separate.</b> Do not mix one feature\'s condition into another feature\'s criterion unless the dependency is explicitly being tested.')},
+  {k:'Edge cases',h:
+    P('Good criteria force boundary decisions. Ask every time:')+
+    UL(['What happens exactly at the boundary?','What happens at capacity?','What happens without the needed permission?','What happens when two rules conflict?'])+
+    T(['Vague wording','Explicit rule'],[['"Within 5 km"','Distance ≤ 5 km. The boundary is included unless stated otherwise.'],['"Within 3 seconds"','Response time ≤ 3 s, never "after 3 s".'],['"3 days before"','Trigger 72 hours before the event, in local time.'],['"Nearby", "fast", "periodically"','Replace with a number, a unit and a boundary.']])},
+  {k:'User flow',h:
+    P('A flow answers: what happens from trigger to outcome, including the decisions and filters in between. A feature is often a mini workflow, not a single action.')+
+    STRIP(['Trigger','Filter 1','Filter 2','Priority rule','Action','Capacity / end state'])+
+    EX('A seller posts a limited-time offer. The system checks region, then membership tier, then applies a priority rule so the offer can interrupt quiet mode. An eligible shopper claims it. The offer closes after N claims.')+
+    H('Independent filters')+
+    T(['Shopper','Distance','Tier','Result'],[['A','3 km','Gold','Eligible'],['B','1 km','Basic','Not eligible (fails tier)'],['C','8 km','Gold','Not eligible (fails distance)']])+
+    P('The rule is distance ≤ 5 km <b>and</b> tier = Gold. The two filters are independent, so passing one never rescues a fail on the other. Also map failure paths: no permission, no network, expired offer, full capacity.')},
+  {k:'Watch out',warn:1,h:WARN(['Vague words such as "nearby", "fast", "easy" or "periodically".','Stories written where acceptance criteria belong.','Feature logic mixed together with no stated dependency.','Prescribing pixels instead of required behavior.'])}
+ ]},
+
+{id:'p5',p:5,badge:'5',title:'Technical and Non-Functional',q:'What constraints and performance rules must hold?',secs:'Technical Requirements · APIs · Security · Performance',
+ subs:[
+  {k:'Constraint types',h:
+    P('Define the conditions the feature must operate under. Write each one so it can be measured.')+
+    T(['Constraint','Write it like this','Why it matters'],[
+      ['Performance and latency','Alert delivered ≤ X seconds after publish','A late alert loses its value'],
+      ['Integrations and APIs','Read-only REST API with OAuth 2.0','Access limited to what is needed'],
+      ['Sync frequency','Data refreshed every N hours','Freshness against system load'],
+      ['Privacy and location','Checked on device, no persistent location history','Limits exposure of personal data'],
+      ['Sensitive data','Zero sensitive data in message payloads, enforced by filters','Prevents leaks'],
+      ['Security','Authentication, permissions, encryption in transit','Protects users and the business'],
+      ['Resource use','Battery impact ≤ X% per day','Features must not drain devices'],
+      ['Reliability','Critical items bypass suppression 100% of the time','Protects the critical path'],
+      ['Platform permissions','Special OS entitlements for priority alerts','Some behavior needs approval first'],
+      ['Dependencies and risks','Third-party systems and approvals listed','Shows what could block delivery']])},
+  {k:'Functional vs non-functional',h:
+    T(['Type','Answers','Example'],[['Functional','What does the product do?','Only eligible users receive the offer.'],['Non-functional','How well, how safely, or under what constraints?','Delivered within 15 seconds, with no stored location history.']])+
+    P('A product can meet every functional requirement and still fail on speed, safety or battery.')},
+  {k:'The PM role',h:
+    P('The PM does not write the code. The PM states required behavior and constraints clearly enough for engineering to design the implementation.')+
+    UL(['Say what must be true, with numbers and boundaries.','Leave the how to engineering.','List dependencies early so risk is visible.'])},
+  {k:'Watch out',warn:1,h:WARN(['Words like "fast" or "secure" with no measurable target.','Privacy treated as an afterthought.','Dependencies discovered only after the build starts.'])}
+ ]},
+
+{id:'p6',p:6,badge:'6',title:'Success and Guardrails',q:'How do we know it worked without causing harm?',secs:'KPIs · North Star · Anti-Metrics · Guardrails',
+ subs:[
+  {k:'AC vs metrics',h:
+    T(['','Asks','Checked'],[['Acceptance criteria','Did we build the behavior correctly?','Before launch, by QA'],['Metrics','Did the behavior create the intended outcome?','After launch, with data']])+
+    P('Acceptance criteria are not the finish line. They prove the product was implemented correctly. Metrics show whether it solved the problem.')},
+  {k:'Metric layers',h:
+    T(['Layer','What it tracks','Illustrative target'],[
+      ['North Star','The one number that captures delivered value, such as the share of delivered messages that lead to a useful action','Set from a baseline'],
+      ['Acquisition','Users who grant the permission the feature needs','> 80% opt-in'],
+      ['Activation','First key action completed soon after signup','60% within 7 days'],
+      ['Retention','Repeat use of the core habit','> 60% weekly open rate'],
+      ['Outcome','The pain metric itself, such as interruptions per day or abandonment rate','45 down to < 8 a day'],
+      ['Anti-metric / guardrail','What must not get worse','Critical items missed = 0%'],
+      ['Distribution guardrail','Keeps limited opportunities spread fairly','Top 10% of users take ≤ 50%']])+
+    P('Targets above are illustrative. Set real ones from your own baseline.')},
+  {k:'Guardrails',h:
+    P('Every optimization needs a guardrail.')+
+    UL(['Reducing noise is valuable only if critical messages still get through.','Increasing access is valuable only if opportunities stay fairly distributed.','Write the guardrail as a number, so a breach is obvious.'])},
+  {k:'Right thing vs thing right',h:
+    EX('The feature works exactly as specified and meets every acceptance criterion, yet users still do not take more of the target action.')+
+    P('The implementation may be correct while the solution hypothesis is wrong. Building the thing right is not the same as building the right thing. This is why outcome metrics exist.')},
+  {k:'Watch out',warn:1,h:WARN(['Measuring only clicks and opens, which may not prove value.','A North Star nobody can calculate.','Launching with no guardrail metric at all.'])}
+ ]},
+
+{id:'z',p:0,badge:'Z',title:'Review, align, learn',q:'Does everything trace, and does everyone read it the same way?',secs:'Before it ships',
+ body:
+  H('Final traceability test')+
+  P('For every important feature, you should be able to answer:')+
+  OL(['Which problem does it solve?','Which user needs it?','What requirement defines it?','How will QA test it?','Which metric tells us whether it mattered?'])+
+  H('Review for contradictions')+
+  P('Check that problem, objective, feature, requirement and metric trace to one another. If the ranking, the recommendation and the MVP scope disagree, stop and reconcile them. That is product thinking, not admin cleanup.')+
+  H('Three PM checks')+
+  T(['Check','Question'],[['Problem check','Is the pain real, important and evidenced?'],['Execution check','Can the team read the requirement and acceptance criteria the same way?'],['Outcome check','If we build it, will the user and business outcome actually improve?']])+
+  H('Align across functions')+
+  P('Product, Design, Engineering, QA, Data and stakeholders should all read the PRD the same way. Walk through it together and note every line two people interpret differently.')+
+  H('Then ship, measure, learn')+
+  '<div><button class="ghost" data-act="jump" data-v="p1">Back to The Why</button></div>'
+}
+];
+var LINKS=['start with the pain','whose pain is it?','validated problem becomes a bounded solution','scope becomes behavior','behavior needs limits','built right, but did it work?','trace, reconcile, align'];
+
+var open={a:true},subIdx={};
+function subH(s){return typeof s.h==='function'?s.h():s.h}
+function bodyHTML(n){
+  if(!n.subs)return '<div class="pane">'+n.body+'</div>';
+  var k=subIdx[n.id]||0;
+  var nav=n.subs.map(function(s,j){
+    return (j>0&&!s.warn?'<span class="arr" aria-hidden="true">&rarr;</span>':'')+
+      '<button class="sub'+(s.warn?' wn':'')+'" data-act="sub" data-id="'+n.id+'" data-k="'+j+'" aria-pressed="'+(j===k)+'">'+s.k+'</button>';
+  }).join('');
+  return '<div class="subs">'+nav+'</div><div class="pane">'+subH(n.subs[k])+'</div>';
+}
+function nodeHTML(n){
+  var o=!!open[n.id];
+  return '<section class="node" id="n-'+n.id+'" data-p="'+n.p+'">'+
+    '<button class="hd" data-act="toggle" data-id="'+n.id+'" aria-expanded="'+o+'" aria-controls="b-'+n.id+'">'+
+    '<span class="badge" aria-hidden="true">'+n.badge+'</span>'+
+    '<span class="t"><span class="s">'+n.secs+'</span><h3>'+n.title+'</h3><span class="q">'+n.q+'</span></span><span class="chev" aria-hidden="true"></span></button>'+
+    '<div class="bd" id="b-'+n.id+'"'+(o?'':' hidden')+'>'+bodyHTML(n)+'</div></section>';
+}
+function renderFlow(){
+  var chips=NODES.filter(function(n){return n.p>0}).map(function(n){
+    return '<button class="chip" data-p="'+n.p+'" data-act="jump" data-v="'+n.id+'"><b>'+n.badge+'</b>'+NAMES[n.p]+'</button>';
+  }).join('');
+  var flow=NODES.map(function(n,i){return nodeHTML(n)+(i<NODES.length-1?'<div class="link" aria-hidden="true"><span>'+LINKS[i]+'</span></div>':'')}).join('');
+  return '<div class="sec-head"><h2>The PRD anatomy, step by step</h2><p>Six pillars take an idea from problem to proof. Each one has a core question and a mini flow inside it.</p></div>'+
+    '<div class="toolbar">'+chips+'<span class="sp"></span><button class="ghost" data-act="all" data-v="1">Expand all</button><button class="ghost" data-act="all" data-v="0">Collapse all</button></div>'+
+    '<div class="flow">'+flow+'</div>';
+}
+
+/* ---------- chain ---------- */
+function renderChain(){
+  var master=['Validated problem','Desired outcome','Evidence-backed solution','Prioritized MVP','Precise requirements','Testable acceptance criteria','Technical guardrails','Outcome metrics','Learning and iteration'];
+  return '<div class="sec-head"><h2>The chain</h2><p>Every important feature should trace back to a problem and forward to a measurable outcome.</p></div>'+
+   '<div class="plain list">'+H('The master formula')+STRIP(master)+'</div>'+
+   T(['Layer','Definition','Example (hypothetical)'],[
+     ['Problem','The painful condition and its consequence','Shoppers abandon carts because extra charges appear only at payment, so orders are lost and trust drops.'],
+     ['Objective','The change we want to create','Reduce checkout abandonment.'],
+     ['Solution','The product intervention proposed','Upfront total price preview.'],
+     ['Requirement','A rule or capability the product must satisfy','The total with tax and shipping is shown before the Pay button is enabled.'],
+     ['Acceptance criteria','Observable pass/fail evidence the requirement works','Given a shopper on the payment step, when the page loads, then the full total is visible.'],
+     ['Metric','Evidence the product outcome improved','Abandonment at payment falls from 40% to 30%.']])+
+   '<div class="plain list">'+H('Why the order matters')+P('Start with the solution and you risk a feature factory. Start with the problem and you can ask whether the feature actually addresses a validated need.')+'</div>'+
+   '<div class="grid">'+
+     '<div class="card"><span class="k">Objective vs feature</span><p>"Reduce missed opportunities" is an objective. "Notify users within 5 km" is a behavior and a requirement.</p></div>'+
+     '<div class="card"><span class="k">Story vs criteria</span><p>A story states a user need. Acceptance criteria prove system behavior.</p></div>'+
+     '<div class="card"><span class="k">Criteria vs metrics</span><p>Criteria validate implementation. Metrics validate the outcome.</p></div>'+
+   '</div>';
+}
+
+/* ---------- build checklist ---------- */
+var STEPS=[
+ ['Write the problem','Who has it? What happens? Why is it painful? What evidence supports it?',1],
+ ['Define the objective','What measurable change should happen if we solve the problem?',1],
+ ['Define the target user','Which segment matters most? What context and behaviors matter?',2],
+ ['Describe the business goal','Why does solving this matter to the company or institution?',1],
+ ['Generate solution options','Do not commit too early. Trace every candidate back to a problem.',3],
+ ['Define the MVP','What must be built to test the core hypothesis, and what is explicitly out of scope?',3],
+ ['Prioritize','Use RICE or another transparent framework. Document assumptions and confidence.',3],
+ ['Write user stories','User, need, outcome.',4],
+ ['Write requirements','Turn desired behavior into precise rules that do not dictate implementation.',4],
+ ['Write acceptance criteria','Given/When/Then or pass/fail checklists, with exceptions and edge cases.',4],
+ ['Map user flows','Trigger, decision, action, outcome, including eligibility and failure paths.',4],
+ ['Define technical and non-functional requirements','APIs, latency, battery, privacy, security, reliability, dependencies.',5],
+ ['Define metrics','North Star, supporting KPIs, anti-metrics and guardrails.',6],
+ ['Review for contradictions','Problem, objective, feature, requirement and metric should trace to one another.',0],
+ ['Get cross-functional alignment','Product, Design, Engineering, QA, Data and stakeholders read it the same way.',0]
+];
+var done=[];
+try{var sv=JSON.parse(localStorage.getItem('prdaz-steps'));if(Array.isArray(sv))done=sv}catch(e){}
+function saveDone(){try{localStorage.setItem('prdaz-steps',JSON.stringify(done))}catch(e){}}
+function renderBuild(){
+  var rows=STEPS.map(function(s,i){
+    return '<label class="step'+(done[i]?' done':'')+'" data-p="'+s[2]+'"><input type="checkbox" id="st-'+i+'" data-i="'+i+'"'+(done[i]?' checked':'')+'>'+
+      '<span class="n">'+(i+1)+'</span><span class="tt"><b>'+s[0]+TAG(s[2])+'</b><span>'+s[1]+'</span></span></label>';
+  }).join('');
+  return '<div class="sec-head"><h2>Write a PRD from scratch</h2><p>Fifteen steps in order. Tick them off as you go; your progress stays in this browser.</p></div>'+
+    '<div class="prog"><div class="track"><i id="bar"></i></div><div class="toolbar"><span id="cnt"></span><span class="sp"></span><button class="ghost" data-act="reset">Reset</button></div></div>'+
+    '<div class="steps">'+rows+'</div>';
+}
+function updateProg(){
+  var n=done.filter(Boolean).length;
+  var b=document.getElementById('bar'),c=document.getElementById('cnt');
+  if(b)b.style.width=(n/STEPS.length*100)+'%';
+  if(c)c.textContent=n+' of '+STEPS.length+' steps done';
+}
+
+/* ---------- pitfalls ---------- */
+var PIT=[
+ ['Starting with a feature','"Let\'s build a better notification system."','Define the problem and the evidence first.'],
+ ['Vague requirements','"Notify users periodically", "nearby", "fast", "easy".','Define intervals, boundaries and measurable conditions.'],
+ ['Stories mistaken for criteria','New user stories written where pass/fail checks belong.','A story states a need. Criteria prove system behavior.'],
+ ['Criteria mistaken for metrics','"We shipped to spec, so it worked."','Criteria validate implementation. Metrics validate the outcome.'],
+ ['Over-prescribing design','Dictating where each element sits on screen.','Specify behavior and constraints. Leave the visual solution to design.'],
+ ['Mixing feature logic','One feature\'s condition sneaks into another feature\'s test.','Keep each feature\'s rules separate unless the dependency is explicit.'],
+ ['Treating personas as facts','"92% of users struggle" with no source.','Validate persona pain points with research.'],
+ ['Treating RICE as the answer','Building whatever scores highest, no questions asked.','Use it to expose trade-offs, then record your judgment.'],
+ ['Ignoring edge cases','Nothing written for the exact boundary, full capacity, missing permission or conflicting rules.','Ask what happens at each one and write the rule.'],
+ ['Measuring only activity','Clicks and opens go up, but nothing improves for the user.','Measure the outcome the user actually wanted.'],
+ ['Optimizing without guardrails','Noise drops, and critical messages get suppressed too.','Add an anti-metric that must not get worse.'],
+ ['Leaving inconsistencies in','Ranking, numbers and recommendation contradict each other.','Check that scores sort correctly and the recommendation matches the MVP.']
+];
+function renderPit(){
+  return '<div class="sec-head"><h2>Common PRD mistakes</h2><p>Twelve traps and how to step around them.</p></div>'+
+   '<div class="grid">'+PIT.map(function(x,i){return '<div class="card"><span class="k">'+(i+1<10?'0':'')+(i+1)+'</span><h3>'+x[0]+'</h3><p><b>Looks like:</b> '+x[1]+'</p><p><b>Fix:</b> '+x[2]+'</p></div>'}).join('')+'</div>'+
+   '<div class="callout"><span class="lab">Professional PM habit</span><p>When a statement is ambiguous, do not interpret it creatively. Name the ambiguity and turn it into an explicit rule.</p></div>';
+}
+
+/* ---------- cheat sheet ---------- */
+function renderCheat(){
+  var tmpl=[
+   ['Executive Summary','What are we solving? What are we proposing? Why now? What is the strategic goal?',1],
+   ['Problem Statement','What is happening today? Who suffers? What is the consequence? What evidence supports it?',1],
+   ['Target Users / Personas','Who is affected? What context, behavior, motivation and pain matter?',2],
+   ['Goals / Objectives','What measurable change are we trying to create?',1],
+   ['Solution Overview','What is the proposed intervention? Why does it address the problem?',3],
+   ['MVP Scope / Prioritization','What is in? What is out? Why? What does RICE or other evidence say?',3],
+   ['User Stories','Who needs what and why?',4],
+   ['Functional Requirements','What must the system do? What rules and states apply?',4],
+   ['User Flows','What happens from trigger through decision points to outcome?',4],
+   ['Acceptance Criteria','How do we prove each requirement works? Include edge cases.',4],
+   ['UX / UI Requirements','What experience constraints matter, without over-prescribing design?',4],
+   ['Technical / Non-Functional Requirements','What performance, integration, security, privacy and reliability constraints apply?',5],
+   ['Dependencies / Risks / Constraints','What could block or weaken delivery?',5],
+   ['Metrics / Success Criteria','How will we know the product produced the outcome?',6],
+   ['Guardrails / Anti-Metrics','What must not get worse while we optimize?',6],
+   ['Launch / Rollout','How will we release, monitor and learn?',6],
+   ['Appendices','Research, personas, JTBD, calculations, glossary, supporting evidence.',0]
+  ];
+  var lessons=[
+   ['Fall in love with the problem, not the solution.','A brilliant solution for a weak or nonexistent problem can still fail. The quality of the problem definition sets the quality of everything after it.'],
+   ['PRDs are alignment documents.','They align Product, Design, Engineering, QA, Data and stakeholders on the same problem, user, behavior, boundaries and outcome.'],
+   ['PMs define rules, not implementation.','Say what must happen, what cannot happen, and the constraints. Let engineering and design find the best way within them.'],
+   ['Data protects the MVP.','Research and prioritization frameworks stop scope from turning into a pile of shiny ideas.'],
+   ['Precision is a product skill.','"Within 500 m", "≤ 15 seconds" and "8:00 PM local time" turn intent into behavior that can be tested.'],
+   ['Acceptance criteria are not the finish line.','They prove the build is right. Metrics show whether the problem was solved.'],
+   ['Every optimization needs a guardrail.','Less noise only counts if critical messages still arrive. More access only counts if opportunity stays fairly shared.'],
+   ['A good PRD is traceable.','Each major feature links back to a problem and forward to a measurable outcome.'],
+   ['Contradictions are signals.','If ranking, recommendation and MVP scope disagree, stop and reconcile. That is product thinking.']
+  ];
+  return '<div class="sec-head"><h2>Cheat sheet</h2><p>The whole framework on one screen. Handy for revision and interviews.</p></div>'+
+   '<div class="plain list">'+H('The PRD question set')+T(['Ask','Think'],[
+     ['Why?','Problem + evidence + business goal'],['Who?','Segment + context + persona + behavior'],['What change?','Objective / desired outcome'],
+     ['What are we building?','Solution / feature / MVP'],['What must it do?','Requirements'],['How do we prove it works?','Acceptance criteria / Given-When-Then'],
+     ['What happens end to end?','User flow'],['Under what limits?','Technical + non-functional requirements'],['Did it matter?','Metrics / North Star'],
+     ['What must not break?','Anti-metrics / guardrails'],['What do we build first?','Prioritization / RICE / judgment']])+'</div>'+
+   '<div class="callout"><span class="lab">The golden rule</span><p>Never let a solution outrun the problem. Never let a requirement stay ambiguous when it can be made testable. Never declare success merely because the feature shipped.</p></div>'+
+   '<div class="plain list">'+H('Ten-section layout, mapped to the pillars')+T(['Section','What it contributes','Pillar'],[
+     ['I. Executive Summary','Problem, solution, business goal',TAG(1)],
+     ['II. Target Users and Personas','Who has the problem',TAG(2)],
+     ['III. Solution Overview (MVP)','What is being built first',TAG(3)],
+     ['IV. User Stories and Acceptance Criteria','Functional behavior',TAG(4)],
+     ['V. User Flow','End-to-end logic',TAG(4)],
+     ['VI. Technical Requirements','Constraints and boundaries',TAG(5)],
+     ['VII. Launch Success Metrics','Outcomes and guardrails',TAG(6)],
+     ['VIII. Feature Prioritization','Trade-offs, such as a RICE ranking',TAG(3)],
+     ['IX. Strategic Summary','Executive recommendation',TAG(0)],
+     ['X. Appendices','Evidence: persona library, JTBD, survey validation',TAG(0)]])+'</div>'+
+   '<div class="plain list">'+H('Recruiter-ready PRD template')+T(['#','Section','Questions to answer','Pillar'],tmpl.map(function(t,i){return [String(i+1),'<b>'+t[0]+'</b>',t[1],TAG(t[2])]}))+'</div>'+
+   '<div class="plain list">'+H('Nine lessons')+lessons.map(function(l,i){return '<details><summary><span class="dn">'+(i+1)+'</span>'+l[0]+'</summary><div class="ans"><p>'+l[1]+'</p></div></details>'}).join('')+'</div>';
+}
+
+/* ---------- drills ---------- */
+function renderDrills(){
+  var D=[
+   ['Which of these is an objective? A) Add a progress bar. B) Reduce checkout abandonment. C) Use a three-step form.','B','An objective is the change you want. A and C are solutions.'],
+   ['"Total price is visible before the Pay button on 100% of checkouts" and "Abandonment falls from 40% to 30%". Which is acceptance criteria and which is a metric?','The first is acceptance criteria. The second is a metric.','Criteria check the build. Metrics check the outcome.'],
+   ['Free delivery is offered "within 5 km". A customer lives at exactly 5.0 km. Do they qualify?','Yes, unless the PRD says otherwise.','Write the math: distance ≤ 5 km. Boundaries are included by default, so state it explicitly.'],
+   ['An offer goes to Gold members within 5 km. Shopper A: 3 km, Gold. B: 1 km, Basic. C: 8 km, Gold. Who gets it?','A only.','Distance and tier are independent filters. Both must pass.'],
+   ['You feel sure a feature will lift conversion by 30%, but you have no research. What confidence do you give it in RICE?','Low.','Confidence measures the strength of evidence, not how sure you feel.'],
+   ['A feature meets every acceptance criterion, yet the outcome metric does not move. What does that tell you?','The implementation may be right while the solution hypothesis is wrong.','You built the thing right, but maybe not the right thing. Revisit the problem and the evidence.'],
+   ['Remove the persona "Priya" from the PRD. Does the problem still exist?','Yes.','A persona is a narrative model of a user type. It is not the problem itself.']
+  ];
+  return '<div class="sec-head"><h2>Test yourself</h2><p>Seven quick drills. Think first, then open the answer.</p></div>'+
+   '<div class="list">'+D.map(function(d,i){return '<details><summary><span class="dn">'+(i+1)+'</span><span>'+d[0]+'</span></summary><div class="ans"><p class="ok">'+d[1]+'</p><p>'+d[2]+'</p></div></details>'}).join('')+'</div>';
+}
+
+/* ---------- shell ---------- */
+var TABS=[['flow','The flow',renderFlow],['chain','The chain',renderChain],['build','Build a PRD',renderBuild],['pitfalls','Pitfalls',renderPit],['cheat','Cheat sheet',renderCheat],['drills','Drills',renderDrills]];
+var tab='flow';
+function render(){
+  document.getElementById('tabs').innerHTML=TABS.map(function(t){return '<button class="tab" data-act="tab" data-v="'+t[0]+'"'+(t[0]===tab?' aria-current="page"':'')+'>'+t[1]+'</button>'}).join('');
+  var fn=TABS.filter(function(t){return t[0]===tab})[0][2];
+  document.getElementById('view').innerHTML=fn();
+  if(tab==='build')updateProg();
+  if(tab==='flow')updateRice();
+}
+var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function setOpen(id,v){
+  open[id]=v;
+  var el=document.getElementById('n-'+id);if(!el)return;
+  el.querySelector('.hd').setAttribute('aria-expanded',String(v));
+  el.querySelector('.bd').hidden=!v;
+  if(v&&id==='p3')updateRice();
+}
+document.addEventListener('click',function(e){
+  var t=e.target.closest('[data-act]');if(!t)return;
+  var a=t.dataset.act,v=t.dataset.v,id=t.dataset.id;
+  if(a==='tab'){tab=v;render();window.scrollTo(0,0)}
+  else if(a==='toggle'){setOpen(id,!open[id])}
+  else if(a==='sub'){
+    subIdx[id]=+t.dataset.k;
+    var n=NODES.filter(function(x){return x.id===id})[0];
+    document.getElementById('b-'+id).innerHTML=bodyHTML(n);
+    var b=document.querySelector('#b-'+id+' [data-act="sub"][data-k="'+t.dataset.k+'"]');if(b)b.focus();
+    updateRice();
+  }
+  else if(a==='jump'){
+    if(tab!=='flow'){tab='flow';render()}
+    setOpen(v,true);
+    var el=document.getElementById('n-'+v);
+    if(el)el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  }
+  else if(a==='all'){NODES.forEach(function(n){setOpen(n.id,v==='1')})}
+  else if(a==='reset'){done=[];saveDone();render()}
+});
+document.addEventListener('input',function(e){
+  var t=e.target;
+  if(t.classList.contains('ri')){
+    var i=+t.dataset.i,f=t.dataset.f;
+    rice[i][f]=f==='n'?t.value:(parseFloat(t.value)||0);
+    updateRice();
+  }
+});
+document.addEventListener('change',function(e){
+  var t=e.target;
+  if(t.matches&&t.matches('.step input')){
+    done[+t.dataset.i]=t.checked;
+    t.closest('.step').classList.toggle('done',t.checked);
+    saveDone();updateProg();
+  }
+});
+render();
+})();
+</script>
+
+</body></html>
