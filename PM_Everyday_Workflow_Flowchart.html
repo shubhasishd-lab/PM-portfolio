@@ -1,0 +1,211 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>A Product Manager's Everyday Workflow</title><style>
+/* Layout: dark stage, six-colour relay. Top: hero. Middle: clickable relay strip + one open stage. Bottom: hand-offs and the human/AI contrast. */
+:root{
+  --bg:#0B1020; --panel:#131B36; --panel2:#1A2448; --ink:#F4F6FF; --muted:#AEB9DC; --line:#2A3866;
+  --paper:#FFF4DC; --paper-ink:#1B1630;
+  --c1:#19D3C5; --c2:#FF8A3D; --c3:#FFD23F; --c4:#5BE584; --c5:#B388FF; --c6:#FF6F59;
+  --f:"Avenir Next","Segoe UI","Helvetica Neue",Arial,system-ui,sans-serif;
+  --m:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f);font-size:15.5px;line-height:1.55;margin:0;overflow-x:hidden}
+.wrap{max-width:980px;margin:0 auto;padding-block:0 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+button{font:inherit;color:inherit}
+h1,h2,h3{margin:0;line-height:1.05;text-wrap:balance}
+
+/* hero */
+.hero{position:relative;padding:44px 0 26px;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(46px);opacity:.38;z-index:0;animation:float 9s ease-in-out infinite}
+.o1{width:240px;height:240px;background:var(--c1);left:-70px;top:-40px}
+.o2{width:220px;height:220px;background:var(--c5);right:-40px;top:20px;animation-delay:-3s}
+.o3{width:200px;height:200px;background:var(--c2);right:28%;bottom:-90px;animation-delay:-6s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-22px)}}
+.hero>*:not(.orb){position:relative;z-index:1}
+.eyebrow{font-family:var(--m);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--c3);margin-bottom:14px}
+h1{font-size:clamp(38px,9vw,78px);font-weight:900;letter-spacing:-.035em;
+  background:linear-gradient(95deg,var(--c1),var(--c3) 30%,var(--c2) 55%,var(--c5) 80%,var(--c6));-webkit-background-clip:text;background-clip:text;color:transparent;
+  background-size:200% 100%;animation:shine 8s linear infinite}
+@keyframes shine{to{background-position:-200% 0}}
+.sub{font-size:clamp(16px,2.6vw,21px);color:var(--ink);max-width:36em;margin:16px 0 0;font-weight:500}
+.frame{color:var(--muted);max-width:44em;margin:14px 0 0}
+.ribbon{display:inline-flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:22px;background:var(--paper);color:var(--paper-ink);border-radius:14px;padding:12px 18px;font-weight:900;font-size:clamp(18px,3.6vw,26px);letter-spacing:-.01em;transform:rotate(-1deg);box-shadow:6px 6px 0 var(--c2)}
+.ribbon small{font-size:13px;font-weight:600;letter-spacing:0;opacity:.8}
+
+/* relay strip */
+.sec{margin-top:34px}
+.lab{font-family:var(--m);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.relay{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;position:relative}
+@media(max-width:760px){.relay{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.endcap{display:flex;gap:10px;align-items:center;background:var(--panel);border:2px dashed var(--line);border-radius:12px;padding:10px 14px;font-size:13.5px}
+.endcap b{font-family:var(--m);font-size:11px;letter-spacing:.14em;color:var(--c3)}
+.link{height:22px;margin:0 auto;width:4px;border-radius:2px;background:repeating-linear-gradient(180deg,var(--c1) 0 6px,transparent 6px 12px);animation:drip 1s linear infinite}
+@keyframes drip{to{background-position:0 12px}}
+.chip{all:unset;box-sizing:border-box;cursor:pointer;background:var(--panel);border:2px solid var(--line);border-radius:14px;padding:12px 12px 14px;display:flex;flex-direction:column;gap:2px;min-width:0;position:relative;transition:transform .15s,border-color .15s,background .15s}
+.chip:hover{transform:translateY(-3px)}
+.chip:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.chip .num{font-family:var(--m);font-size:12px;color:var(--cc)}
+.chip .tn{font-size:clamp(16px,2.4vw,20px);font-weight:900;letter-spacing:-.01em;color:var(--cc);overflow-wrap:anywhere}
+.chip .an{font-size:12px;color:var(--muted);line-height:1.3}
+.chip[aria-pressed="true"]{background:var(--cc);border-color:var(--cc);transform:translateY(-4px);animation:pulse 2.2s ease-in-out infinite}
+.chip[aria-pressed="true"] .num,.chip[aria-pressed="true"] .tn,.chip[aria-pressed="true"] .an{color:#10142A}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--cc) 55%,transparent)}50%{box-shadow:0 0 0 9px transparent}}
+.chip:not(:last-child):after{content:"";position:absolute;right:-10px;top:50%;width:10px;height:3px;background:var(--line)}
+@media(max-width:760px){.chip:after{display:none}}
+
+/* stage panel */
+.panel{margin-top:18px;background:var(--panel);border-radius:22px;border:2px solid var(--pc);padding:clamp(18px,4vw,34px);position:relative;overflow:hidden;animation:pop .35s ease-out}
+@keyframes pop{from{transform:translateY(10px) scale(.985)}to{transform:none}}
+.ph{display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap}
+.big{font-size:clamp(72px,16vw,140px);font-weight:900;line-height:.8;color:transparent;-webkit-text-stroke:3px var(--pc);letter-spacing:-.05em}
+.pt h2{font-size:clamp(34px,8vw,64px);font-weight:900;letter-spacing:-.03em;color:var(--pc)}
+.pt .act{font-size:clamp(15px,2.6vw,20px);font-weight:700;margin-top:6px}
+.tag{margin:14px 0 0;font-size:clamp(17px,3vw,22px);font-weight:800;color:var(--ink)}
+.steps{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0 0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;background:color-mix(in srgb,var(--pc) 18%,var(--panel));border:1px solid color-mix(in srgb,var(--pc) 60%,transparent);border-radius:999px;padding:6px 14px 6px 10px;font-size:13.5px;font-weight:600;display:flex;gap:8px;align-items:center}
+.steps li:before{content:counter(s);width:20px;height:20px;border-radius:50%;background:var(--pc);color:#10142A;font-size:11px;font-weight:900;display:grid;place-items:center;font-family:var(--m)}
+.split{display:grid;gap:14px;margin-top:22px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:720px){.split{grid-template-columns:1fr 1fr}}
+.card{border-radius:16px;padding:16px 18px;min-width:0}
+.card h3{font-family:var(--m);font-size:12px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
+.card p{margin:0 0 8px}
+.card ul{margin:0;padding-left:18px}.card li{margin-bottom:6px}
+.pmc{background:var(--paper);color:var(--paper-ink)}
+.pmc h3{color:#9B2C6F}
+.pmc .resp{font-weight:800;font-size:16.5px;line-height:1.35;margin-bottom:10px}
+.aic{background:color-mix(in srgb,var(--pc) 13%,var(--panel2));border:1px solid color-mix(in srgb,var(--pc) 55%,transparent)}
+.aic h3{color:var(--pc)}
+.ex{margin-top:14px;background:var(--panel2);border-left:6px solid var(--pc);border-radius:12px;padding:16px 18px}
+.ex h3{color:var(--pc)}
+.out{margin-top:14px}
+.out h3{font-family:var(--m);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pc);margin-bottom:8px}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{background:var(--pc);color:#10142A;border-radius:10px;padding:6px 12px;font-weight:800;font-size:13.5px}
+.keep{margin-top:14px;background:var(--paper);color:var(--paper-ink);border-radius:14px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start}
+.keep .badge{flex:none;background:#9B2C6F;color:#fff;font-family:var(--m);font-size:11px;letter-spacing:.1em;padding:5px 9px;border-radius:8px;margin-top:2px}
+.keep p{margin:0;font-weight:700}
+.term{margin-top:12px;font-size:13.5px;color:var(--muted)}.term b{color:var(--pc)}
+.bvb{margin-top:14px;border:2px dashed var(--pc);border-radius:16px;padding:16px 18px}
+.bvb h3{font-size:19px;font-weight:900;color:var(--pc);margin-bottom:6px}
+.checks{display:grid;gap:10px;margin:12px 0;grid-template-columns:minmax(0,1fr)}
+@media(min-width:620px){.checks{grid-template-columns:1fr 1fr}}
+.ck{background:var(--panel2);border-radius:12px;padding:10px 14px}.ck b{display:block;color:var(--pc)}.ck span{font-size:13.5px;color:var(--muted)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap;align-items:center}
+.conn{flex:1 1 280px;color:var(--muted);font-size:14.5px;margin:0}
+.nx{all:unset;cursor:pointer;box-sizing:border-box;background:var(--pc);color:#10142A;border-radius:12px;padding:11px 18px;font-weight:900;white-space:nowrap}
+.nx:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.nx:hover{filter:brightness(1.08)}
+.nx.ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+
+/* hand-offs */
+.ho{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.ho li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:14px}
+.ho .rail{display:flex;flex-direction:column;align-items:center}
+.ho .dt{width:16px;height:16px;border-radius:50%;background:var(--hc);margin-top:6px;box-shadow:0 0 0 4px color-mix(in srgb,var(--hc) 30%,transparent)}
+.ho .ln{flex:1;width:3px;background:repeating-linear-gradient(180deg,var(--hc) 0 6px,transparent 6px 12px);animation:drip 1s linear infinite;min-height:14px}
+.ho li:last-child .ln{display:none}
+.ho .tx{padding-bottom:16px}
+.ho .tx b{display:block;font-weight:900;font-size:16.5px}
+.ho .tx span{color:var(--muted);font-size:14px}
+.vs{display:grid;gap:14px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:720px){.vs{grid-template-columns:1fr 1fr}}
+.vs .card h3{font-size:13px}
+.vs .big2{font-size:clamp(22px,4.5vw,30px);font-weight:900;line-height:1.1;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tg{border-radius:10px;padding:6px 12px;font-weight:800;font-size:13.5px}
+footer{margin-top:44px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:13px}
+footer p{margin:0 0 6px}
+footer a{color:var(--c1)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="wrap">
+<header class="hero">
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="eyebrow">Project 11 &nbsp;|&nbsp; Product Management x AI</div>
+  <h1>A Product Manager&#x27;s Everyday Workflow</h1>
+  <p class="sub">Six AI Tools to Research, Collaborate, Analyse, Communicate and Execute Across the Product Journey</p>
+  <p class="frame">Shubhasish worked out what a Product Manager&#x27;s working day actually looks like: what the PM is trying to achieve, how the work is done, and where AI tools help. This study is a reflection on that effort.</p>
+  <div class="ribbon">AI assists. The PM decides.<small>Judgement, product sense and responsibility stay human.</small></div>
+</header>
+
+<section class="sec" aria-label="The workflow at a glance">
+  <p class="lab">The workflow at a glance &mdash; tap a stage</p>
+  <div class="endcap"><b>START</b><span>An existing product idea, PRD and prototype (Sparring)</span></div>
+  <div class="link"></div>
+  <div class="relay" id="relay"></div>
+  <div class="link"></div>
+  <div class="endcap"><b>END</b><span>PM Review, Validation &amp; Product Decisions</span></div>
+</section>
+
+<section id="stage" aria-live="polite"></section>
+
+<section class="sec">
+  <p class="lab">What travels between the stages</p>
+  <ol class="ho" id="ho"></ol>
+</section>
+
+<section class="sec">
+  <p class="lab">The central message</p>
+  <div class="vs">
+    <div class="card pmc"><h3>The PM owns</h3><div class="big2">Judgement, product sense and responsibility</div><div class="tags" id="pm"></div></div>
+    <div class="card" style="background:var(--panel2);border:1px solid var(--line)"><h3 style="color:var(--c1)">The AI accelerates</h3><div class="big2">Speed, organisation and reach</div><div class="tags" id="ai"></div></div>
+  </div>
+</section>
+
+<footer>
+  <p>Based on a transcript walkthrough of six tools. Sparring and the feedback data used in the example are fictional and are used for illustration only.</p>
+  <p>A study by Shubhasish Dutta &nbsp;|&nbsp; <a href="https://shubhasishd-lab.github.io/PM-portfolio/">shubhasishd-lab.github.io/PM-portfolio</a></p>
+</footer>
+</div>
+
+<script>
+var D={"stages": [{"n": 1, "tool": "Perplexity", "act": "Research & Discovery", "color": "#19D3C5", "tagline": "Know the market before you decide.", "resp": "Understand the market, the competitors and the existing solutions before making product decisions.", "questions": ["Which competing products already exist?", "How are they priced?", "What privacy concerns or limits do they have?", "What do customers like, and what do they complain about?", "Where could our product be better or different?"], "work": ["Asks Perplexity which mock-interview tools for Product Managers already exist, how they are priced and what their privacy policies say about interview recordings (Step A: initial research).", "Runs Deep Research to examine real websites and product reviews (Step B).", "Looks for what customers praise, what they complain about again and again, and what rivals do well.", "Notes where Sparring could be more competitive."], "assist": ["Gathers information from many sources and shows references the PM can examine.", "Deep Research goes further: it visits websites, reviews the information and consolidates the findings into a research report."], "example": "The product in the example is Sparring, a fictional mock-interview companion for Product Managers. An initial question returned an overview of existing tools, their prices and their privacy rules. Deep Research then turned reviews into positive signals, recurring complaints and ideas for improvement. That was enough to complete this part of discovery. The full research report is not shown in the source, so this study does not quote competitor names, prices or conclusions.", "output": ["Competitor information", "Pricing comparisons", "Privacy considerations", "Positive customer signals", "Customer complaints", "Possible product improvements"], "judgement": "Perplexity supports research. It does not make product decisions. The PM evaluates the findings, judges which opportunities matter and decides how the product can offer real value.", "connect": "The research shows the market from the outside. Next, the PM listens to users from the inside, through the feedback the product has collected. That is Canny.", "steps": ["Ask Perplexity", "Run Deep Research", "Check the sources", "Spot opportunities"], "term": ["Deep Research", "A mode where the AI visits websites and reads them, instead of answering only from what it already knows."], "handoff": "Market and competitor overview"}, {"n": 2, "tool": "Canny", "act": "Customer Feedback & Insights", "color": "#FF8A3D", "tagline": "Hear the pattern, not the loudest voice.", "resp": "Understand users' actual problems by finding patterns across large volumes of feedback, instead of reacting to individual or especially angry voices.", "questions": [], "work": ["Gathers feedback from different places into one view.", "Reads the idea table to see which concerns keep coming back.", "Turns recurring concerns into clear product gaps."], "assist": ["Brings feedback together from several sources, such as app stores, Zendesk (a customer help desk) and Slack.", "Consolidates large volumes of reviews and requests.", "Highlights recurring problems and themes, and suggests possible solutions."], "example": "In the example, Sparring's feedback is gathered in Canny's idea table, ranked by how many users raised each point. The top finding: users expected the product to analyse the substance of their interview answers, not only their progress through text sections. The missing content-aware evaluation became a clear product gap. The feedback in this example was artificially generated for illustration. It is not from real Sparring customers.", "output": ["Consolidated customer feedback", "Common problems and recurring themes", "Identified product gaps", "Improvement opportunities"], "judgement": "The PM interprets the patterns, understands the problem behind each request and decides which improvements matter. AI-assisted analysis does not replace product judgement.", "connect": "Research and feedback now give the PM a view of the market and a view of the users. The next step is to bring the team together to improve the idea and decide what deserves attention: Miro.", "steps": ["Collect feedback", "Consolidate sources", "Find recurring themes", "Understand user problems", "Identify product gaps"], "term": ["Idea table", "A list of user requests grouped together and ranked by the number of users behind each one."], "handoff": "Structured customer insights"}, {"n": 3, "tool": "Miro", "act": "Collaboration & Prioritisation", "color": "#FFD23F", "tagline": "Get everyone on the same board.", "resp": "Bring designers, developers and stakeholders together to review ideas, improve the product concept and decide what deserves attention.", "questions": [], "work": ["Organises a workshop on how to present the prototype to management and how to improve it.", "Prepares a shared whiteboard so that everyone starts with the same context.", "Invites participants to add ideas, then groups similar ideas into themes.", "Runs a vote based on agreed criteria."], "assist": ["Provides a shared whiteboard for the whole team.", "Brings project context in from Slack, chats and emails, and uses the existing PRD as a reference.", "Generates extra prototype and improvement ideas to widen the brainstorm.", "Groups similar ideas into themes and supports voting and prioritising."], "example": "Workshops often struggle: people arrive without context, repeat ideas that were already rejected, or lose time getting aligned. In the example, the PRD is placed on the board as a reference point, and Miro's AI generates a set of ideas to improve the prototype. Participants add their own ideas, similar ones are grouped, and the team votes, or asks the AI to rank the ideas against the criteria they set.", "output": ["A shared project board with context", "A collection of improvement ideas", "Grouped ideas and workshop contributions", "Prioritised ideas for further consideration"], "judgement": "AI can widen the range of ideas and help organise them. The PM and the team remain responsible for creativity, discussion, evaluation and the final decisions.", "connect": "Workshop discussions happen out loud, and much of what is said never reaches the board. To keep it, the PM records the meeting with Granola.", "steps": ["Bring context together", "Generate ideas", "Collaborate", "Group ideas", "Vote and prioritise"], "term": ["PRD", "Product requirements document: the written description of what a product should do and why."], "handoff": "Shared, prioritised ideas"}, {"n": 4, "tool": "Granola", "act": "Meetings & Action Items", "color": "#5BE584", "tagline": "Keep what was said.", "resp": "Capture important discussions, decisions and action points from team meetings so that valuable information is not lost.", "questions": [], "work": ["Records and transcribes what participants say during the meeting.", "Reviews the summary notes and the action items.", "Searches earlier meetings to find specific information.", "Looks for patterns that repeat across many meetings."], "assist": ["Converts conversations into written notes and summaries.", "Extracts action items.", "Retrieves information from past meetings.", "Supports preparation and follow-up with recaps of earlier meetings, suggested follow-ups and email drafts."], "example": "After the Miro workshop, Granola turns the conversation into notes with action points. In a further example, Granola was asked to find the most common mistakes across many mock-interview sessions. One finding: candidates struggled with time management when answering questions. Before a meeting, it can also give a short brief, including a recap of earlier meetings in the same series.", "output": ["Meeting transcripts and summaries", "Key discussion points", "Action items and follow-ups", "Searchable meeting knowledge", "Insights from recurring discussions"], "judgement": "The PM verifies important decisions, assigns an owner to each action and makes sure it is followed through. AI-written notes and summaries are not automatically accurate.", "connect": "With research, feedback, ideas and decisions in hand, the PM must now persuade stakeholders. That needs a clear presentation, which is where Gamma comes in.", "steps": ["Record discussions", "Transcribe", "Summarise", "Extract action items", "Retrieve insights"], "term": ["Transcript", "A written, word-for-word record of what was said in a meeting."], "handoff": "Decisions, action items and meeting knowledge"}, {"n": 5, "tool": "Gamma", "act": "Presentations & Communication", "color": "#B388FF", "tagline": "Turn findings into a story.", "resp": "Present product ideas, research findings and recommendations clearly to management and stakeholders, using a professional visual presentation.", "questions": [], "work": ["Decides what story the presentation must tell.", "Chooses how to start: a prompt, an existing template or prepared text.", "Reviews the slides and refines them."], "assist": ["Generates slide content and a full presentation from a prompt.", "Fills an existing template with the content.", "Turns prepared text into visually organised slides, with layouts and design.", "Saves time when stakeholder presentations are needed quickly."], "example": "After research, feedback analysis and team discussions, the PM needs a deck to pitch Sparring to management. Gamma can create it from a prompt, fill a company template, or format text the PM has already written. The PM can then edit and improve the result.", "output": ["A structured, professional presentation that communicates the product concept, the research findings and the recommendations"], "judgement": "The PM makes sure the presentation tells the right story, contains accurate information and supports sound decisions. AI-made slides still need human review and refinement.", "connect": "The deck is ready, but the PM still has analysis, documents and prototypes to produce and polish. Claude brings these together.", "steps": ["Provide prompt or content", "Generate slides", "Apply template and visuals", "Review and refine"], "term": ["Template", "A ready-made slide design that new content can be poured into."], "handoff": "Stakeholder-ready presentation"}, {"n": 6, "tool": "Claude", "act": "Analysis, Documentation & Prototyping", "color": "#FF6F59", "tagline": "From insight to something you can build.", "resp": "Bring research, customer feedback, meeting insights and product ideas together, and turn them into practical product documentation and prototypes.", "questions": [], "work": ["Presentation refinement: improves slide text, narration, images and slide order.", "Meeting assistance: creates meeting summaries and action items from recordings.", "Feedback analysis: analyses customer reviews and finds recurring issues.", "Documentation: turns findings into structured recommendations and a mini-PRD.", "Prototyping: creates a prompt that can produce a working prototype for an identified problem."], "assist": ["Analyses information from different sources.", "Produces summaries and structured documents.", "Identifies problems and possible improvements.", "Helps draft PRD-style documentation.", "Generates prototype instructions and supports step-by-step refinement."], "example": "The example uses public feedback about Google Maps, including a request to show live traffic on Android Auto maps without having to enter a destination. From it, Claude produced the main issues with examples, a mini-PRD and a prototype prompt. The prototype built from that prompt had some design flaws, which the PM would fix by refining the prompt.", "output": ["Structured product insights", "Draft product documentation", "Identified improvement opportunities", "Prototype prompts and early product concepts", "Refined presentation and meeting outputs"], "judgement": "The PM reviews the AI-generated work, validates the findings and decides what should actually be built.", "connect": "This is the last tool, but not the end of the work. Everything now returns to the PM for review, validation and product decisions.", "steps": ["Analyse information", "Identify opportunities", "Draft documentation", "Generate prototype prompts", "Review and refine"], "term": ["Prototype", "An early, working-looking version of a product, used to test and discuss an idea before building it properly."], "handoff": "Insights, documentation and prototype concepts", "buyvsbuild": {"intro": "Claude can also build simple internal tools, such as a meeting summariser or a feedback analyser, so buying a finished product is no longer the only route. Before choosing to build instead of buy, the PM must consider:", "checks": [["Privacy and data security", "Where is the information stored, and is it protected?"], ["Costs at scale", "API and operating costs grow with every person who uses the tool."], ["Usability and adoption", "Will people actually switch to an internal tool?"], ["Worth the effort", "Is building and maintaining it genuinely worthwhile?"]], "close": "AI can make building easier. It does not remove the PM's responsibility for making sound product decisions."}}], "handoffs": [["An existing product idea, PRD and prototype (Sparring)", "Perplexity"], ["Market and competitor overview", "Canny"], ["Structured customer insights", "Miro"], ["Shared, prioritised ideas", "Granola"], ["Decisions, action items and meeting knowledge", "Gamma"], ["Stakeholder-ready presentation", "Claude"], ["Insights, documentation and prototype concepts", "PM decisions"]], "pm": ["Understanding users", "Reading the market", "Aligning stakeholders", "Seeing opportunities", "Choosing problems worth solving", "Making the choices that create meaningful products"], "ai": ["Research", "Analysis", "Collaboration", "Documentation", "Execution"]};
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+var cur=0,relay=document.getElementById("relay"),host=document.getElementById("stage");
+D.stages.forEach(function(s,i){
+  var b=document.createElement("button");b.type="button";b.className="chip";b.style.setProperty("--cc",s.color);
+  b.innerHTML='<span class="num">STAGE '+s.n+'</span><span class="tn">'+esc(s.tool)+'</span><span class="an">'+esc(s.act)+'</span>';
+  b.addEventListener("click",function(){go(i)});
+  b.addEventListener("keydown",function(e){if(e.key==="ArrowRight")go(Math.min(5,cur+1),true);if(e.key==="ArrowLeft")go(Math.max(0,cur-1),true)});
+  relay.appendChild(b);
+});
+function list(a){return "<ul>"+a.map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+"</ul>"}
+function go(i,focus){
+  cur=i;var s=D.stages[i];
+  Array.prototype.forEach.call(relay.children,function(c,k){c.setAttribute("aria-pressed",k===i?"true":"false")});
+  if(focus)relay.children[i].focus();
+  var h='<div class="panel" style="--pc:'+s.color+'">'+
+   '<div class="ph"><div class="big">'+s.n+'</div><div class="pt"><h2>'+esc(s.tool)+'</h2><div class="act">'+esc(s.act)+'</div></div></div>'+
+   '<p class="tag">'+esc(s.tagline)+'</p>'+
+   '<ol class="steps">'+s.steps.map(function(x){return "<li>"+esc(x)+"</li>"}).join("")+'</ol>'+
+   '<div class="split">'+
+     '<div class="card pmc"><h3>The PM</h3><p class="resp">'+esc(s.resp)+'</p>'+list(s.work)+'</div>'+
+     '<div class="card aic"><h3>How '+esc(s.tool)+' helps</h3>'+list(s.assist)+'</div></div>'+
+   '<div class="ex"><h3>Practical example</h3><p style="margin:0">'+esc(s.example)+'</p></div>'+
+   '<div class="out"><h3>What the PM gets</h3><div class="pills">'+s.output.map(function(x){return '<span class="pill">'+esc(x)+'</span>'}).join("")+'</div></div>'+
+   '<div class="keep"><span class="badge">PM STAYS IN CHARGE</span><p>'+esc(s.judgement)+'</p></div>';
+  if(s.buyvsbuild){var b=s.buyvsbuild;
+    h+='<div class="bvb"><h3>Buy or build?</h3><p style="margin:0">'+esc(b.intro)+'</p><div class="checks">'+
+      b.checks.map(function(c){return '<div class="ck"><b>'+esc(c[0])+'</b><span>'+esc(c[1])+'</span></div>'}).join("")+
+      '</div><p style="margin:0;font-weight:800">'+esc(b.close)+'</p></div>';}
+  h+='<p class="term"><b>'+esc(s.term[0])+':</b> '+esc(s.term[1])+'</p>';
+  h+='<div class="nav"><p class="conn">'+esc(s.connect)+'</p><div style="display:flex;gap:8px">'+
+    (i>0?'<button type="button" class="nx ghost" id="pv">Back</button>':'')+
+    (i<5?'<button type="button" class="nx" id="nx">Next: '+esc(D.stages[i+1].tool)+'</button>':'<button type="button" class="nx" id="nx">Back to Stage 1</button>')+
+    '</div></div></div>';
+  host.innerHTML=h;
+  var n=document.getElementById("nx");if(n)n.addEventListener("click",function(){go(i<5?i+1:0);relay.scrollIntoView({block:"start"})});
+  var p=document.getElementById("pv");if(p)p.addEventListener("click",function(){go(i-1);relay.scrollIntoView({block:"start"})});
+}
+go(0);
+var ho=document.getElementById("ho");
+D.handoffs.forEach(function(h,i){
+  var col=D.stages[Math.min(i,5)].color;
+  var li=document.createElement("li");li.style.setProperty("--hc",col);
+  li.innerHTML='<div class="rail"><div class="dt"></div><div class="ln"></div></div><div class="tx"><b>'+esc(h[0])+'</b><span>passes to '+esc(h[1])+'</span></div>';
+  ho.appendChild(li);
+});
+document.getElementById("pm").innerHTML=D.pm.map(function(x){return '<span class="tg" style="background:#1B1630;color:#FFF4DC">'+esc(x)+'</span>'}).join("");
+document.getElementById("ai").innerHTML=D.ai.map(function(x,i){return '<span class="tg" style="background:'+D.stages[i].color+';color:#10142A">'+esc(x)+'</span>'}).join("");
+</script>
+</body></html>
